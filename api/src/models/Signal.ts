@@ -32,7 +32,7 @@ export class Signal extends Model<Signal> {
   //Modificado nombre de la columna status por situation y agregado enum
   @Column({
     allowNull: false,
-    type: DataType.ENUM("Reservado", "Acceptado", "Rechazado"),
+    type: DataType.ENUM("Reservado", "Aceptado", "Rechazado"),
   })
   situation!: string;
 
