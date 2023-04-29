@@ -10,7 +10,6 @@ export const getBrokers = async () => {
 }
 
 export const createBroker = (id:number, rol:string, email:string, name:string, person_type:string, avatar:string, password:string) =>{
-    console.log(`este es el nombre recibido: ${name}`);
     const newBroker = Broker.create({id, rol, email, name, person_type, avatar, password})
     return newBroker;
 }
