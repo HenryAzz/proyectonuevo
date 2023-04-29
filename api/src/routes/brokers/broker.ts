@@ -4,6 +4,8 @@ const router = Router();
 
 router.get('/', getBrokersHandler);
 
+router.get('/:id')
+
 router.post('/', createBrokerHandler);
 
 export default router;
