@@ -9,10 +9,10 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/landing" element={<Landing />} />
         <Route path="/firstFilters" element={<FirstFilters />} />
         <Route path="/secondFilters" element={<SecondFilters />} />
-        <Route path="/logIN" element={<LogIn />} />
+        <Route path="/login" element={<LogIn />} />
       </Routes>
     </div>
   );

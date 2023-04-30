@@ -15,6 +15,12 @@ const theme = createTheme({
       primary: "#B17A50",
     },
   },
+  typography: {
+    fontFamily: 'Montserrat',
+    fontWeightLight: 200,
+    fontWeightRegular: 300,
+    fontWeightMedium: 500,
+  },
 });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
