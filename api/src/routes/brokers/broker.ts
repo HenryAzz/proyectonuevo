@@ -1,10 +1,10 @@
 import {Response, Request, Router} from 'express';
-import { getBrokersHandler, createBrokerHandler } from './brokerHandler';
+import { getBrokersHandler, createBrokerHandler, getBrokerByIdHandler } from './brokerHandler';
 const router = Router();
 
 router.get('/', getBrokersHandler);
 
-router.get('/:id')
+router.get('/:id', getBrokerByIdHandler)
 
 router.post('/', createBrokerHandler);
 
