@@ -1,14 +1,11 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { FirstFilters } from "./components/firstFilters/FirstFilters";
-import { Landing } from "./components/landing/Landing";
 import { LogIn } from "./components/logIn/LogIn";
 import { SecondFilters } from "./components/secondFilters/SecondFilters";
-<<<<<<< HEAD
-import HomeContainer from "./components/homeContainer/HomeContainer";
-=======
 import { About } from "./components/about/About";
->>>>>>> developer
+import HomeContainer from "./components/homeContainer/HomeContainer";
+import { Landing } from "./components/landing/Landing";
 
 function App() {
   return (
