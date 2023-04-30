@@ -1,11 +1,4 @@
-import {
-  Model,
-  Column,
-  Table,
-  CreatedAt,
-  UpdatedAt,
-  DataType,
-} from "sequelize-typescript";
+import { Model, Column, Table, CreatedAt, UpdatedAt, DataType } from "sequelize-typescript";
 
 @Table({
   timestamps: false,
@@ -19,26 +12,19 @@ export class Broker extends Model<Broker> {
     unique: true,
   })
   id!: number;
-
-  //Modificado tipo enum que sea admin o broker
-  @Column({ allowNull: false, type: DataType.ENUM("Admin", "Broker") })
+  @Column({allowNull: false})
   rol!: string;
 
-  @Column({ allowNull: false })
+  @Column({allowNull: false})  
   email!: string;
 
-  @Column({ allowNull: false })
+  @Column({allowNull: false})
   password!: string;
-
-  @Column({ allowNull: false })
+  @Column({allowNull: false}) 
+  person_type!: string;
+  @Column({allowNull: false})
   name!: string;
-
-  //agrego imagen por defecto de avatar para admin o broker
-  @Column({
-    allowNull: false,
-    defaultValue:
-      "https://i.pinimg.com/originals/43/b6/17/43b617c260ae06d6ab6318176f20be50.png",
-  })
+  @Column({allowNull: false})
   avatar!: string;
 }
 
