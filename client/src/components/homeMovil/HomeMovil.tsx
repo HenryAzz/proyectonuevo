@@ -42,14 +42,22 @@ export const HomeMovil = () => {
   return (
     <Box>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <ButtonGroup sx={{ fontSize: "10px" }}>
-          <Button variant="contained" ref={ref} onClick={handleClick}>
+        <ButtonGroup>
+          <Button variant="contained" ref={ref} onClick={handleClick} sx={{ fontSize: "10px" }}>
             Zona
           </Button>
-          <Button variant="contained">Vivienda</Button>
-          <Button variant="contained">Oficina</Button>
-          <Button variant="contained">Local</Button>
-          <Button variant="contained">Industria</Button>
+          <Button variant="contained" sx={{ fontSize: "10px" }}>
+            Vivienda
+          </Button>
+          <Button variant="contained" sx={{ fontSize: "10px" }}>
+            Oficina
+          </Button>
+          <Button variant="contained" sx={{ fontSize: "10px" }}>
+            Local
+          </Button>
+          <Button variant="contained" sx={{ fontSize: "10px" }}>
+            Industria
+          </Button>
         </ButtonGroup>
         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
           <MenuItem>
