@@ -1,12 +1,11 @@
 import {Response, Request, Router} from 'express';
+import { getBrokersHandler, createBrokerHandler } from './brokerHandler';
 const router = Router();
 
-router.get('/', (req: Request, res: Response) => {
- res.send('soy la ruta get!');
-});
+router.get('/', getBrokersHandler);
 
-router.post('/', (req: Request, res: Response) => {
- res.send('soy la ruta posssst!');
-});
-// ununuhjh
+router.get('/:id')
+
+router.post('/', createBrokerHandler);
+
 export default router;

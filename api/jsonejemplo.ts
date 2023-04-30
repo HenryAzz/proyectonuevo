@@ -1,5 +1,5 @@
 export const json = [{
-    "type": "vivienda",
+    "type": "Vivienda",
     "address": "UJUY AV. al 1700 103",
     "spaces": 2,
     "price": 84.0,
@@ -12,15 +12,14 @@ export const json = [{
     "bedroom": 1,
     "furnished": true,
     "description": "DPTO. 2 AMBIENTES, CFTE., BALCON,  APTO PROFESIONAL, AMENITIES, A ESTRENAR, ENTREGA INMEDIATA!",
-    "situation": "disponible",
-    
+    "situation": "Disponible",
     "total_area": 40,
     "antiquity": 1,
-    "operation": "venta",
+    "operation": "Venta",
     "owner": "Schiaffino"
   },
   {
-    "type": "vivienda",
+    "type": "Vivienda",
     "address": "RIO NEGRO NO SE CUANTO",
     "spaces": 2,
     "price": 84.0,
@@ -33,15 +32,15 @@ export const json = [{
     "bedroom": 1,
     "furnished": true,
     "description": "DPTO. 2 AMBIENTES, CFTE., BALCON,  APTO PROFESIONAL, AMENITIES, A ESTRENAR, ENTREGA INMEDIATA!",
-    "situation": "disponible",
+    "situation": "Disponible",
     
     "total_area": 40,
     "antiquity": 1,
-    "operation": "venta",
+    "operation": "Venta",
     "owner": "Schiaffino"
   },
   {
-    "type": "vivienda",
+    "type": "Vivienda",
     "address": "CONGRESO Y NO SE CUAL MAS",
     "spaces": 2,
     "price": 84.0,
@@ -54,15 +53,15 @@ export const json = [{
     "bedroom": 1,
     "furnished": true,
     "description": "DPTO. 2 AMBIENTES, CFTE., BALCON,  APTO PROFESIONAL, AMENITIES, A ESTRENAR, ENTREGA INMEDIATA!",
-    "situation": "disponible",
+    "situation": "Disponible",
     
     "total_area": 40,
     "antiquity": 1,
-    "operation": "venta",
+    "operation": "Venta",
     "owner": "Schiaffino"
   },
   {
-    "type": "vivienda",
+    "type": "Vivienda",
     "address": "NUEVA YORK 1230",
     "spaces": 2,
     "price": 84.0,
@@ -75,15 +74,15 @@ export const json = [{
     "bedroom": 1,
     "furnished": true,
     "description": "DPTO. 2 AMBIENTES, CFTE., BALCON,  APTO PROFESIONAL, AMENITIES, A ESTRENAR, ENTREGA INMEDIATA!",
-    "situation": "disponible",
+    "situation": "Disponible",
     
     "total_area": 40,
     "antiquity": 1,
-    "operation": "venta",
+    "operation": "Venta",
     "owner": "Schiaffino"
   },
   {
-    "type": "vivienda",
+    "type": "Vivienda",
     "address": "SENILLOSA ALGUN NUMERO",
     "spaces": 2,
     "price": 84.0,
@@ -96,11 +95,11 @@ export const json = [{
     "bedroom": 1,
     "furnished": true,
     "description": "DPTO. 2 AMBIENTES, CFTE., BALCON,  APTO PROFESIONAL, AMENITIES, A ESTRENAR, ENTREGA INMEDIATA!",
-    "situation": "disponible",
+    "situation": "Disponible",
     
     "total_area": 40,
     "antiquity": 1,
-    "operation": "venta",
+    "operation": "Venta",
     "owner": "Schiaffino"
   }]
 

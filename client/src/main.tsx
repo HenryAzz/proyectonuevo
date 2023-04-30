@@ -10,13 +10,14 @@ const theme = createTheme({
   palette: {
     primary: {
       main: "#B17A50",
+      light: "rgba(241, 180, 115, 0.5)",
     },
     text: {
       primary: "#B17A50",
     },
   },
   typography: {
-    fontFamily: 'Montserrat',
+    fontFamily: "Montserrat",
     fontWeightLight: 200,
     fontWeightRegular: 300,
     fontWeightMedium: 500,
