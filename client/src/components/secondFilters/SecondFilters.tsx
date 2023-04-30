@@ -5,7 +5,12 @@ export const SecondFilters = () => {
     <Grid
       container
       spacing={2}
-      sx={{ display: "flex", height: "100vh", justifyContent: "center", alignContent: "center" }}
+      sx={{
+        display: "flex",
+        height: "100vh",
+        justifyContent: "center",
+        alignContent: "center",
+      }}
     >
       <Grid
         item
