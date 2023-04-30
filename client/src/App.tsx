@@ -4,7 +4,11 @@ import { FirstFilters } from "./components/firstFilters/FirstFilters";
 import { Landing } from "./components/landing/Landing";
 import { LogIn } from "./components/logIn/LogIn";
 import { SecondFilters } from "./components/secondFilters/SecondFilters";
+<<<<<<< HEAD
 import HomeContainer from "./components/homeContainer/HomeContainer";
+=======
+import { About } from "./components/about/About";
+>>>>>>> developer
 
 function App() {
   return (
@@ -15,6 +19,7 @@ function App() {
         <Route path="/firstFilters" element={<FirstFilters />} />
         <Route path="/secondFilters" element={<SecondFilters />} />
         <Route path="/logIN" element={<LogIn />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </div>
   );

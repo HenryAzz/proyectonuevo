@@ -1,0 +1,43 @@
+.root {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-content: center;
+}
+
+.contianerAbout {
+  flex-direction: column;
+  width: 50vw;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  border-radius: 0.375rem;
+  margin: 10px;
+}
+
+.containerImage {
+  display: flex;
+  justify-content: center;
+  margin: 2;
+}
+
+.textAbout {
+  text-align: center;
+  font-size: xx-large;
+  width: auto;
+}
+
+@media (max-width: 800px) {
+  .image {
+    width: 60vw;
+  }
+}
+
+@media (max-width: 500px) {
+  .image {
+    width: 70vw;
+  }
+  .textAbout {
+    text-align: center;
+    font-size: medium;
+  }
+}
