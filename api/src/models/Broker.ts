@@ -7,15 +7,11 @@ export class Broker extends Model<Broker> {
   @Column({
     type: DataType.INTEGER,
     primaryKey: true,
-    allowNull: false,
-    autoIncrement: true,
-    unique: true,
   })
   id!: number;
   @Column({allowNull: false})
   rol!: string;
 
-  @Column({allowNull: false})  
   email!: string;
 
   @Column({allowNull: false})
