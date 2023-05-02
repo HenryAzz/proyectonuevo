@@ -13,10 +13,15 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
+  useMediaQuery,
 } from "@mui/material";
+import { Theme, useTheme } from "@mui/material/";
 import { useState, useRef } from "react";
 
 export const HomeMovil = () => {
+  const theme: Theme = useTheme();
+  const isSmallScream: boolean = useMediaQuery(theme.breakpoints.down("sm"));
+
   let loading: boolean = false;
 
   let arrCard: string[] = [
@@ -43,19 +48,24 @@ export const HomeMovil = () => {
     <Box>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <ButtonGroup>
-          <Button variant="contained" ref={ref} onClick={handleClick} sx={{ fontSize: "10px" }}>
+          <Button
+            variant="contained"
+            ref={ref}
+            onClick={handleClick}
+            sx={{ fontSize: isSmallScream ? "10px" : "14px" }}
+          >
             Zona
           </Button>
-          <Button variant="contained" sx={{ fontSize: "10px" }}>
+          <Button variant="contained" sx={{ fontSize: isSmallScream ? "10px" : "14px" }}>
             Vivienda
           </Button>
-          <Button variant="contained" sx={{ fontSize: "10px" }}>
+          <Button variant="contained" sx={{ fontSize: isSmallScream ? "10px" : "14px" }}>
             Oficina
           </Button>
-          <Button variant="contained" sx={{ fontSize: "10px" }}>
+          <Button variant="contained" sx={{ fontSize: isSmallScream ? "10px" : "14px" }}>
             Local
           </Button>
-          <Button variant="contained" sx={{ fontSize: "10px" }}>
+          <Button variant="contained" sx={{ fontSize: isSmallScream ? "10px" : "14px" }}>
             Industria
           </Button>
         </ButtonGroup>

@@ -24,7 +24,7 @@ const HomeContainer = () => {
           </Typography>
         </Link>
       </Box>
-      {isSmallScream ? <HomeMovil /> : <HomeDesktop />}
+      {isMediumScream ? <HomeMovil /> : <HomeDesktop />}
     </Box>
   );
 };

@@ -1,38 +1,104 @@
-import { Grid } from "@mui/material";
-import logo from "../../image/logo.png";
+import React, { FormEvent } from "react";
+import { Button, Container, Grid, Paper, Box, Typography, TextField } from "@mui/material";
+import { Link } from "react-router-dom";
 import LockIcon from "@mui/icons-material/Lock";
-import s from "./LogIn.module.css";
+import InputAdornment from "@mui/material/InputAdornment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import TextField from "@mui/material/TextField";
+import logo from "../../image/logo.png";
+import styled from "@emotion/styled";
+
+type LoginType = {
+  username: string;
+  password: string;
+};
 
 export const LogIn = () => {
+  const [loginData, setLoginData] = React.useState<LoginType>({
+    username: "",
+    password: "",
+  });
+
+  const dataLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+  };
+
+  const Img = styled("img")({
+    width: 250,
+    height: 50,
+    display: "flex",
+  });
+
   return (
-    <Grid container>
-      <div className={s.conteiner}>
-        <img className={s.logo} src={logo} alt="logo" width="250px" height="50px" />
-        <div className={s.conteinerForm}>
-          <div className={s.contac_form}>
-            <div className={s.formulario}>
-              <form>
-                <AccountCircleIcon fontSize="large" sx={{ margin: 6, ml: 3, mt: 8 }} />
+    <Container>
+      <Img src={logo} alt="logo" />
+      <Container maxWidth="md">
+        <Grid
+          container
+          direction="column-reverse"
+          alignItems="center"
+          justifyContent="center"
+          sx={{ minHeight: "100vh" }}
+        >
+          <Grid item>
+            <Paper sx={{ padding: "1.2em", borderRadius: "0.5em", backgroundColor: "#ffe0b2" }}>
+              <Typography sx={{ mt: 1, mb: 1 }} variant="h4">
+                Welcome
+              </Typography>
+              <Box component="form" onSubmit={handleSubmit}>
                 <TextField
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <AccountCircleIcon />
+                      </InputAdornment>
+                    ),
+                  }}
                   id="input-with-sx"
-                  label="User Name"
-                  variant="standard"
-                  sx={{ mt: 5, mr: 8 }}
+                  variant="outlined"
+                  name="username"
+                  type="email"
+                  margin="normal"
+                  fullWidth
+                  label="Email"
+                  sx={{ mt: 2, mb: 1.5 }}
+                  required
+                  onChange={dataLogin}
                 />
-                <LockIcon fontSize="large" sx={{ margin: 6, ml: 3, mt: 8 }} />
+
                 <TextField
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockIcon />
+                      </InputAdornment>
+                    ),
+                  }}
                   id="input-with-sx"
+                  variant="outlined"
+                  name="password"
+                  type="password"
+                  margin="normal"
+                  fullWidth
                   label="Password"
-                  variant="standard"
-                  sx={{ mt: 5, mr: 8 }}
+                  sx={{ mt: 1.5, mb: 1.5 }}
+                  required
+                  onChange={dataLogin}
                 />
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Grid>
+
+                <Link to="/formulario">
+                  <Button fullWidth type="submit" variant="contained" sx={{ mt: 1.5, mb: 3 }}>
+                    Sing in
+                  </Button>
+                </Link>
+              </Box>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Container>
+    </Container>
   );
 };
