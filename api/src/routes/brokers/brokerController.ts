@@ -2,13 +2,21 @@
 import { sequelize } from "../../db";
 import { Op } from "sequelize";
 
-const {Broker} = sequelize.models
+const { Broker } = sequelize.models;
 
 //funcion que obtiene todos los brokers de la db
 export const getBrokers = async () => {
-    const brokers = await Broker.findAll();
-    return brokers;
-}
+  const brokers = await Broker.findAll();
+  return brokers;
+};
+
+
+// export const createBroker = (
+//   req.body
+// ) => {
+//   const newBroker = Broker.create(req.body);
+//   return newBroker;
+// };
 
 //funcion que busca un broker por ID
 
@@ -28,3 +36,4 @@ export const getBrokerById = async (id:number) => {
     });
     return broker[0];
 }
+
