@@ -1,6 +1,5 @@
 //Funciones que se conectan con la DB y obtienen la informacion
 
-
 import { sequelize } from "../../db";
 import { Op } from "sequelize";
 
