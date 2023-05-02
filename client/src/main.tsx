@@ -9,8 +9,8 @@ import { BrowserRouter } from "react-router-dom";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#B17A50",
-      light: "rgba(241, 180, 115, 0.5)",
+      main: "red",
+      // light: "rgba(241, 180, 115, 0.5)",
     },
     text: {
       primary: "#B17A50",

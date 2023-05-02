@@ -9,18 +9,18 @@ export class Broker extends Model<Broker> {
     primaryKey: true,
   })
   id!: number;
-  @Column({allowNull: false})
+  @Column({ allowNull: false })
   rol!: string;
 
   email!: string;
 
-  @Column({allowNull: false})
+  @Column({ allowNull: false })
   password!: string;
-  @Column({allowNull: false}) 
+  @Column({ allowNull: false })
   person_type!: string;
-  @Column({allowNull: false})
+  @Column({ allowNull: false })
   name!: string;
-  @Column({allowNull: false})
+  @Column({ allowNull: false })
   avatar!: string;
 }
 

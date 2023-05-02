@@ -1,8 +1,11 @@
-import {Response, Request, Router} from 'express';
+import { Response, Request, Router } from "express";
+import { createBrokerHandler, getBrokerByIdHandler, deleteBrokerHandler } from "./bHandler";
+const router = Router();
 
+router.get("/:id", getBrokerByIdHandler);
 
-router.post('/', (req: Request, res: Response) => {
- res.send('soy la ruta posssst!');
-});
-// ununuhjh
+router.post("/", createBrokerHandler);
+
+router.delete("/:id", deleteBrokerHandler);
+
 export default router;
