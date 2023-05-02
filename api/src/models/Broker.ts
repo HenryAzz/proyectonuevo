@@ -14,9 +14,6 @@ export class Broker extends Model<Broker> {
   @Column({
     type: DataType.INTEGER,
     primaryKey: true,
-    allowNull: false,
-    autoIncrement: true,
-    unique: true,
   })
   id!: number;
 
@@ -24,7 +21,10 @@ export class Broker extends Model<Broker> {
   @Column({ allowNull: false, type: DataType.ENUM("Admin", "Broker") })
   rol!: string;
 
-  @Column({ allowNull: false })
+  @Column({ 
+    allowNull: false,
+    unique:true
+  })
   email!: string;
 
   @Column({ allowNull: false })
