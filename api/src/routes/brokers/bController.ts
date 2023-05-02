@@ -1,4 +1,6 @@
-// const { Broker } = require('../../db'); //importo el modelo
+//Funciones que se conectan con la DB y obtienen la informacion
+
+
 import { sequelize } from "../../db";
 import { Op } from "sequelize";
 
@@ -10,11 +12,10 @@ export const getBrokers = async () => {
     return brokers;
 }
 
-//funcion que busca un broker por ID
-
 //Funcion que crea un nuevo broker o Admin
-export const createBroker = (id:number, rol:string, email:string, name:string, avatar:string, password:string) =>{
-    const newBroker = Broker.create({id, rol, email, name, avatar, password})
+export const createBroker = (body) =>{
+    console.log(body);
+    const newBroker = Broker.create(body)
     return newBroker;
 }
 
@@ -26,5 +27,17 @@ export const getBrokerById = async (id:number) => {
         },
         attributes:['id', 'rol', 'email', 'name', 'avatar']
     });
-    return broker[0];
+    const resp = broker[0] ? broker : `Broker con id ${id} no encontrado`
+    return resp;
+}
+
+//Funcion que borra un Broker por medio de su id
+export const deleteBroker = async (id:number) => {
+    const broker = await Broker.destroy({
+        where:{
+            id: {[Op.eq]: id}
+        }
+    });
+    const resp = broker === 1 ? `Broker con id ${id} borrado con Éxito` : `Broker con id ${id} no encontrado`
+    return resp;
 }

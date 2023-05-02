@@ -13,3 +13,5 @@ CRUD Broker
             password: Tipo string. Obligatorio
             name: Tipo string. Obligatorio
             avatar: Tipo string (link de imagen). Opcional
+
+    
