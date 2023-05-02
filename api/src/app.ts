@@ -6,6 +6,7 @@ var cors = require("cors");
 
 const app: Application = express();
 
+
 app.use(
   cors({
     origin: "http://localhost:3001",
@@ -19,11 +20,13 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" })); //middleware
 app.use(cookieParser());
 app.use(morgan("dev"));
 
+
+
 interface error {
   status: number;
   message: string;
 }
-app.use((err: error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: error, req: Request, res: Response , next:NextFunction) => {
   // eslint-disable-line no-unused-vars
   const status = err.status || 500;
   const message = err.message || err;
