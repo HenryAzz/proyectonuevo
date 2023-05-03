@@ -1,4 +1,11 @@
-import { Model, Column, Table, CreatedAt, UpdatedAt, DataType } from "sequelize-typescript";
+import {
+  Model,
+  Column,
+  Table,
+  CreatedAt,
+  UpdatedAt,
+  DataType,
+} from "sequelize-typescript";
 
 @Table({
   timestamps: false,
@@ -12,17 +19,31 @@ export class User extends Model<User> {
     unique: true,
   })
   id!: number;
-  @Column({allowNull: false})
+
+  //Modificado tipo enum que sea cliente o proveedor
+  @Column({ allowNull: false, type: DataType.ENUM("Cliente", "Proveedor") })
   rol!: string;
-  @Column({allowNull: false})
+
+  @Column({ allowNull: false })
   email!: string;
-  @Column({allowNull: false})
+
+  @Column({ allowNull: false })
   password!: string;
-  @Column({allowNull: false})
+
+  //Modificado tipo enum que sea persona fisica o persona juridica
+  @Column({
+    allowNull: false,
+    type: DataType.ENUM("Persona Fisica", "Persona Juridica"),
+  })
   person_type!: string;
-  @Column({allowNull: false})
+
+  @Column({ allowNull: false })
   name!: string;
-  @Column({allowNull: false})
+
+  @Column({
+    allowNull: false,
+    defaultValue: "https://cdn-icons-png.flaticon.com/512/1077/1077063.png",
+  })
   avatar!: string;
 }
 
