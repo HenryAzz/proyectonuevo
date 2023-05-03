@@ -1,12 +1,11 @@
-import {Response, Request, Router} from 'express';
+import { Response, Request, Router } from "express";
 const router = Router();
 
-router.get('/', (req: Request, res: Response) => {
- res.send('soy la ruta get!');
-});
+import { getProps, getProp, postProp, putProp } from "./sController";
 
-router.post('/', (req: Request, res: Response) => {
- res.send('soy la ruta post!');
-});
+router.get("/", getProps);
+router.get("/:id", getProp);
+router.put("/:id", putProp);
+router.post("/", postProp);
 
 export default router;
