@@ -30,12 +30,16 @@ export const FirstFilters = () => {
               Comprar
             </Button>
           </Link>
-          <Button variant="contained" sx={{ mb: 2 }}>
-            Vender
-          </Button>
-          <Button variant="contained" sx={{ mb: 2 }}>
-            Tasar
-          </Button>
+          <Link to="/formVenta">
+            <Button variant="contained" sx={{ mb: 2, width: "100%" }}>
+              Vender
+            </Button>
+          </Link>
+          <Link to="/formTasar">
+            <Button variant="contained" sx={{ mb: 2, width: "100%" }}>
+              Tasar
+            </Button>
+          </Link>
           <Button variant="contained" sx={{ mb: 2 }}>
             Proyectar
           </Button>
