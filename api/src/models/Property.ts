@@ -1,4 +1,11 @@
-import { Model, Column, Table, CreatedAt, UpdatedAt, DataType } from "sequelize-typescript";
+import {
+  Model,
+  Column,
+  Table,
+  CreatedAt,
+  UpdatedAt,
+  DataType,
+} from "sequelize-typescript";
 
 @Table({
   timestamps: false,
@@ -13,13 +20,17 @@ export class Property extends Model<Property> {
   })
   id!: number;
 
-  @Column({allowNull: false})
-    type!: string;
+  //Modificado tipo enum que sea vivienda, oficina, local o industria
+  @Column({
+    allowNull: false,
+    type: DataType.ENUM("Vivienda", "Oficina", "Local", "Industria"),
+  })
+  type!: string;
 
-  @Column({allowNull: false})
+  @Column({ allowNull: false })
   address!: string;
 
-  @Column({allowNull: false})
+  @Column({ allowNull: false })
   spaces!: number;
 
   @Column({
@@ -58,15 +69,17 @@ export class Property extends Model<Property> {
   })
   bedroom!: number;
 
-  @Column({allowNull: false})
+  @Column({ allowNull: false })
   furnished!: Boolean;
 
-  @Column({allowNull: false})
+  @Column({ allowNull: false })
   description!: string;
 
- 
-
-  @Column({allowNull: false})
+  //Modificado tipo enum que sea reservado, disponible, rentado o vendido
+  @Column({
+    allowNull: false,
+    type: DataType.ENUM("Reservado", "Disponible", "Rentado", "Vendido"),
+  })
   situation!: string;
 
   @Column({
@@ -81,10 +94,11 @@ export class Property extends Model<Property> {
   })
   antiquity!: number;
 
-  @Column({allowNull: false})
+  //Modificado tipo enum que sea renta o alquiler
+  @Column({ allowNull: false, type: DataType.ENUM("Alquiler", "Venta") })
   operation!: string;
 
-  @Column({allowNull: false})
+  @Column({ allowNull: false })
   owner!: string;
 }
 
