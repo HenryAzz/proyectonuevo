@@ -2,11 +2,21 @@ import { sequelize } from "../../db";
 
 const { Signal, Property, Broker, User } = sequelize.models;
 
-// HELPER GET //
+// HELPER GET SIGNALS //
 export const getAllSignals = async function () {
   return await Signal.findAll({
     include: [Property, Broker, User],
   });
+};
+
+// HELPER GET SIGNAL //
+export const getSignal = async function (id) {
+  const signal = await Signal.findOne({
+    include: [Property, Broker, User],
+    where: { id: id },
+  });
+
+  return signal ? signal : `Signal con id ${id} no encontrado`;
 };
 
 // HELPER PUT //
@@ -39,4 +49,30 @@ export const putSignal = async function (id, situation) {
   );
 
   return updateSignal;
+};
+
+// FILTER OPERATION
+export const searchOperationSignal = async function (operation) {
+  // Llamo a la función que trae todas las señas
+  const signals = await getAllSignals();
+
+  // Filter Signals por Operación
+  const filteredSignals = signals.filter((signal) => signal.dataValues.operation === operation);
+
+  return filteredSignals
+    ? filteredSignals
+    : `No se encontró ninguna Seña con el Tipo de Operación: ${operation} `;
+};
+
+// FILTER SITUATION
+export const searchSituationSignal = async function (situation) {
+  // Llamo a la función que trae todas las señas
+  const signals = await getAllSignals();
+
+  // Filter Signals por Operación
+  const filteredSignals = signals.filter((signal) => signal.dataValues.situation === situation);
+
+  return filteredSignals
+    ? filteredSignals
+    : `No se encontró ninguna Seña en Situación: ${situation} `;
 };
