@@ -1,16 +1,29 @@
 import { Response, Request } from "express";
-import { getAllSignals, putSignal } from "./sHelper";
+import {
+  getAllSignals,
+  getSignal,
+  putSignal,
+  searchOperationSignal,
+  searchSituationSignal,
+} from "./sHelper";
 import { sequelize } from "../../db";
 
 //Traemos la tabla de nuestra DB.
 const { Signal, Property, Broker, User } = sequelize.models;
 
-//  GET SIGNALS  //
+//  GET AND FILTERS SIGNALS  //
 export const getProps = async (req: Request, res: Response) => {
+  const { operation, situation } = req.query;
   try {
-    const signals = await getAllSignals();
-    console.log(signals);
-    return res.status(200).json(signals);
+    if (operation || situation) {
+      let result = operation
+        ? await searchOperationSignal(operation)
+        : await searchSituationSignal(situation);
+      res.status(200).send(result);
+    } else {
+      const signals = await getAllSignals();
+      return res.status(200).json(signals);
+    }
   } catch (error) {
     return res.status(404).send({ error: error });
   }
@@ -20,12 +33,8 @@ export const getProps = async (req: Request, res: Response) => {
 export const getProp = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const signal = await Signal.findOne({
-      include: [Property, Broker, User],
-      where: { id: id },
-    });
-    console.log(signal);
-    return res.status(200).json(signal);
+    let result = await getSignal(id);
+    return res.status(200).json(result);
   } catch (error) {
     return res.status(404).send({ error: error });
   }
@@ -57,7 +66,7 @@ export const putProp = async (req: Request, res: Response) => {
     const { situation } = req.body;
 
     const updateSignal = await putSignal(id, situation);
-    console.log(updateSignal);
+
     res.send({ msj: "Signal Actualizado correctamente" });
   } catch (error) {
     res.status(404).send(error);
