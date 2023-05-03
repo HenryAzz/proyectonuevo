@@ -15,7 +15,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-export const LogIn = ( handleChange ) => {
+export const LogIn = (handleChange: any) => {
   const paperStyle = {
     padding: 20,
     height: "73vh",
@@ -30,12 +30,12 @@ export const LogIn = ( handleChange ) => {
     remember: false,
   };
   const validationSchema = Yup.object().shape({
-    username: Yup
-    .string().required("Required")
-    .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, "Enter valid email"),
+    username: Yup.string()
+      .required("Required")
+      .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, "Enter valid email"),
     password: Yup.string().required("Password required"),
   });
-  const onSubmit = (values, props) => {
+  const onSubmit = (values: any, props: any) => {
     console.log(values);
     setTimeout(() => {
       props.resetForm();
@@ -43,13 +43,15 @@ export const LogIn = ( handleChange ) => {
     }, 2000);
   };
   return (
-    <Grid   container 
-            direction='column-reverse' 
-            alignItems='center' 
-            justifyContent='center'
-            sx={{ minHeight:'100vh'}}>
+    <Grid
+      container
+      direction="column-reverse"
+      alignItems="center"
+      justifyContent="center"
+      sx={{ minHeight: "100vh" }}
+    >
       <Paper style={paperStyle}>
-        <Grid >
+        <Grid>
           <Avatar style={avatarStyle}>
             <LockOutlinedIcon />
           </Avatar>
@@ -115,8 +117,6 @@ export const LogIn = ( handleChange ) => {
   );
 };
 
-
-
 // import  React, { FormEvent } from "react";
 // import { Button, Container, Grid, Paper, Box, Typography, TextField } from "@mui/material";
 // import { Link } from "react-router-dom";
@@ -128,7 +128,7 @@ export const LogIn = ( handleChange ) => {
 
 // type LoginType={
 //   username:string;
-//   password:string; 
+//   password:string;
 // }
 
 // export const LogIn = () => {
@@ -146,12 +146,11 @@ export const LogIn = ( handleChange ) => {
 //   e.preventDefault();
 // }
 
-
 // const Img = styled("img")({
 //   width: 250,
 //   height: 50,
 //   display: 'flex',
-  
+
 // });
 
 //   return (
@@ -159,24 +158,24 @@ export const LogIn = ( handleChange ) => {
 //      {/* <Img
 //      src={logo}
 //      alt='logo'/> */}
-//       <Container 
+//       <Container
 //       maxWidth='md'
 //       >
-         
-//         <Grid 
-//         container 
-//         direction='column-reverse' 
-//         alignItems='center' 
+
+//         <Grid
+//         container
+//         direction='column-reverse'
+//         alignItems='center'
 //         justifyContent='center'
 //         sx={{ minHeight:'100vh'}}
-        
+
 //         >
 //           <Grid item>
 //           <Paper sx={{padding:'1.2em', borderRadius:'0.5em', backgroundColor:'#ffe0b2' }}>
 //             <Typography sx={{mt:1, mb:1}}variant='h4'>Welcome</Typography>
 //             <Box component='form' onSubmit={handleSubmit}>
 //                <TextField
-               
+
 //                InputProps={{
 //                 startAdornment: (
 //                   <InputAdornment position="start">
@@ -188,12 +187,12 @@ export const LogIn = ( handleChange ) => {
 //                type='email'
 //                 margin='normal'
 //                 fullWidth
-//                 label='Email' 
-//                 sx={{mt:2, mb:1.5}} 
+//                 label='Email'
+//                 sx={{mt:2, mb:1.5}}
 //                 required
 //                 onChange={dataLogin}/>
-                
-//                <TextField 
+
+//                <TextField
 //                 InputProps={{
 //                 startAdornment: (
 //                   <InputAdornment position="start">
@@ -204,20 +203,20 @@ export const LogIn = ( handleChange ) => {
 //                name='password'
 //                type='password'
 //                margin='normal'
-//                fullWidth 
-//                label='Password' 
-//                sx={{mt:1.5, mb:1.5}} 
+//                fullWidth
+//                label='Password'
+//                sx={{mt:1.5, mb:1.5}}
 //                required
 //                onChange={dataLogin}
-             
+
 //               />
-              
+
 //                <Link to="/formulario">
 //                <Button fullWidth
 //                 type='submit' variant='contained' sx={{mt:1.5, mb:3}}>Sing in</Button>
 //                 </Link>
 //                 <Link to="/formularioRegistro">
-//                <Button fullWidth 
+//                <Button fullWidth
 //                 type='submit' variant='contained' sx={{mt:1, mb:1, bgcolor:"#0d47a1"}}>Register</Button>
 //                 </Link>
 //             </Box>
