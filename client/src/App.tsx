@@ -16,7 +16,7 @@ function App() {
         <Route path="/firstFilters" element={<FirstFilters />} />
         <Route path="/logIN" element={<LogIn />} />
         <Route path="/about" element={<About />} />
-        <Route path="/formRegistro" element={<Registro />} />
+        <Route path="/formularioRegistro" element={<Registro />} />
       </Routes>
     </div>
   );
