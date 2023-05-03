@@ -7,7 +7,7 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
-import logo from "../../image/logo.png";
+import logo from '../../image/logo.png';
 
 export const Landing = () => {
   const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
