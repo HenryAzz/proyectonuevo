@@ -14,7 +14,7 @@ import {
   FormHelperText,
 } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-
+import { Link } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 
 import * as Yup from "yup";
@@ -148,14 +148,16 @@ export const Registro = () => {
               <FormHelperText>
                 <ErrorMessage name="termsAndConditions" />
               </FormHelperText>
-              <Button
-                type="submit"
-                variant="contained"
-                disabled={props.isSubmitting}
-                color="primary"
-              >
-                {props.isSubmitting ? "Loading" : "Sign up"}
-              </Button>
+              <Link to="/logIN">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={props.isSubmitting}
+                  color="primary"
+                >
+                  {props.isSubmitting ? "Loading" : "Sign up"}
+                </Button>
+              </Link>
             </Form>
           )}
         </Formik>

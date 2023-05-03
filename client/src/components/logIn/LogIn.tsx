@@ -6,12 +6,11 @@ import {
   TextField,
   Button,
   Typography,
-  Link,
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-
+import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -89,26 +88,26 @@ export const LogIn = (handleChange: any) => {
                 control={<Checkbox color="primary" />}
                 label="Remember me"
               />
-              <Button
-                type="submit"
-                color="primary"
-                variant="contained"
-                disabled={props.isSubmitting}
-                style={btnstyle}
-                fullWidth
-              >
-                {props.isSubmitting ? "Loading" : "Sign in"}
-              </Button>
+              <Link to="/home">
+                <Button
+                  type="submit"
+                  color="primary"
+                  variant="contained"
+                  disabled={props.isSubmitting}
+                  style={btnstyle}
+                  fullWidth
+                >
+                  {props.isSubmitting ? "Loading" : "Sign in"}
+                </Button>
+              </Link>
             </Form>
           )}
         </Formik>
-        <Typography>
-          <Link href="#">Forgot password ?</Link>
-        </Typography>
+        <Typography>Forgot password</Typography>
         <Typography>
           {" "}
           Do you have an account ?
-          <Link href="/formularioRegistro" onClick={() => handleChange("event", 1)}>
+          <Link to="/formularioRegistro" onClick={() => handleChange("event", 1)}>
             Sign Up
           </Link>
         </Typography>
