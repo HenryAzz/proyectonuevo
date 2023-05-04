@@ -43,11 +43,7 @@ export const Registro = () => {
       .min(8, "Password minimum length should be 8")
       .required("Required")
       .matches(
-
-        /^(?=.\d)(?=.[\u0021-\u002b\u003c-\u0040])(?=.[A-Z])(?=.[a-z])\S{8,16}$/,
-
         /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
-
         "Password must contain at least one uppercase letter, one number and one special character"
       ),
     confirmPassword: Yup.string()
@@ -166,6 +162,4 @@ export const Registro = () => {
       </Paper>
     </Grid>
   );
-
-
-
+};
