@@ -1,7 +1,7 @@
 //Funciones que manejan la request y los errores. Llaman a la fcn que se encarga de traer la Info
 
 import { Response, Request } from "express";
-import { getBrokers, createBroker, getBrokerById, deleteBroker}  from './bController';
+import { getBrokers, createBroker, getBrokerById, deleteBroker, modifyBroker}  from './bController';
 
 export const getBrokersHandler = async (req:Request , res:Response) =>{
     try {
@@ -41,4 +41,8 @@ export const deleteBrokerHandler =async (req:Request , res:Response) => {
     } catch (error:any) {
         return res.status(404).send({error:error.message})
     }
+}
+
+export const modifyBrokerHandler = () => {
+    
 }
