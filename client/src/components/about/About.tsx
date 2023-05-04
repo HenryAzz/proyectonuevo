@@ -1,31 +1,103 @@
-import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
-import { Theme, useTheme } from "@mui/material/styles";
-import image from "../../image/logo.png";
-import { Link } from "react-router-dom";
-import styles from "../about/About.module.css";
+import * as React from "react";
+import { useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import MobileStepper from "@mui/material/MobileStepper";
+import Button from "@mui/material/Button";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import SwipeableViews from "react-swipeable-views";
+import { autoPlay } from "react-swipeable-views-utils";
+import logo from "../../image/logo.png";
+import Mision from "../../image/Mision.jpeg";
+import Vision from "../../image/Vision.jpeg";
+import Proposito from "../../image/Proposito.jpeg";
 
 export const About = () => {
-  const theme: Theme = useTheme();
-  const isSmallScream: boolean = useMediaQuery(theme.breakpoints.down("md"));
+  const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+
+  const images = [{ imgPath: Mision }, { imgPath: Vision }, { imgPath: Proposito }];
+
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const maxSteps = images.length;
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleStepChange = (step: number) => {
+    setActiveStep(step);
+  };
+
   return (
-    <Grid container spacing={2} className={styles.root}>
-      <Grid item className={styles.contianerAbout} lg={9} md={9} sm={10} xs={10}>
-        <Link to="#" className={styles.containerImage}>
-          <Box component="img" src={image} className={styles.image} />
-        </Link>
-        <Typography variant={isSmallScream ? "body1" : "h4"} component="p">
-          Nuestra plataforma propTech busca optimizar la experiencia de los clientes y brokers en el
-          mercado inmobiliario de Buenos Aires, mediante la automatización de tareas recurrentes, la
-          agilización de la comunicación y la resolución eficiente de operaciones. Misión. Nos
-          esforzamos por consolidarnos como la plataforma líder en propiedades de lujo en zonas
-          exclusivas de Buenos Aires, gracias a nuestra atención al cliente excepcional y nuestra
-          capacidad de ofrecer soluciones personalizadas y de calidad para brokers y clientes. En
-          nuestro propósito de ofrecer soluciones eficientes y personalizadas, creemos en la
-          importancia de una comunicación transparente y eficaz entre brokers y clientes. Por ello,
-          nos enfocamos en generar confianza y satisfacción en la plataforma a través de una
-          atención al cliente excepcional y una gestión óptima de las operaciones inmobiliarias.
-        </Typography>
-      </Grid>
-    </Grid>
+    <Box>
+      <img src={logo} alt="logo" width="250px" height="50px" />
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 10, p: 1 }}>
+        <Box sx={{ maxWidth: 600, flexGrow: 2 }}>
+          <AutoPlaySwipeableViews
+            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+            index={activeStep}
+            onChangeIndex={handleStepChange}
+            enableMouseEvents
+          >
+            {images.map((step, index) => (
+              <div key={index}>
+                {Math.abs(activeStep - index) <= 2 ? (
+                  <Box
+                    component="img"
+                    sx={{
+                      height: 300,
+                      maxWidth: 600,
+                      overflow: "hidden",
+                      width: "100%",
+                      display: "flex",
+                    }}
+                    src={step.imgPath}
+                  />
+                ) : null}
+              </div>
+            ))}
+          </AutoPlaySwipeableViews>
+          <MobileStepper
+            sx={{ bgcolor: "rgba(255,152,0,0.44)" }}
+            steps={maxSteps}
+            position="static"
+            activeStep={activeStep}
+            nextButton={
+              <Button
+                sx={{ color: "black" }}
+                size="small"
+                onClick={handleNext}
+                disabled={activeStep === maxSteps - 1}
+              >
+                Next
+                {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+              </Button>
+            }
+            backButton={
+              <Button
+                sx={{ color: "black" }}
+                size="small"
+                onClick={handleBack}
+                disabled={activeStep === 0}
+              >
+                {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                Back
+              </Button>
+            }
+          />
+          <Box textAlign={"center"}>
+            <Button sx={{ mt: 5 }} variant="outlined" component="a" href="/home">
+              Back Home
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
+//
