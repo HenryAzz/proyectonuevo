@@ -19,8 +19,10 @@ function App() {
         <Route path="/logIN" element={<LogIn />} />
         <Route path="/about" element={<About />} />
         <Route path="/formularioRegistro" element={<Registro />} />
+
         <Route path="/formVenta" element={<FormVenta />} />
         <Route path="/formTasar" element={<FormTasar />} />
+
       </Routes>
     </div>
   );
