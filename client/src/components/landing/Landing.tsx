@@ -11,7 +11,7 @@ import logo from "../../image/logo.png";
 
 export const Landing = () => {
   const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
-
+  //img del carrusel
   const images = [
     {
       imgPath:

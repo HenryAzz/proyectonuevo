@@ -22,10 +22,10 @@ function App() {
 
         <Route path="/formVenta" element={<FormVenta />} />
         <Route path="/formTasar" element={<FormTasar />} />
-
       </Routes>
     </div>
   );
 }
 
 export default App;
+//
