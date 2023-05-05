@@ -4,6 +4,7 @@ import {
   findUserRol,
   findUserByRolPersonType,
   findUserPerson_type,
+  getUserSoloByEmail,
 } from "./uHelper";
 import { sequelize } from "../../db";
 import exp from "constants";
@@ -53,13 +54,7 @@ export const postUser = async (req: Request, res: Response) => {
     const user = req.body;
 
     //validamos si los campos son nulos.
-    if (
-      !user.rol ||
-      !user.email ||
-      !user.password ||
-      !user.person_type ||
-      !user.name
-    ) {
+    if (!user.rol || !user.email || !user.password || !user.person_type || !user.name) {
       throw new Error("Campos incompletos, completar correctamente datos.");
     } else {
       //si los campos son correctos, creamos el usuario.
@@ -68,5 +63,20 @@ export const postUser = async (req: Request, res: Response) => {
     }
   } catch (error) {
     res.status(404).send({ error: error });
+  }
+};
+////////////////////////////////////////////////////
+
+//GOOGLE!
+
+export const googleAcces = async (req: Request, res: Response) => {
+  const comparing = req.body;
+  try {
+    const response = await getUserSoloByEmail(comparing);
+    console.log("esto es comparing ==>", response);
+    if (!response) return res.status(400).send("Error: password wrong");
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json({ err: error });
   }
 };
