@@ -68,44 +68,28 @@ export async function getUserSoloByEmail(comparing) {
 
 /// google create
 
-export async function createUser({
-  hashgoogle,
+export default async function createUser({
   name,
-  last_name,
-  avatar,
+  rol,
   email,
   password,
-  type_account,
-  notifications,
+  person_type,
+  avatar,
   activity,
+  hashgoogle,
 }) {
   // console.log("esto es hasgoogle",hashgoogle)
-  let creatingUser: Model<any, any>;
-  if (!last_name) {
-    const fullName = name.split(" ");
-    creatingUser = await User.create({
-      name: fullName[0],
-      last_name: fullName[1],
-      avatar,
-      email,
-      password,
-      type_account,
-      notifications,
-      activity,
-      hashgoogle,
-    });
-  } else {
-    creatingUser = await User.create({
-      name,
-      last_name,
-      avatar,
-      email,
-      password,
-      type_account,
-      notifications,
-      activity,
-      hashgoogle,
-    });
-  }
+
+  let creatingUser = await User.create({
+    name,
+    rol,
+    email,
+    password,
+    person_type,
+    avatar,
+    activity,
+    hashgoogle,
+  });
+
   return creatingUser;
 }
