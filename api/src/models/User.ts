@@ -1,11 +1,4 @@
-import {
-  Model,
-  Column,
-  Table,
-  CreatedAt,
-  UpdatedAt,
-  DataType,
-} from "sequelize-typescript";
+import { Model, Column, Table, CreatedAt, UpdatedAt, DataType } from "sequelize-typescript";
 
 @Table({
   timestamps: false,
@@ -45,6 +38,11 @@ export class User extends Model<User> {
     defaultValue: "https://cdn-icons-png.flaticon.com/512/1077/1077063.png",
   })
   avatar!: string;
+  @Column({
+    allowNull: true,
+    defaultValue: null,
+  })
+  hashgoogle!: string;
 }
 
 // //ejemplo:

@@ -69,7 +69,7 @@ export const postUser = async (req: Request, res: Response) => {
 
 //GOOGLE!
 
-export async function googleAcces(req, res) {
+export const googleAcces = async (req: Request, res: Response) => {
   const comparing = req.body;
   try {
     const response = await getUserSoloByEmail(comparing);
@@ -79,4 +79,4 @@ export async function googleAcces(req, res) {
   } catch (error) {
     return res.status(400).json({ err: error });
   }
-}
+};
