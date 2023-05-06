@@ -27,7 +27,7 @@ export const HomeDesktop = () => {
               </Typography>
               <Typography component="p" variant="body2" mt={1}>
                 La casa de ensueño cuenta con 5 habitaciones, 5 y 1/2 baños, pileta y un gran patio.
-                Veni por la llave de la casa de tus sueños
+                Vení por la llave de la casa de tus sueños
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -57,7 +57,7 @@ export const HomeDesktop = () => {
           </CardActionArea>
           <CardActions>
             <Button variant="contained">Hacer Reserva</Button>
-            <Button variant="outlined">Mas Informacion</Button>
+            <Button variant="outlined">Más Información</Button>
           </CardActions>
         </Card>
 
