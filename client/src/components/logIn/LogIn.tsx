@@ -53,7 +53,7 @@ export const LogIn = (handleChange: any) => {
           <Avatar style={avatarStyle}>
             <LockOutlinedIcon />
           </Avatar>
-          <h2>Sign In</h2>
+          <h2>Ingresar</h2>
         </Grid>
         <Formik
           initialValues={initialValues}
@@ -64,28 +64,28 @@ export const LogIn = (handleChange: any) => {
             <Form>
               <Field
                 as={TextField}
-                label="Username"
+                label="Usuario"
                 name="username"
-                placeholder="Enter username"
+                placeholder="Ingrese un usuario"
                 fullWidth
                 required
-                helperText={<ErrorMessage name="username" />}
+                helperText={<ErrorMessage name="Usuario" />}
               />
               <Field
                 as={TextField}
-                label="Password"
+                label="Contraseña"
                 name="password"
-                placeholder="Enter password"
+                placeholder="Ingrese su Contraseña"
                 type="password"
                 fullWidth
                 required
-                helperText={<ErrorMessage name="password" />}
+                helperText={<ErrorMessage name="Contraseña" />}
               />
               <Field
                 as={FormControlLabel}
                 name="remember"
                 control={<Checkbox color="primary" />}
-                label="Remember me"
+                label="Recordarme"
               />
               <Link to="/home">
                 <Button
@@ -96,18 +96,18 @@ export const LogIn = (handleChange: any) => {
                   style={btnstyle}
                   fullWidth
                 >
-                  {props.isSubmitting ? "Loading" : "Sign in"}
+                  {props.isSubmitting ? "Loading" : "Ingresar"}
                 </Button>
               </Link>
             </Form>
           )}
         </Formik>
-        <Typography>Forgot password</Typography>
+        <Typography>Olvidé mi Contraseña</Typography>
         <Typography>
           {" "}
-          Do you have an account ?
+          No tiene una cuenta? 
           <Link to="/formularioRegistro" onClick={() => handleChange("event", 1)}>
-            Sign Up
+             Registrarse
           </Link>
         </Typography>
       </Paper>

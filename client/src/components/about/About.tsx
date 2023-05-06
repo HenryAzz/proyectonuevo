@@ -86,7 +86,7 @@ export const About = () => {
                 disabled={activeStep === 0}
               >
                 {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-                Back
+                Volver
               </Button>
             }
           />

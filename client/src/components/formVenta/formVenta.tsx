@@ -14,7 +14,7 @@ export const FormVenta = () => {
   };
 
   function getSteps() {
-    return ["Datos del Propietario", "Tipó de Propiedad", "Detalles de Propiedad"];
+    return ["Datos del Propietario", "Tipo de Propiedad", "Detalles de Propiedad"];
   }
 
   const DniForm = () => {
@@ -29,9 +29,9 @@ export const FormVenta = () => {
           <TextField
             sx={{ bgcolor: "#ffecb3" }}
             id="dni-propietaio"
-            label="Owner's DNI/ID"
+            label="DNI del propietario"
             variant="outlined"
-            placeholder="Enter Your DNI/ID"
+            placeholder="Ingrese su DNI"
             fullWidth
             margin="normal"
             // {...field}
@@ -45,9 +45,9 @@ export const FormVenta = () => {
           <TextField
             sx={{ bgcolor: "#ffecb3" }}
             id="alternate-phone"
-            label="Alternative Phone"
+            label="Teléfono"
             variant="outlined"
-            placeholder="Enter Your Alternative Phone"
+            placeholder="Ingrese su número de Teléfono"
             fullWidth
             margin="normal"
             // {...field}
@@ -64,9 +64,9 @@ export const FormVenta = () => {
           <TextField
             sx={{ bgcolor: "#ffecb3" }}
             id="foto-frente"
-            label="Dni´s front photo"
+            label="Imagen frontal del DNI"
             variant="outlined"
-            placeholder="Enter Your Dni´s front photo Url"
+            placeholder="Cargar imagen frontal del DNI"
             fullWidth
             margin="normal"
             // {...field}
@@ -80,9 +80,9 @@ export const FormVenta = () => {
           <TextField
             sx={{ bgcolor: "#ffecb3" }}
             id="foto-dorso"
-            label="Dni´s back photo"
+            label="Imagen dorsal del DNI "
             variant="outlined"
-            placeholder="Enter Your Dni´s back photo Url"
+            placeholder="Cargar imagen dorsal del DNI"
             fullWidth
             margin="normal"
             // {...field}
@@ -105,9 +105,9 @@ export const FormVenta = () => {
         <TextField
           sx={{ bgcolor: "#ffecb3" }}
           id="tipo-propiedad"
-          label="Type of Property"
+          label="Tipo de Propiedad"
           variant="outlined"
-          placeholder="Enter Your Type of Real Estate Property"
+          placeholder="Ingrese el tipo de su propiedad"
           fullWidth
           margin="normal"
           // {...field}
@@ -121,9 +121,9 @@ export const FormVenta = () => {
         <TextField
           sx={{ bgcolor: "#ffecb3" }}
           id="tipo-vivienda"
-          label="Type of Living Place"
+          label="Tipo de Vivienda"
           variant="outlined"
-          placeholder="Enter Your Type of Living Place"
+          placeholder="Ingrese su tipo de Vivienda"
           fullWidth
           margin="normal"
           // {...field}
@@ -137,9 +137,9 @@ export const FormVenta = () => {
         <TextField
           sx={{ bgcolor: "#ffecb3" }}
           id="titulo-propiedad"
-          label="Property Title"
+          label="Título de propiedad"
           variant="outlined"
-          placeholder="Enter Your Property Title Url"
+          placeholder="Cargar la Imagen del título de propiedad del inmueble"
           fullWidth
           margin="normal"
           // {...field}
@@ -162,9 +162,9 @@ export const FormVenta = () => {
           <TextField
             sx={{ bgcolor: "#ffecb3" }}
             id="direccion"
-            label="Address"
+            label="Dirección"
             variant="outlined"
-            placeholder="Enter Your Address"
+            placeholder="Dirección del inmueble"
             fullWidth
             margin="normal"
             // {...field}
@@ -178,9 +178,9 @@ export const FormVenta = () => {
           <TextField
             sx={{ bgcolor: "#ffecb3" }}
             id="numero"
-            label="Number"
+            label="Número"
             variant="outlined"
-            placeholder="Enter Your Address' Number"
+            placeholder="Número de la dirección"
             fullWidth
             margin="normal"
             // {...field}
@@ -197,9 +197,9 @@ export const FormVenta = () => {
           <TextField
             sx={{ bgcolor: "#ffecb3" }}
             id="dpto"
-            label="Apartament"
+            label="Apartamento"
             variant="outlined"
-            placeholder="Enter Your Apartament's number and/or letter"
+            placeholder="Ingrese el número y/o letra del apartamento"
             fullWidth
             margin="normal"
             // {...field}
@@ -213,9 +213,9 @@ export const FormVenta = () => {
           <TextField
             sx={{ bgcolor: "#ffecb3" }}
             id="piso"
-            label="Floor"
+            label="Piso"
             variant="outlined"
-            placeholder="Enter Your Apartament's Floor"
+            placeholder="Piso del Apartamento"
             fullWidth
             margin="normal"
             // {...field}
@@ -232,9 +232,9 @@ export const FormVenta = () => {
           <TextField
             sx={{ bgcolor: "#ffecb3" }}
             id="localidad"
-            label="Location"
+            label="Ubicación"
             variant="outlined"
-            placeholder="Enter The Location "
+            placeholder="Ingrese la ubicación "
             fullWidth
             margin="normal"
             // {...field}
@@ -248,9 +248,9 @@ export const FormVenta = () => {
           <TextField
             sx={{ bgcolor: "#ffecb3" }}
             id="provincia"
-            label="Province"
+            label="Provincia"
             variant="outlined"
-            placeholder="Enter The Province"
+            placeholder="Ingrese la provincia"
             fullWidth
             margin="normal"
             // {...field}
@@ -264,9 +264,9 @@ export const FormVenta = () => {
           <TextField
             sx={{ bgcolor: "#ffecb3" }}
             id="codigo-postal"
-            label="Postal Code"
+            label="Código Postal"
             variant="outlined"
-            placeholder="Enter The Postal Code"
+            placeholder="Ingrese el código postal"
             fullWidth
             margin="normal"
             // {...field}
@@ -307,16 +307,16 @@ export const FormVenta = () => {
       {getStepContent(activeStep)}
       {activeStep === steps.length ? (
         <Typography variant="h3" align="center">
-          Thank You
+          ¡Muchas Gracias!
         </Typography>
       ) : (
         <>
           {" "}
           <Button disabled={activeStep === 0} onClick={() => previousStep()}>
-            Previous
+            Anterior
           </Button>
           <Button onClick={() => nextStep()}>
-            {activeStep === steps.length - 1 ? "Finish" : "Next"}
+            {activeStep === steps.length - 1 ? "Finalizar" : "Siguiente"}
           </Button>
         </>
       )}
@@ -324,7 +324,7 @@ export const FormVenta = () => {
       <br />
       <br />
       <Link to="/firstFilters">
-        <Button>Back to Home</Button>
+        <Button>Volver al Inicio</Button>
       </Link>
     </div>
   );
