@@ -4,4 +4,5 @@ export interface createUserRequest {
   email: string;
   hashGoogle: string;
   person_type: string;
+  rol: string;
 }

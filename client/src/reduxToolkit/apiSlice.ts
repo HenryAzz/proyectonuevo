@@ -42,10 +42,10 @@ export const apiSlice = createApi({
     }),
     //metodos para enviar y recibr data de la ruta authentication
     createUser: builder.mutation<createUserRequest, createUserRequest>({
-      query: (userAuth) => ({
+      query: (createUserRequest) => ({
         url: "/user/google",
         method: "POST",
-        body: userAuth,
+        body: createUserRequest,
       }),
     }),
   }),

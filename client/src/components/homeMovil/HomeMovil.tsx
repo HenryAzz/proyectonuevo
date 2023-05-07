@@ -17,8 +17,13 @@ import {
 } from "@mui/material";
 import { Theme, useTheme } from "@mui/material/";
 import { useState, useRef } from "react";
+import { useGetPropertiesQuery } from "../../reduxToolkit/apiSlice";
 
 export const HomeMovil = () => {
+  const { data, isLoading } = useGetPropertiesQuery();
+
+  isLoading && console.log(typeof isLoading, typeof data);
+
   const theme: Theme = useTheme();
   const isSmallScream: boolean = useMediaQuery(theme.breakpoints.down("sm"));
 

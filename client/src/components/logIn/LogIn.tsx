@@ -40,6 +40,7 @@ export const LogIn = (handleChange: any) => {
       props.setSubmitting(false);
     }, 2000);
   };
+
   return (
     <Grid
       container
@@ -105,9 +106,9 @@ export const LogIn = (handleChange: any) => {
         <Typography>Olvidé mi Contraseña</Typography>
         <Typography>
           {" "}
-          No tiene una cuenta? 
+          No tiene una cuenta?
           <Link to="/formularioRegistro" onClick={() => handleChange("event", 1)}>
-             Registrarse
+            Registrarse
           </Link>
         </Typography>
       </Paper>
