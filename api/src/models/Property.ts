@@ -14,9 +14,7 @@ export class Property extends Model<Property> {
   @Column({
     type: DataType.INTEGER,
     primaryKey: true,
-    allowNull: false,
     autoIncrement: true,
-    unique: true,
   })
   id!: number;
 
@@ -27,10 +25,13 @@ export class Property extends Model<Property> {
   })
   type!: string;
 
-  @Column({ allowNull: false })
+  @Column({
+    allowNull: false,
+    unique: true
+   })
   address!: string;
 
-  @Column({ allowNull: false })
+  @Column({ allowNull: true })
   spaces!: number;
 
   @Column({
@@ -46,30 +47,30 @@ export class Property extends Model<Property> {
   pictures!: object;
 
   @Column({
-    allowNull: false,
+    allowNull: true,
     type: DataType.INTEGER,
   })
   floors!: number;
 
   @Column({
-    allowNull: false,
+    allowNull: true,
     type: DataType.FLOAT,
   })
   covered_area!: number;
 
   @Column({
-    allowNull: false,
+    allowNull: true,
     type: DataType.FLOAT,
   })
   bathroom!: number;
 
   @Column({
-    allowNull: false,
+    allowNull: true,
     type: DataType.INTEGER,
   })
   bedroom!: number;
 
-  @Column({ allowNull: false })
+  @Column({ allowNull: true })
   furnished!: Boolean;
 
   @Column({ allowNull: false })
@@ -83,13 +84,13 @@ export class Property extends Model<Property> {
   situation!: string;
 
   @Column({
-    allowNull: false,
+    allowNull: true,
     type: DataType.FLOAT,
   })
   total_area!: number;
 
   @Column({
-    allowNull: false,
+    allowNull: true,
     type: DataType.FLOAT,
   })
   antiquity!: number;
