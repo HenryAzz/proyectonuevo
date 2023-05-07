@@ -13,7 +13,18 @@ import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//improt intreface
+import { createUserRequest } from "../../reduxToolkit/authentication";
+
+//import RTK Query
+import { useCreateUserMutation } from "../../reduxToolkit/apiSlice";
+
+//import firebase methods
+import { auth, provider } from "../../firebase/firebase";
+import { signInWithPopup } from "firebase/auth";
+
 export const LogIn = (handleChange: any) => {
+  const [crateUser] = useCreateUserMutation();
   const paperStyle = {
     padding: 20,
     height: "73vh",
@@ -39,6 +50,26 @@ export const LogIn = (handleChange: any) => {
       props.resetForm();
       props.setSubmitting(false);
     }, 2000);
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      if (user !== null) {
+        const newUser: createUserRequest = {
+          name: user.displayName || "",
+          avatar: user.photoURL || "",
+          email: user.email || "",
+          hashGoogle: user.uid || "",
+          person_type: "Persona Fisica",
+          rol: "Cliente",
+        };
+        crateUser(newUser);
+      }
+    } catch (error: any) {
+      console.log("Error signing in with Google:", error.message);
+    }
   };
 
   return (
@@ -100,6 +131,9 @@ export const LogIn = (handleChange: any) => {
                   {props.isSubmitting ? "Loading" : "Ingresar"}
                 </Button>
               </Link>
+              <Button variant="outlined" onClick={handleGoogleSignIn} sx={{ width: "100%", mb: 2 }}>
+                Conectar con Google
+              </Button>
             </Form>
           )}
         </Formik>
