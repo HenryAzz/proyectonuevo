@@ -24,7 +24,7 @@ export class Broker extends Model<Broker> {
   @Column({ allowNull: false })
   password!: string;
 
-  @Column({ allowNull: false })
+  @Column({ allowNull: false }) 
   name!: string;
 
   //agrego imagen por defecto de avatar para admin o broker

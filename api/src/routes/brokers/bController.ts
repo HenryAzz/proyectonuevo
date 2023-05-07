@@ -1,6 +1,5 @@
 //Funciones que se conectan con la DB y obtienen la informacion
 
-
 import { sequelize } from "../../db";
 import { Op } from "sequelize";
 
@@ -40,4 +39,9 @@ export const deleteBroker = async (id:number) => {
     });
     const resp = broker === 1 ? `Broker con id ${id} borrado con Éxito` : `Broker con id ${id} no encontrado`
     return resp;
+}
+
+//Funcion que modifica un Broker
+export const modifyBroker = () => {
+    
 }

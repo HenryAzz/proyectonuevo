@@ -122,12 +122,12 @@ export const Landing = () => {
           />
           <Box textAlign={"center"}>
             <Button sx={{ mt: 5 }} variant="contained" component="a" href="/firstFilters">
-              Lets Go
+              Inicio
             </Button>
           </Box>
           <Box textAlign={"center"}>
             <Button sx={{ mt: 5 }} variant="contained" component="a" href="/About">
-              About Us
+              Sobre Nosotros
             </Button>
           </Box>
         </Box>
