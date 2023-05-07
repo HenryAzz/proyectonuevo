@@ -6,7 +6,7 @@ import { Op } from "sequelize";
 
 const { Property } = sequelize.models;
 
-const queryCreator = (operation, zone, maxPrice, type):any => {
+const queryCreator = (operation, zone, maxPrice, type, situation):any => {
   let price = Number(maxPrice);
   let query = {};
   if (operation) {
@@ -30,13 +30,20 @@ const queryCreator = (operation, zone, maxPrice, type):any => {
     }
   }
 
+  if (situation) {
+    query = {
+      ...query,
+      situation: {[Op.eq]: situation}
+    }
+  }
+
   return query;
 }
 
 // HELPER GET //
-export const findProps = async function (operation, zone, maxPrice, propertyType) {
+export const findProps = async function (operation, zone, maxPrice, propertyType, situation) {
   const db = await Property.findAll({
-    where: queryCreator(operation, zone, maxPrice, propertyType),
+    where: queryCreator(operation, zone, maxPrice, propertyType, situation),
     attributes:['id', 'type', 'address', 'price', 'situation', 'operation'],
     order:[['id','ASC']]
   });
