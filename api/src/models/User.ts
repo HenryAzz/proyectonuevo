@@ -20,7 +20,7 @@ export class User extends Model<User> {
   @Column({ allowNull: false })
   email!: string;
 
-  @Column({ allowNull: false })
+  @Column({ allowNull: true })
   password!: string;
 
   //Modificado tipo enum que sea persona fisica o persona juridica

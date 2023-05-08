@@ -12,6 +12,7 @@ const HomeContainer = () => {
   const theme: Theme = useTheme();
   const isSmallScream: boolean = useMediaQuery(theme.breakpoints.down("sm"));
   const isMediumScream: boolean = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Box>
       {/* <Box sx={{ display: "flex", justifyContent: "space-between", m: 2 }}>

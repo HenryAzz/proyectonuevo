@@ -5,6 +5,8 @@ import "./index.css";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline, createTheme } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
+import { ApiProvider } from "@reduxjs/toolkit/query/react";
+import { apiSlice } from "./reduxToolkit/apiSlice.ts";
 
 const theme = createTheme({
   palette: {
@@ -26,11 +28,13 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
+    <ApiProvider api={apiSlice}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+      </BrowserRouter>
+    </ApiProvider>
   </React.StrictMode>
 );
