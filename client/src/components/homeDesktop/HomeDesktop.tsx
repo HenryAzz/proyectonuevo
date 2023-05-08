@@ -9,7 +9,20 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/material";
 
-export const HomeDesktop = () => {
+type HomeDesktop = {
+  setStringQuery: React.Dispatch<React.SetStateAction<string>>;
+  stringQuery: string;
+};
+
+export const HomeDesktop: React.FC<HomeDesktop> = ({ setStringQuery, stringQuery }) => {
+  const handlerClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (event.target instanceof HTMLButtonElement) {
+      setStringQuery(stringQuery + `&type=${event.target.id}`);
+    }
+  };
+
+  console.log(handlerClick);
   return (
     <Box display="flex" justifyContent="center" alignItems="center" maxHeight="100vh">
       <Box sx={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 3 }}>

@@ -19,13 +19,28 @@ import { Theme, useTheme } from "@mui/material/";
 import { useState, useRef } from "react";
 import { useGetPropertiesQuery } from "../../reduxToolkit/apiSlice";
 
-export const HomeMovil = () => {
+type HomeMovilProps = {
+  setStringQuery: React.Dispatch<React.SetStateAction<string>>;
+  stringQuery: string;
+};
+
+export const HomeMovil: React.FC<HomeMovilProps> = ({ setStringQuery, stringQuery }) => {
   const { data, isLoading } = useGetPropertiesQuery();
 
   isLoading && console.log(typeof isLoading, typeof data);
 
   const theme: Theme = useTheme();
   const isSmallScream: boolean = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const handlerClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (event.target instanceof HTMLButtonElement) {
+      const { id } = event.currentTarget;
+      let newQuery = stringQuery.replace(/&type=[^&]*/g, "");
+      newQuery += `&type=${id}`;
+      setStringQuery(newQuery);
+    }
+  };
 
   let loading: boolean = false;
 
@@ -61,16 +76,36 @@ export const HomeMovil = () => {
           >
             Zona
           </Button>
-          <Button variant="contained" sx={{ fontSize: isSmallScream ? "10px" : "14px" }}>
+          <Button
+            variant="contained"
+            sx={{ fontSize: isSmallScream ? "10px" : "14px" }}
+            onClick={handlerClick}
+            id="Vivienda"
+          >
             Vivienda
           </Button>
-          <Button variant="contained" sx={{ fontSize: isSmallScream ? "10px" : "14px" }}>
+          <Button
+            variant="contained"
+            sx={{ fontSize: isSmallScream ? "10px" : "14px" }}
+            onClick={handlerClick}
+            id="Oficina"
+          >
             Oficina
           </Button>
-          <Button variant="contained" sx={{ fontSize: isSmallScream ? "10px" : "14px" }}>
+          <Button
+            variant="contained"
+            sx={{ fontSize: isSmallScream ? "10px" : "14px" }}
+            onClick={handlerClick}
+            id="Local"
+          >
             Local
           </Button>
-          <Button variant="contained" sx={{ fontSize: isSmallScream ? "10px" : "14px" }}>
+          <Button
+            variant="contained"
+            sx={{ fontSize: isSmallScream ? "10px" : "14px" }}
+            onClick={handlerClick}
+            id="Industria"
+          >
             Industria
           </Button>
         </ButtonGroup>

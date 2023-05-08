@@ -8,6 +8,7 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import logo from "../../image/logo.png";
+import { Link } from "react-router-dom";
 
 export const Landing = () => {
   const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -121,15 +122,19 @@ export const Landing = () => {
             }
           />
           <Box textAlign={"center"}>
-            <Button sx={{ mt: 5 }} variant="contained" component="a" href="/firstFilters">
-              Inicio
-            </Button>
+            <Link to="/home">
+              <Button sx={{ mt: 5 }} variant="contained">
+                Inicio
+              </Button>
+            </Link>
           </Box>
-          <Box textAlign={"center"}>
-            <Button sx={{ mt: 5 }} variant="contained" component="a" href="/About">
-              Sobre Nosotros
-            </Button>
-          </Box>
+          <Link to="/About">
+            <Box textAlign={"center"}>
+              <Button sx={{ mt: 5 }} variant="contained">
+                Sobre Nosotros
+              </Button>
+            </Box>
+          </Link>
         </Box>
       </Box>
     </Box>
