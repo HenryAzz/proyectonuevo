@@ -11,7 +11,14 @@ import { Box } from "@mui/material";
 
 export const HomeDesktop = () => {
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" maxHeight="100vh">
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      maxHeight="100vh"
+      marginTop={15}
+      maxWidth="xl"
+    >
       <Box sx={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 3 }}>
         <Card>
           <CardActionArea>
