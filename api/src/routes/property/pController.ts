@@ -1,20 +1,18 @@
 import { Response, Request } from "express";
-import { findProps, deleteP, fillDataBase } from "./pHelper";
+import { findProps, deleteP, getId /* typeProp */ } from "./pHelper";
 import { sequelize } from "../../db";
 
 //Traemos la tabla de nuestra DB.
 const { Property } = sequelize.models;
 
-
-//  GET PROPERTIES  //
+//  GET PROPERTY  //
 export const getProp = async (req: Request, res: Response) => {
-  const { operation, zone, maxPrice, type, situation } = req.query;
   //Tratamos errores por buenas practicas.
   try {
-    const properties = await findProps(operation, zone, maxPrice, type, situation); //helper trae todas las props.
-    return res.status(200).json(properties);
-  } catch (error:any) {
-    return res.status(404).send({ error: error.message }); //enviar tipo de error
+    const propertys = await findProps(); //helper trae todas las props.
+    return res.status(200).json(propertys);
+  } catch (error) {
+    return res.status(404).send({ error: error }); //enviar tipo de error
   }
 };
 ///////////////////
@@ -25,7 +23,7 @@ export const getProp = async (req: Request, res: Response) => {
 export const postProp = async (req: Request, res: Response) => {
   try {
     const db = await Property.create(req.body);
-    res.send({ msj: "Creado correctamente", db });
+    res.send({ msj: "Creado correctamente" });
   } catch (error) {
     return res.status(404).send({ error: error });
   }
@@ -44,13 +42,23 @@ export const deleteProp = async (req: Request, res: Response) => {
   }
 };
 
-//funcion que llena la BD con propiedades de prueba.
-export const postPropBulk = async (req:Request, res: Response) => {
+export const getPropId = async (req: Request, res: Response) => {
   try {
-    const properties = await fillDataBase();
-    console.log(properties);
-    return res.status(200).send('Base de datos Cargada')
-  } catch (error:any) {
-  return res.status(404).send({error: error.message})
-}
+    const { id } = req.params;
+    let result = await getId(id);
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(404).send({ error: error });
+  }
 };
+
+/* export const getType = async (req: Request, res: Response) => {
+  const { types } = req.params;
+  try {
+    const resp = typeProp(types);
+    return res.status(200).json(resp);
+  } catch (error: any) {
+    return res.status(404).send({ error: error.message });
+  }
+};
+ */
