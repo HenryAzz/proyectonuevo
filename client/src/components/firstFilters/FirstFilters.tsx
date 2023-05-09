@@ -20,7 +20,6 @@ export const FirstFilters: React.FC<ChildComponentProps> = ({
       setStringQuery(stringQuery + `operation=${event.target.id}`);
     }
   };
-
   return (
     <Box>
       <header style={{ display: "flex", justifyContent: "center" }}>
@@ -40,7 +39,7 @@ export const FirstFilters: React.FC<ChildComponentProps> = ({
         >
           <Link to="/home">
             <Button
-              id="Alquiler"
+              id="alquiler"
               variant="contained"
               sx={{ mb: 2, width: "100%" }}
               onClick={handlerClick}
@@ -50,7 +49,7 @@ export const FirstFilters: React.FC<ChildComponentProps> = ({
           </Link>
           <Link to="/home">
             <Button
-              id="Venta"
+              id="venta"
               variant="contained"
               sx={{ mb: 2, width: "100%" }}
               onClick={handlerClick}

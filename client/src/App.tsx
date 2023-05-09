@@ -7,7 +7,6 @@ import HomeContainer from "./components/homeContainer/HomeContainer";
 import { Registro } from "./components/registro/Registro";
 import { FormVenta } from "./components/formVenta/formVenta";
 import { FormTasar } from "./components/formTasar/formTasar";
-import { TestComponent } from "./components/tetscomponent/TestComponent";
 
 function App() {
   return (
@@ -20,7 +19,6 @@ function App() {
         <Route path="/formularioRegistro" element={<Registro />} />
         <Route path="/formVenta" element={<FormVenta />} />
         <Route path="/formTasar" element={<FormTasar />} />
-        <Route path="/testComponent/" element={<TestComponent />} />
       </Routes>
     </div>
   );

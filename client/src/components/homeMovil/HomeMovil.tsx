@@ -19,28 +19,13 @@ import { Theme, useTheme } from "@mui/material/";
 import { useState, useRef } from "react";
 import { useGetPropertiesQuery } from "../../reduxToolkit/apiSlice";
 
-type HomeMovilProps = {
-  setStringQuery: React.Dispatch<React.SetStateAction<string>>;
-  stringQuery: string;
-};
-
-export const HomeMovil: React.FC<HomeMovilProps> = ({ setStringQuery, stringQuery }) => {
+export const HomeMovil = () => {
   const { data, isLoading } = useGetPropertiesQuery();
 
   isLoading && console.log(typeof isLoading, typeof data);
 
   const theme: Theme = useTheme();
   const isSmallScream: boolean = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const handlerClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    if (event.target instanceof HTMLButtonElement) {
-      const { id } = event.currentTarget;
-      let newQuery = stringQuery.replace(/&type=[^&]*/g, "");
-      newQuery += `&type=${id}`;
-      setStringQuery(newQuery);
-    }
-  };
 
   let loading: boolean = false;
 
@@ -66,60 +51,7 @@ export const HomeMovil: React.FC<HomeMovilProps> = ({ setStringQuery, stringQuer
 
   return (
     <Box>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <ButtonGroup>
-          <Button
-            variant="contained"
-            ref={ref}
-            onClick={handleClick}
-            sx={{ fontSize: isSmallScream ? "10px" : "14px" }}
-          >
-            Zona
-          </Button>
-          <Button
-            variant="contained"
-            sx={{ fontSize: isSmallScream ? "10px" : "14px" }}
-            onClick={handlerClick}
-            id="Vivienda"
-          >
-            Vivienda
-          </Button>
-          <Button
-            variant="contained"
-            sx={{ fontSize: isSmallScream ? "10px" : "14px" }}
-            onClick={handlerClick}
-            id="Oficina"
-          >
-            Oficina
-          </Button>
-          <Button
-            variant="contained"
-            sx={{ fontSize: isSmallScream ? "10px" : "14px" }}
-            onClick={handlerClick}
-            id="Local"
-          >
-            Local
-          </Button>
-          <Button
-            variant="contained"
-            sx={{ fontSize: isSmallScream ? "10px" : "14px" }}
-            onClick={handlerClick}
-            id="Industria"
-          >
-            Industria
-          </Button>
-        </ButtonGroup>
-        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-          <MenuItem>
-            <FormControl>
-              <FormControlLabel control={<Checkbox />} label="Zona 1" labelPlacement="start" />
-              <FormControlLabel control={<Checkbox />} label="Zona 2" labelPlacement="start" />
-              <FormControlLabel control={<Checkbox />} label="Zona 3" labelPlacement="start" />
-            </FormControl>
-          </MenuItem>
-        </Menu>
-      </Box>
-      <Grid container sx={{ justifyContent: "center", mt: 8 }}>
+      <Grid container sx={{ justifyContent: "center", mt: 20 }}>
         <Grid item xs={8} sx={{ flexDirection: "column" }}>
           {arrCard.map((img, index) => (
             <Card key={index} sx={{ mb: 4 }}>

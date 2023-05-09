@@ -13,6 +13,14 @@ export const apiSlice = createApi({
     getProperties: builder.query<property[], void>({
       query: () => "/property",
     }),
+
+    getPropertysFilter: builder.query<property[], string>({
+      query: (query) => {
+        console.log(query);
+
+        return `/property${query}`;
+      },
+    }),
     getPropertyById: builder.query<property, number>({
       query: (id) => `/property/${id}`,
     }),
@@ -77,6 +85,7 @@ export const {
   useCreateBrokerMutation,
   useDeleteBrokerMutation,
   useGetPropertiesQuery,
+  useGetPropertysFilterQuery,
   useGetPropertyByIdQuery,
   useGetPropertyByTypeQuery,
   useCreatePropertyMutation,
