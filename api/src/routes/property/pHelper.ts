@@ -13,15 +13,14 @@ const queryCreator = (operation, zone, maxPrice, type, situation): any => {
     const upperCase = operation.charAt(0).toUpperCase() + operation.slice(1);
     query = {
       ...query,
-      operation: { [Op.eq]: upperCase },
+      operation: { [Op.eq]: operation },
     };
   }
 
   if (type) {
-    const upperCase = type.charAt(0).toUpperCase() + type.slice(1);
     query = {
       ...query,
-      type: { [Op.eq]: upperCase },
+      type: { [Op.eq]: type },
     };
   }
 
@@ -36,7 +35,7 @@ const queryCreator = (operation, zone, maxPrice, type, situation): any => {
     const upperCase = situation.charAt(0).toUpperCase() + situation.slice(1);
     query = {
       ...query,
-      situation: { [Op.eq]: upperCase },
+      situation: { [Op.eq]: situation },
     };
   }
 
@@ -47,7 +46,9 @@ const queryCreator = (operation, zone, maxPrice, type, situation): any => {
 export const findProps = async function (operation, zone, maxPrice, propertyType, situation) {
   const db = await Property.findAll({
     where: queryCreator(operation, zone, maxPrice, propertyType, situation),
-    //attributes: ["id", "type", "address", "price", "situation", "operation", "pictures"],
+
+    attributes: ["id", "type", "address", "price", "situation", "operation", "pictures"],
+
     order: [["id", "ASC"]],
   });
 
@@ -75,30 +76,15 @@ export const fillDataBase = async () => {
   console.log(`Data Base Loaded with ${json.length} Properties`);
 };
 
-export const getId = async (id) => {
-  const prop = await Property.findAll({
-    where: {
-      id: { [Op.eq]: id },
+//Put Property
+export const putProperty = async (id, put) => {
+  const updateProperty = await Property.update(
+    {
+      put,
     },
-    attributes: [
-      "id",
-      "type",
-      "address",
-      "spaces",
-      "price",
-      "pictures",
-      "floors",
-      "covered_area",
-      "bathroom",
-      "bedroom",
-      "furnished",
-      "description",
-      "situation",
-      "total_area",
-      "antiquity",
-      "operation",
-    ],
-  });
-  const resp = prop[0] ? prop : `Propiedad con id ${id} no encontrada`;
-  return resp;
+    {
+      where: { id: id },
+    }
+  );
+  return updateProperty;
 };

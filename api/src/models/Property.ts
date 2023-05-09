@@ -1,11 +1,4 @@
-import {
-  Model,
-  Column,
-  Table,
-  CreatedAt,
-  UpdatedAt,
-  DataType,
-} from "sequelize-typescript";
+import { Model, Column, Table, CreatedAt, UpdatedAt, DataType } from "sequelize-typescript";
 
 @Table({
   timestamps: false,
@@ -14,7 +7,9 @@ export class Property extends Model<Property> {
   @Column({
     type: DataType.INTEGER,
     primaryKey: true,
+    allowNull: false,
     autoIncrement: true,
+    unique: true,
   })
   id!: number;
 
@@ -25,13 +20,10 @@ export class Property extends Model<Property> {
   })
   type!: string;
 
-  @Column({
-    allowNull: false,
-    unique: true
-   })
+  @Column({ allowNull: false })
   address!: string;
 
-  @Column({ allowNull: true })
+  @Column({ allowNull: false })
   spaces!: number;
 
   @Column({
@@ -47,30 +39,30 @@ export class Property extends Model<Property> {
   pictures!: object;
 
   @Column({
-    allowNull: true,
+    allowNull: false,
     type: DataType.INTEGER,
   })
   floors!: number;
 
   @Column({
-    allowNull: true,
+    allowNull: false,
     type: DataType.FLOAT,
   })
   covered_area!: number;
 
   @Column({
-    allowNull: true,
+    allowNull: false,
     type: DataType.FLOAT,
   })
   bathroom!: number;
 
   @Column({
-    allowNull: true,
+    allowNull: false,
     type: DataType.INTEGER,
   })
   bedroom!: number;
 
-  @Column({ allowNull: true })
+  @Column({ allowNull: false })
   furnished!: Boolean;
 
   @Column({ allowNull: false })
@@ -84,13 +76,13 @@ export class Property extends Model<Property> {
   situation!: string;
 
   @Column({
-    allowNull: true,
+    allowNull: false,
     type: DataType.FLOAT,
   })
   total_area!: number;
 
   @Column({
-    allowNull: true,
+    allowNull: false,
     type: DataType.FLOAT,
   })
   antiquity!: number;
@@ -103,21 +95,22 @@ export class Property extends Model<Property> {
   owner!: string;
 }
 
-// //ejemplo:
-// @Table
-// export class User extends Model<User> {
-//  @Column
-//  name!: string;
-
-//  @Column
-//  lastName!: string;
-
-//  @CreatedAt
-//  @Column
-//  createdAt!: Date;
-
-//  @UpdatedAt
-//  @Column
-//  updatedAt!: Date;
-// }
-// @Column({//aca irian nuestros atributos}) Asi mismo, tambien dentro de la clase deberiamos generar nuestras relaciones! No en un archivo afuera, te invito a que leas la documentacion de sequelize-typescript para que veas como se hace! Es muy sencillo.
+// "type": "Vivienda",
+// "address": "UJUY AV. al 1700 103",
+// "spaces": 2,
+// "price": 84.0,
+// "pictures":[
+//     {"img":"https://static.tokkobroker.com/water_pics/61473490849556420478476952427662215243829091586321796539503166833583826460719.jpg"}]
+// ,
+// "floors": 10,
+// "covered_area": 37,
+// "bathroom": 1.5,
+// "bedroom": 1,
+// "furnished": true,
+// "description": "DPTO. 2 AMBIENTES, CFTE., BALCON,  APTO PROFESIONAL, AMENITIES, A ESTRENAR, ENTREGA INMEDIATA!",
+// "situation": "Disponible",
+// "total_area": 40,
+// "antiquity": 1,
+// "operation": "Venta",
+// "owner": "Schiaffino"
+// },
