@@ -9,4 +9,5 @@ export const sequelize = new Sequelize({
   port: Number(config.dbPort),
   storage: ":memory:",
   models: [__dirname + "/models"],
+  logging: false,
 });

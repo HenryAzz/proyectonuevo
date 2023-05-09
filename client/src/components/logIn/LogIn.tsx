@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 //improt intreface
 import { createUserRequest } from "../../reduxToolkit/authentication";
@@ -24,6 +25,7 @@ import { auth, provider } from "../../firebase/firebase";
 import { signInWithPopup } from "firebase/auth";
 
 export const LogIn = (handleChange: any) => {
+  const navigate = useNavigate();
   const [crateUser] = useCreateUserMutation();
   const paperStyle = {
     padding: 20,
@@ -66,6 +68,7 @@ export const LogIn = (handleChange: any) => {
           rol: "Cliente",
         };
         crateUser(newUser);
+        navigate("/home");
       }
     } catch (error: any) {
       console.log("Error signing in with Google:", error.message);
