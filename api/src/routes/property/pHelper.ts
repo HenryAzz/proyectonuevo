@@ -72,3 +72,16 @@ export const fillDataBase = async () => {
   await Property.bulkCreate(json);
   console.log(`Data Base Loaded with ${json.length} Properties`);
 };
+
+//Put Property
+export const putProperty = async (id, put) => {
+  const updateProperty = await Property.update(
+    {
+      put,
+    },
+    {
+      where: { id: id },
+    }
+  );
+  return updateProperty;
+};

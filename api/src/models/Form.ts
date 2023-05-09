@@ -40,18 +40,18 @@ export default class Form extends Model {
 
   //Mercado  Pago
   @Column({
-    allowNull: false,
+    allowNull: true,
     type: DataType.ENUM("vender", "tasar", "rentar"),
   })
   title!: string;
 
-  @Column({ allowNull: false })
+  @Column({ allowNull: true })
   description!: string;
 
-  @Column({ allowNull: false })
+  @Column({ allowNull: true })
   picture_url!: string;
 
-  @Column({ allowNull: false })
+  @Column({ allowNull: true })
   unit_price!: number;
 
   //Datos usuario
