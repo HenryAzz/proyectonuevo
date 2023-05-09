@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { findProps, deleteP, fillDataBase, putProperty } from "./pHelper";
+import { findProps, deleteP, fillDataBase, getId } from "./pHelper";
 import { sequelize } from "../../db";
 
 //Traemos la tabla de nuestra DB.
@@ -51,19 +51,5 @@ export const postPropBulk = async (req: Request, res: Response) => {
     return res.status(200).send("Base de datos Cargada");
   } catch (error: any) {
     return res.status(404).send({ error: error.message });
-  }
-};
-
-//  PUT PROPERTY
-export const putProp = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const put = req.body;
-
-    const updateProp = await putProperty(id, put);
-
-    res.status(200).send({ msj: "Propiedad actualizada correctamente." });
-  } catch (error: any) {
-    res.status(404).send(error.error);
   }
 };

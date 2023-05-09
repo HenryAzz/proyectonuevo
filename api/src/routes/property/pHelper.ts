@@ -2,11 +2,13 @@ import { promises } from "dns";
 import { json } from "../../../jsonejemplo";
 import { sequelize } from "../../db";
 import { Op } from "sequelize";
+
 const { Property } = sequelize.models;
 
 const queryCreator = (operation, zone, maxPrice, type, situation): any => {
   let price = Number(maxPrice);
   let query = {};
+  const upperCase = operation.charAt(0).toUpperCase() + operation.slice(1);
   if (operation) {
     query = {
       ...query,
@@ -29,6 +31,7 @@ const queryCreator = (operation, zone, maxPrice, type, situation): any => {
   }
 
   if (situation) {
+    const upperCase = situation.charAt(0).toUpperCase() + situation.slice(1);
     query = {
       ...query,
       situation: { [Op.eq]: situation },
@@ -68,17 +71,4 @@ export const deleteP = async (id: number) => {
 export const fillDataBase = async () => {
   await Property.bulkCreate(json);
   console.log(`Data Base Loaded with ${json.length} Properties`);
-};
-
-//  PUT PROPERTY
-export const putProperty = async (id, put) => {
-  const updateProperty = await Property.update(
-    {
-      put,
-    },
-    {
-      where: { id: id },
-    }
-  );
-  return updateProperty;
 };
