@@ -9,7 +9,20 @@ import {
 } from "@mui/material";
 import { useState, useRef } from "react";
 
-export const SecondFilters = () => {
+type filterPorps = {
+  setStringQuery: React.Dispatch<React.SetStateAction<string>>;
+  stringQuery: string;
+};
+
+export const SecondFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuery }) => {
+  const handlerClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const { id } = event.currentTarget;
+    let newQuery = stringQuery.replace(/&type=[^&]*/g, "");
+    newQuery += `&type=${id}`;
+
+    setStringQuery(newQuery);
+  };
   const properties: string[] = ["vivienda", "oficina", "local", "industria"];
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -23,13 +36,13 @@ export const SecondFilters = () => {
     setAnchorEl(null);
   };
 
-  const dataButton = (e: any) => {
+  /* const dataButton = (e: any) => {
     const typeOfProperty = e.currentTarget.id;
 
     typeOfProperty !== "zona"
       ? console.log(e.currentTarget.id)
       : console.log("No es un tipo de vivienda");
-  };
+  }; */
   return (
     <div>
       <Stack
@@ -48,7 +61,7 @@ export const SecondFilters = () => {
           Zona
         </Button>
         {properties.map((element, index) => (
-          <Button variant="contained" onClick={dataButton} fullWidth id={element} key={index}>
+          <Button variant="contained" onClick={handlerClick} fullWidth id={element} key={index}>
             {element}
           </Button>
         ))}

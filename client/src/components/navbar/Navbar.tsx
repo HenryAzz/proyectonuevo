@@ -6,7 +6,12 @@ import { Link } from "react-router-dom";
 import { orange } from "@mui/material/colors";
 import { SecondFilters } from "../secondFilters/secondFilters";
 
-export const Navbar = () => {
+type filterPorps = {
+  setStringQuery: React.Dispatch<React.SetStateAction<string>>;
+  stringQuery: string;
+};
+
+export const Navbar: React.FC<filterPorps> = ({ setStringQuery, stringQuery }) => {
   const colorf = orange[50];
 
   return (
@@ -14,50 +19,31 @@ export const Navbar = () => {
       <AppBar sx={{ bgcolor: colorf }} position="fixed">
         <Toolbar sx={{ mt: 2, mb: 2 }}>
           <Container>
-            <Grid container justifyContent="center">
-              <Grid container justifyContent="space-between" sx={{ width: "75vw" }}>
-                <Grid
-                  item
-                  sx={{
-                    alignSelf: { lg: "center" },
-                    display: { xs: "none", md: "block" },
-                    width: "10vw",
-                    flexGrow: 0.5,
+            <Grid container direction="row" justifyContent="center">
+              <Grid item sx={{ alignSelf: "center" }}>
+                <img src={Logo} alt="PropTech logo" height="40vh" />
+              </Grid>
+              <Grid item sx={{ width: "40vw" }}>
+                <SearchBar />
+              </Grid>
+              <Grid item>
+                <Link
+                  to="/logIN"
+                  style={{
+                    alignSelf: "center",
+                    backgroundColor: "black",
+                    textDecoration: "none",
+                    color: "#B17A50",
                   }}
                 >
-                  <img src={Logo} alt="PropTech logo" height="40vh" />
-                </Grid>
-                <Grid item sx={{ width: "40vw" }}>
-                  <SearchBar />
-                </Grid>
-                <Grid item>
-                  <Link
-                    to="/logIN"
-                    style={{
-                      alignSelf: "center",
-                      textDecoration: "none",
-                      color: "#B17A50",
-                      display: "flex",
-                      flexDirection: "row",
-                    }}
-                  >
-                    <Typography
-                      variant="h5"
-                      sx={{
-                        display: { xs: "none", sm: "none", md: "block" },
-                      }}
-                    >
-                      Iniciar Sesion
-                    </Typography>
-                    <AccountCircleOutlinedIcon
-                      sx={{ alignSelf: "center", ml: 1, fontSize: { xs: 40, md: 25 } }}
-                    />
-                  </Link>
-                </Grid>
+                  <Typography variant="h6" sx={{ display: "flex" }}>
+                    Iniciar Sesion <AccountCircleOutlinedIcon sx={{ alignSelf: "center", ml: 1 }} />
+                  </Typography>
+                </Link>
               </Grid>
-              <Grid container justifyContent="center">
-                <SecondFilters />
-              </Grid>
+            </Grid>
+            <Grid container justifyContent="center">
+              <SecondFilters setStringQuery={setStringQuery} stringQuery={stringQuery} />
             </Grid>
           </Container>
         </Toolbar>

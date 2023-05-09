@@ -2,7 +2,24 @@ import { Box, Button, Grid } from "@mui/material";
 import logo from "../../image/logo.png";
 import { Link } from "react-router-dom";
 
-export const FirstFilters = () => {
+type ChildComponentProps = {
+  setMissingFilters: React.Dispatch<React.SetStateAction<boolean>>;
+  setStringQuery: React.Dispatch<React.SetStateAction<string>>;
+  stringQuery: string;
+};
+
+export const FirstFilters: React.FC<ChildComponentProps> = ({
+  setMissingFilters,
+  setStringQuery,
+  stringQuery,
+}) => {
+  const handlerClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setMissingFilters(true);
+    if (event.target instanceof HTMLButtonElement) {
+      setStringQuery(stringQuery + `operation=${event.target.id}`);
+    }
+  };
   return (
     <Box>
       <header style={{ display: "flex", justifyContent: "center" }}>
@@ -21,12 +38,22 @@ export const FirstFilters = () => {
           }}
         >
           <Link to="/home">
-            <Button variant="contained" sx={{ mb: 2, width: "100%" }}>
+            <Button
+              id="alquiler"
+              variant="contained"
+              sx={{ mb: 2, width: "100%" }}
+              onClick={handlerClick}
+            >
               Alquilar
             </Button>
           </Link>
           <Link to="/home">
-            <Button variant="contained" sx={{ mb: 2, width: "100%" }}>
+            <Button
+              id="venta"
+              variant="contained"
+              sx={{ mb: 2, width: "100%" }}
+              onClick={handlerClick}
+            >
               Comprar
             </Button>
           </Link>

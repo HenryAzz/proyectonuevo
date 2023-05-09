@@ -9,19 +9,18 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useGetPropertysFilterQuery } from "../../reduxToolkit/apiSlice";
 
-export const HomeDesktop = () => {
+type filterPorps = {
+  stringQuery: string;
+};
+
+export const HomeDesktop: React.FC<filterPorps> = ({ stringQuery }) => {
   const [fetchedData, updateFetchedData] = useState([]);
 
-  const api = `https://rickandmortyapi.com/api/character/`;
+  const { data, isLoading } = useGetPropertysFilterQuery(stringQuery);
 
-  useEffect(() => {
-    (async function () {
-      const data = await fetch(api).then((res) => res.json());
-      updateFetchedData(data.results);
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  isLoading ? console.log("cargando") : console.log(data);
 
   console.log(fetchedData[0]);
 

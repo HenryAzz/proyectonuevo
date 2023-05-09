@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { findProps, deleteP, fillDataBase } from "./pHelper";
+import { findProps, deleteP, fillDataBase, getId } from "./pHelper";
 import { sequelize } from "../../db";
 
 //Traemos la tabla de nuestra DB.
