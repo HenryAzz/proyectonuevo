@@ -51,40 +51,7 @@ export const HomeMovil = () => {
 
   return (
     <Box>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <ButtonGroup>
-          <Button
-            variant="contained"
-            ref={ref}
-            onClick={handleClick}
-            sx={{ fontSize: isSmallScream ? "10px" : "14px" }}
-          >
-            Zona
-          </Button>
-          <Button variant="contained" sx={{ fontSize: isSmallScream ? "10px" : "14px" }}>
-            Vivienda
-          </Button>
-          <Button variant="contained" sx={{ fontSize: isSmallScream ? "10px" : "14px" }}>
-            Oficina
-          </Button>
-          <Button variant="contained" sx={{ fontSize: isSmallScream ? "10px" : "14px" }}>
-            Local
-          </Button>
-          <Button variant="contained" sx={{ fontSize: isSmallScream ? "10px" : "14px" }}>
-            Industria
-          </Button>
-        </ButtonGroup>
-        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-          <MenuItem>
-            <FormControl>
-              <FormControlLabel control={<Checkbox />} label="Zona 1" labelPlacement="start" />
-              <FormControlLabel control={<Checkbox />} label="Zona 2" labelPlacement="start" />
-              <FormControlLabel control={<Checkbox />} label="Zona 3" labelPlacement="start" />
-            </FormControl>
-          </MenuItem>
-        </Menu>
-      </Box>
-      <Grid container sx={{ justifyContent: "center", mt: 8 }}>
+      <Grid container sx={{ justifyContent: "center", mt: 20 }}>
         <Grid item xs={8} sx={{ flexDirection: "column" }}>
           {arrCard.map((img, index) => (
             <Card key={index} sx={{ mb: 4 }}>
