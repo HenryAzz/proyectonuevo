@@ -1,5 +1,13 @@
-import { Model, Column, Table, CreatedAt, UpdatedAt, DataType } from "sequelize-typescript";
-
+import {
+  Model,
+  Column,
+  Table,
+  CreatedAt,
+  UpdatedAt,
+  DataType,
+  HasMany,
+} from "sequelize-typescript";
+import Form from "./Form";
 @Table({
   timestamps: false,
 })
@@ -43,6 +51,10 @@ export class User extends Model<User> {
     defaultValue: null,
   })
   hashgoogle!: string;
+
+  //Agrega todas las Operaciones del usuario (vender, rentar, tasar)
+  @HasMany(() => Form)
+  properties!: Form[];
 }
 
 // //ejemplo:
