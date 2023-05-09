@@ -1,4 +1,13 @@
-import { Model, Column, Table, CreatedAt, UpdatedAt, DataType } from "sequelize-typescript";
+import {
+  Model,
+  Column,
+  Table,
+  CreatedAt,
+  UpdatedAt,
+  DataType,
+  HasMany,
+} from "sequelize-typescript";
+import Form from "./Form";
 
 @Table({
   timestamps: false,
@@ -24,7 +33,7 @@ export class Broker extends Model<Broker> {
   @Column({ allowNull: false })
   password!: string;
 
-  @Column({ allowNull: false }) 
+  @Column({ allowNull: false })
   name!: string;
 
   //agrego imagen por defecto de avatar para admin o broker
@@ -33,6 +42,8 @@ export class Broker extends Model<Broker> {
     defaultValue: "https://i.pinimg.com/originals/43/b6/17/43b617c260ae06d6ab6318176f20be50.png",
   })
   avatar!: string;
+  @HasMany(() => Form)
+  properties!: Form[];
 }
 
 // //ejemplo:

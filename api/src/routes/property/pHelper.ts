@@ -2,52 +2,50 @@ import { promises } from "dns";
 import { json } from "../../../jsonejemplo";
 import { sequelize } from "../../db";
 import { Op } from "sequelize";
-
-
 const { Property } = sequelize.models;
 
-const queryCreator = (operation, zone, maxPrice, type, situation):any => {
+const queryCreator = (operation, zone, maxPrice, type, situation): any => {
   let price = Number(maxPrice);
   let query = {};
   if (operation) {
     query = {
       ...query,
-      operation: {[Op.eq]: operation}
-    }
+      operation: { [Op.eq]: operation },
+    };
   }
 
-  if(type){
+  if (type) {
     query = {
       ...query,
-      type: {[Op.eq]:type}
-    }
+      type: { [Op.eq]: type },
+    };
   }
 
   if (maxPrice) {
-    query={
+    query = {
       ...query,
-      price: {[Op.between]: [0, price]}
-    }
+      price: { [Op.between]: [0, price] },
+    };
   }
 
   if (situation) {
     query = {
       ...query,
-      situation: {[Op.eq]: situation}
-    }
+      situation: { [Op.eq]: situation },
+    };
   }
 
   return query;
-}
+};
 
 // HELPER GET //
 export const findProps = async function (operation, zone, maxPrice, propertyType, situation) {
   const db = await Property.findAll({
     where: queryCreator(operation, zone, maxPrice, propertyType, situation),
-    attributes:['id', 'type', 'address', 'price', 'situation', 'operation'],
-    order:[['id','ASC']]
+    attributes: ["id", "type", "address", "price", "situation", "operation"],
+    order: [["id", "ASC"]],
   });
-  
+
   return db;
 };
 
@@ -67,7 +65,20 @@ export const deleteP = async (id: number) => {
 };
 
 //Llenar la Bd con varias casas de prueba
-export const fillDataBase = async ()  => {
+export const fillDataBase = async () => {
   await Property.bulkCreate(json);
   console.log(`Data Base Loaded with ${json.length} Properties`);
-}
+};
+
+//  PUT PROPERTY
+export const putProperty = async (id, put) => {
+  const updateProperty = await Property.update(
+    {
+      put,
+    },
+    {
+      where: { id: id },
+    }
+  );
+  return updateProperty;
+};

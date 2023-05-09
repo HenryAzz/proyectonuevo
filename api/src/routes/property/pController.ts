@@ -1,10 +1,9 @@
 import { Response, Request } from "express";
-import { findProps, deleteP, fillDataBase } from "./pHelper";
+import { findProps, deleteP, fillDataBase, putProperty } from "./pHelper";
 import { sequelize } from "../../db";
 
 //Traemos la tabla de nuestra DB.
 const { Property } = sequelize.models;
-
 
 //  GET PROPERTIES  //
 export const getProp = async (req: Request, res: Response) => {
@@ -13,7 +12,7 @@ export const getProp = async (req: Request, res: Response) => {
   try {
     const properties = await findProps(operation, zone, maxPrice, type, situation); //helper trae todas las props.
     return res.status(200).json(properties);
-  } catch (error:any) {
+  } catch (error: any) {
     return res.status(404).send({ error: error.message }); //enviar tipo de error
   }
 };
@@ -45,12 +44,26 @@ export const deleteProp = async (req: Request, res: Response) => {
 };
 
 //funcion que llena la BD con propiedades de prueba.
-export const postPropBulk = async (req:Request, res: Response) => {
+export const postPropBulk = async (req: Request, res: Response) => {
   try {
     const properties = await fillDataBase();
     console.log(properties);
-    return res.status(200).send('Base de datos Cargada')
-  } catch (error:any) {
-  return res.status(404).send({error: error.message})
-}
+    return res.status(200).send("Base de datos Cargada");
+  } catch (error: any) {
+    return res.status(404).send({ error: error.message });
+  }
+};
+
+//  PUT PROPERTY
+export const putProp = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const put = req.body;
+
+    const updateProp = await putProperty(id, put);
+
+    res.status(200).send({ msj: "Propiedad actualizada correctamente." });
+  } catch (error: any) {
+    res.status(404).send(error.error);
+  }
 };
