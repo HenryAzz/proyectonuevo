@@ -53,3 +53,13 @@ export const postPropBulk = async (req: Request, res: Response) => {
     return res.status(404).send({ error: error.message });
   }
 };
+
+export const getPropId = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    let result = await getId(id);
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(404).send({ error: error });
+  }
+};
