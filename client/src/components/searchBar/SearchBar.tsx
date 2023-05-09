@@ -10,10 +10,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import Button from "@mui/material/Button";
 
-// This key was created specifically for the demo in mui.com.
-// You need to create a new one for your application.
-const GOOGLE_MAPS_API_KEY = "AIzaSyBhq-MtwGZcRATZFIz82KPYzvMxYR77Rlo";
-//const GOOGLE_MAPS_API_KEY = "AIzaSyCWK9RVbg1BB6sMpbd5XLW83MSIjLU4ek4";
+const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 function loadScript(src: string, position: HTMLElement | null, id: string) {
   if (!position) {
@@ -52,7 +49,7 @@ export const SearchBar = () => {
   if (typeof window !== "undefined" && !loaded.current) {
     if (!document.querySelector("#google-maps")) {
       loadScript(
-        `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`,
+        `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`,
         document.querySelector("head"),
         "google-maps"
       );
@@ -105,11 +102,16 @@ export const SearchBar = () => {
     };
   }, [value, inputValue, fetch]);
 
+  const sendLocation = () => {
+    console.log(inputValue);
+  };
+
   return (
-    <Grid container direction="row">
+    <Grid container direction="row" justifyContent="center">
       <Autocomplete
         id="google-map-demo"
-        sx={{ width: 440, height: "5vh" }}
+        size="small"
+        style={{ width: "25vw" }}
         getOptionLabel={(option) => (typeof option === "string" ? option : option.description)}
         filterOptions={(x) => x}
         options={options}
@@ -159,7 +161,7 @@ export const SearchBar = () => {
                       {part.text}
                     </Box>
                   ))}
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" color="black">
                     {option.structured_formatting.secondary_text}
                   </Typography>
                 </Grid>
@@ -168,8 +170,8 @@ export const SearchBar = () => {
           );
         }}
       />
-      <Button variant="contained" sx={{ height: "5vh" }}>
-        Small
+      <Button variant="contained" onClick={() => sendLocation()}>
+        Buscar
       </Button>
     </Grid>
   );
