@@ -1,10 +1,12 @@
-import { Box, AppBar, Toolbar, Container, Grid, Typography } from "@mui/material";
+import { Box, AppBar, Toolbar, Container, Grid, Typography, useMediaQuery } from "@mui/material";
 import Logo from "../../image/logo.png";
 import { SearchBar } from "../searchBar/SearchBar";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
 import { orange } from "@mui/material/colors";
 import { SecondFilters } from "../secondFilters/secondFilters";
+import { Theme, useTheme } from "@mui/material/styles";
+import Logo2 from "../../image/iconLogo.png";
 
 type filterPorps = {
   setStringQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -13,15 +15,17 @@ type filterPorps = {
 
 export const Navbar: React.FC<filterPorps> = ({ setStringQuery, stringQuery }) => {
   const colorf = orange[50];
+  const theme: Theme = useTheme();
+  const isMediumScream: boolean = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, mb: 2 }}>
       <AppBar sx={{ bgcolor: colorf }} position="fixed">
         <Toolbar sx={{ mt: 2, mb: 2 }}>
           <Container>
             <Grid container direction="row" justifyContent="center">
               <Grid item sx={{ alignSelf: "center" }}>
-                <img src={Logo} alt="PropTech logo" height="40vh" />
+                <img src={isMediumScream ? Logo2 : Logo} alt="PropTech logo" height="40vh" />
               </Grid>
               <Grid item sx={{ width: "40vw" }}>
                 <SearchBar />
@@ -37,7 +41,8 @@ export const Navbar: React.FC<filterPorps> = ({ setStringQuery, stringQuery }) =
                   }}
                 >
                   <Typography variant="h6" sx={{ display: "flex" }}>
-                    Iniciar Sesion <AccountCircleOutlinedIcon sx={{ alignSelf: "center", ml: 1 }} />
+                    {isMediumScream ? "" : "Iniciar Sesion"}
+                    <AccountCircleOutlinedIcon sx={{ alignSelf: "center", ml: 1 }} />
                   </Typography>
                 </Link>
               </Grid>

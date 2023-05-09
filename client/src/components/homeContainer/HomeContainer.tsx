@@ -18,7 +18,8 @@ const HomeContainer = () => {
       {missingFilters ? (
         <Box>
           <Navbar setStringQuery={setStringQuery} stringQuery={stringQuery} />
-          {isMediumScream ? <HomeMovil /> : <HomeDesktop stringQuery={stringQuery} />}
+          {/* {isMediumScream ? <HomeMovil /> : <HomeDesktop stringQuery={stringQuery} />} */}
+          <HomeDesktop stringQuery={stringQuery} />
         </Box>
       ) : (
         <FirstFilters
