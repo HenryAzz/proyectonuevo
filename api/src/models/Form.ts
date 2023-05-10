@@ -79,31 +79,31 @@ export default class Form extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
-  Address: string;
+  address: string;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  Number: number;
+  number: number;
 
   @Column({
     type: DataType.STRING,
     allowNull: true,
   })
-  Apartment: string;
+  apartment: string;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: true,
   })
-  Floor: number;
+  floor: number;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  Location: string;
+  location: string;
 
   @Column({
     type: DataType.STRING,
