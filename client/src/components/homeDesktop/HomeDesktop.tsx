@@ -15,9 +15,9 @@ export const HomeDesktop: React.FC<filterPorps> = ({ stringQuery }) => {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       {data?.length !== 0 ? (
-        <Grid container spacing={2} sx={{ justifyContent: "center", mt: 18 }}>
+        <Grid container spacing={2} sx={{ mt: 18, width: "80vw" }}>
           {data?.map((element, index) => (
-            <Grid item xs={8} sm={8} md={3} lg={3} key={index}>
+            <Grid item xs={8} sm={8} md={6} lg={4} key={index}>
               <CardComponent
                 address={element.address}
                 description={element.description}
