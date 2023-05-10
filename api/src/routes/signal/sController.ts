@@ -7,6 +7,9 @@ import {
   searchSituationSignal,
 } from "./sHelper";
 import { sequelize } from "../../db";
+import { MailService } from "../../services/mailerService";
+import clientSignalTemplate from "../../templates/clientSignalTemplate";
+import supplierSignalTemplate from "../../templates/supplierSignalTemplate";
 
 //Traemos la tabla de nuestra DB.
 const { Signal, Property, Broker, User } = sequelize.models;
@@ -51,6 +54,15 @@ export const postProp = async (req: Request, res: Response) => {
       {
         where: { id: req.body.propertyId },
       }
+    );
+
+    let user = await User.findOne({ where: { id: req.body.userId } });
+    let property = await Property.findOne({ where: { id: req.body.propertyId } });
+
+    //ENVIAR EMAIL A USUARIO
+    const emailTemplate = user.dataValues.rol === "Cliente" ? clientSignalTemplate(user.dataValues.name, property) : supplierSignalTemplate(user.dataValues.name, property);
+
+    let sendmail = await MailService(user.dataValues.email, "Registro de solicitud de Propiedad - PropTech", emailTemplate.html
     );
 
     res.send({ msj: "Signal Creado correctamente" });
