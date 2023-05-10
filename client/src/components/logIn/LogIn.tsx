@@ -181,6 +181,7 @@ import { useCreateUserMutation } from "../../reduxToolkit/apiSlice";
 //import firebase methods
 import { auth, provider } from "../../firebase/firebase";
 import { signInWithPopup } from "firebase/auth";
+import Swal from "sweetalert2";
 
 export const LogIn = (handleChange: any) => {
   const [crateUser] = useCreateUserMutation();
@@ -203,6 +204,19 @@ export const LogIn = (handleChange: any) => {
     contraseña: "",
     recuerdame: false,
   };
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+
   const validationSchema = Yup.object().shape({
     usuario: Yup.string()
       .required("*Campo Obligatorio")
@@ -231,10 +245,22 @@ export const LogIn = (handleChange: any) => {
           rol: "Cliente",
         };
         crateUser(newUser);
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Inicio de Sesión con Google Exitoso'
+        })
+
         navigate("/home");
       }
     } catch (error: any) {
       console.log("Error signing in with Google:", error.message);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Algo salió mal al vincular cuenta Google..!!',
+        confirmButtonColor: '#3085d6',
+      });
     }
   };
 

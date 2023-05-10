@@ -5,9 +5,13 @@ import {
   findUserByRolPersonType,
   findUserPerson_type,
   getUserSoloByEmail,
+  updatePasswordUser
 } from "./uHelper";
 import { sequelize } from "../../db";
 import exp from "constants";
+import { MailService } from "../../services/mailerService";
+import clientUserTemplate from "../../templates/clientUserTemplate";
+import supplierUserTemplate from "../../templates/supplierUserTemplate";
 
 //Traemos la tabla de nuestra DB.
 const { User } = sequelize.models;
@@ -59,12 +63,33 @@ export const postUser = async (req: Request, res: Response) => {
     } else {
       //si los campos son correctos, creamos el usuario.
       await User.create(req.body);
+
+      //ENVIAR EMAIL A USUARIO
+      const emailTemplate = user.rol === "Cliente" ? clientUserTemplate(user.name) : supplierUserTemplate(user.name);
+      let sendmail = await MailService(user.email, "Bienvenido - PropTech", emailTemplate.html
+      );
+
       res.send({ msj: "Usuario creado correctamente", user: req.body });
     }
   } catch (error) {
     res.status(404).send({ error: error });
   }
 };
+
+//  PUT USER  //
+export const putUser = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+
+    const updateUser = await updatePasswordUser(email);
+
+    res.send({ msj: updateUser });
+  } catch (error) {
+    res.status(404).send(error);
+  }
+};
+
+
 ////////////////////////////////////////////////////
 
 //GOOGLE!

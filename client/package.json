@@ -29,6 +29,7 @@
     "react-router-dom": "^6.11.0",
     "react-swipeable-views": "^0.14.0",
     "simple-react-google-maps": "^1.1.2",
+    "sweetalert2": "^11.7.5",
     "yup": "^1.1.1"
   },
   "devDependencies": {

@@ -1,4 +1,6 @@
 import { sequelize } from "../../db";
+import { MailService } from "../../services/mailerService";
+import updateSignalTemplate from "../../templates/updateSignalTemplate";
 
 const { Signal, Property, Broker, User } = sequelize.models;
 
@@ -47,6 +49,19 @@ export const putSignal = async function (id, situation) {
       where: { id: signal.dataValues.propertyId },
     }
   );
+
+  let user = await User.findOne({ where: { id: signal.dataValues.userId } });
+  let property = await Property.findOne({ where: { id: signal.dataValues.propertyId } });
+
+  let operation = signal.dataValues.operation === "Venta" ? "Vender" : "Compar o Alquilar";
+
+  //ENVIAR EMAIL A USUARIO
+  const emailTemplate = updateSignalTemplate(user.dataValues.name, property, situation, operation);
+  let sendmail = await MailService(
+      user.dataValues.email, 
+      "Respuesta de solicitud de Propiedad - PropTech", 
+      emailTemplate.html
+    );
 
   return updateSignal;
 };
