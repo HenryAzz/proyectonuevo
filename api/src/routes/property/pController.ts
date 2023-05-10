@@ -67,3 +67,4 @@ export const putProp = async (req: Request, res: Response) => {
     res.status(404).send(error.error);
   }
 };
+

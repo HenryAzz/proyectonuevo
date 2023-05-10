@@ -8,18 +8,20 @@ const { Property } = sequelize.models;
 const queryCreator = (operation, zone, maxPrice, type, situation): any => {
   let price = Number(maxPrice);
   let query = {};
-  const upperCase = operation.charAt(0).toUpperCase() + operation.slice(1);
+
   if (operation) {
+    const upperCase = operation.charAt(0).toUpperCase() + operation.slice(1);
     query = {
       ...query,
-      operation: { [Op.eq]: operation },
+      operation: { [Op.eq]: upperCase },
     };
   }
 
   if (type) {
+    const upperCase = type.charAt(0).toUpperCase() + type.slice(1);
     query = {
       ...query,
-      type: { [Op.eq]: type },
+      type: { [Op.eq]: upperCase },
     };
   }
 
@@ -34,7 +36,7 @@ const queryCreator = (operation, zone, maxPrice, type, situation): any => {
     const upperCase = situation.charAt(0).toUpperCase() + situation.slice(1);
     query = {
       ...query,
-      situation: { [Op.eq]: situation },
+      situation: { [Op.eq]: upperCase },
     };
   }
 
@@ -45,7 +47,9 @@ const queryCreator = (operation, zone, maxPrice, type, situation): any => {
 export const findProps = async function (operation, zone, maxPrice, propertyType, situation) {
   const db = await Property.findAll({
     where: queryCreator(operation, zone, maxPrice, propertyType, situation),
-    attributes: ["id", "type", "address", "price", "situation", "operation"],
+
+    attributes: ["id", "type", "address", "price", "situation", "operation", "pictures"],
+
     order: [["id", "ASC"]],
   });
 

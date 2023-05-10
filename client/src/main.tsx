@@ -15,13 +15,13 @@ const theme = createTheme({
       light: "rgba(241, 180, 115, 0.5)",
     },
     text: {
-      primary: "#B17A50",
+      primary: "#995f32",
     },
   },
   typography: {
     fontFamily: "Montserrat",
     fontWeightLight: 200,
-    fontWeightRegular: 300,
+    fontWeightRegular: 500,
     fontWeightMedium: 500,
   },
 });
