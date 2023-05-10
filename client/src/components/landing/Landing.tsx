@@ -36,7 +36,7 @@ export const Landing = () => {
                 alignItems: "center",
               }}
             >
-              <Link to="/firstFilters">
+              <Link to="/home">
                 <Button variant="contained">Ingresar</Button>
               </Link>
               <Link to="/about">
