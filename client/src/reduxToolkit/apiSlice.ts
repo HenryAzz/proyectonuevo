@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { property, createPropertyRequest } from "./propertyinterfaces";
+import {form, createFormRequest} from './forminterfaces'
 import { Broker, CreateBrokerRequest } from "./brokerInterfaces";
 import { createUserRequest } from "./authentication";
 
@@ -48,6 +49,16 @@ export const apiSlice = createApi({
       }),
     }),
 
+    ////metodos para enviar y recibr data de la ruta form
+
+    createForm: builder.mutation<form, createFormRequest>({
+      query: (form) => ({
+        url: "/form",
+        method: "POST",
+        body: form,
+      }),
+    }),
+
     //metodos para enviar y recibr data de la ruta broker
     getBrokers: builder.query<Broker[], void>({
       query: () => "/broker",
@@ -91,4 +102,5 @@ export const {
   useCreatePropertyMutation,
   useDeletPropertyByIDMutation,
   useCreateUserMutation,
+  useCreateFormMutation
 } = apiSlice;

@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { Button, Box } from "@mui/material";
+import {miArray} from './config'
 
 type TypeUploadWidget = () => JSX.Element;
 
@@ -11,7 +12,7 @@ declare global {
 }
 
 const UploadWidget2: TypeUploadWidget = () => {
-  const str: string[] = [];
+  
 
   useEffect(() => {
     const cloudName = "dmwmdylpa";
@@ -24,14 +25,20 @@ const UploadWidget2: TypeUploadWidget = () => {
       },
       (error: any, result: any) => {
         if (!error && result && result.event === "success") {
-          str.push(result.info.secure_url);
-          console.log(result.info);
-          console.log("Done! Here is the image info: ", str);
+          miArray.push(result.info.secure_url);
         }
       }
     );
 
     (document.getElementById("upload_widget") as HTMLElement).addEventListener(
+      "click",
+      function () {
+        myWidget.open();
+      },
+      false
+    );
+
+    (document.getElementById("upload_widget2") as HTMLElement).addEventListener(
       "click",
       function () {
         myWidget.open();
@@ -47,7 +54,7 @@ const UploadWidget2: TypeUploadWidget = () => {
           Adjunte imagen del frente del DNI
         </Button>
 
-        <Button sx={{ bgcolor: "#ffecb3", height: "30px" }} id="upload_widget">
+        <Button sx={{ bgcolor: "#ffecb3", height: "30px" }} id="upload_widget2">
           Adjunte imagen del dorso del DNI
         </Button>
       </Box>

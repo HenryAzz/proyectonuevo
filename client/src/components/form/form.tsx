@@ -19,7 +19,8 @@ import mano from "../../image/mano.png";
 import styled from "@emotion/styled";
 import UploadWidget from "./uploadWidget";
 import UploadWidget2 from "./uploadWidget2";
-import UploadWidget3 from "./uploadWidget2";
+import { useCreateFormMutation } from '../../reduxToolkit/apiSlice'
+import {miArray} from './config'
 
 export const Form = () => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -38,11 +39,11 @@ export const Form = () => {
 
   const property = [
     {
-      value: "shop",
+      value: "local",//shop
       label: "Local",
     },
     {
-      value: "industry",
+      value: "industria", //industry
       label: "Industria",
     },
     {
@@ -53,26 +54,26 @@ export const Form = () => {
 
   const operation = [
     {
-      value: "assess",
+      value: "tasar", //assess
       label: "Tasar",
     },
     {
-      value: "sell",
+      value: "Vender", //sell
       label: "Vender",
     },
     {
-      value: "rent",
+      value: "rentar", //rent
       label: "Alquilar",
     },
   ];
 
   const livingPlaces = [
     {
-      value: "house",
+      value: "Casa",
       label: "Casa",
     },
     {
-      value: "apartment",
+      value: "Departamento",
       label: "Departamento",
     },
     {
@@ -90,17 +91,53 @@ export const Form = () => {
   const [propertys, setProperty] = React.useState("");
   const [places, setlivingPlace] = React.useState("");
 
+  //usar la ruta para crear el formulario
+  const [createForm] = useCreateFormMutation()
+  const [form, setForm] = React.useState({
+    title: '',
+    description: "deseo realizar la siguiente operacion:" + operations,
+    picture_url: ["https://img.freepik.com/vector-gratis/hermosa-casa_24877-50819.jpg"],
+    unit_price: 10,
+    dni: "",
+    tel: "",
+    type_prop: '',
+    type_vivienda: '',
+    address: "",
+    number: 0,
+    apartment: "",
+    floor: 0,
+    location: "",
+    province: "",
+    postalCode: ""
+  })
+
+  const handleClick = () => {
+    createForm(form)
+  }
+
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+    setForm({...form, [e.target.name]: e.target.value as unknown})
+
+  };
+
+ console.log(miArray)
+  
   const handleChange = (event: SelectChangeEvent) => {
     setOperations(event.target.value as string);
+    setForm({...form, [event.target.name]: event.target.value as unknown})
   };
   const handleChange2 = (event: SelectChangeEvent) => {
     setProperty(event.target.value as string);
+    setForm({...form, [event.target.name]: event.target.value as unknown})
   };
   const handleChange3 = (event: SelectChangeEvent) => {
     setlivingPlace(event.target.value as string);
+    setForm({...form, [event.target.name]: event.target.value as unknown})
   };
 
   const DniForm = () => {
+
     return (
       <Container>
         <>
@@ -111,6 +148,9 @@ export const Form = () => {
               label="DNI del propietario"
               variant="outlined"
               placeholder="Ingrese su DNI"
+              name="dni"
+              value={form.dni}
+              onChange={handleChangeInput}
               fullWidth
               margin="normal"
             />
@@ -122,6 +162,9 @@ export const Form = () => {
               variant="outlined"
               placeholder="Ingrese su número de Teléfono"
               fullWidth
+              name="tel"
+              value={form.tel}
+              onChange={handleChangeInput}
               margin="normal"
             />
           </Box>
@@ -143,6 +186,7 @@ export const Form = () => {
               onChange={handleChange}
               labelId="operaciones"
               label=" Tipo de Operaciones"
+              name="title"
               sx={{ bgcolor: "#ffecb3" }}
             >
               {operation.map((option) => (
@@ -161,6 +205,7 @@ export const Form = () => {
               value={propertys}
               onChange={handleChange2}
               labelId="propiedad"
+              name="type_prop"
               label=" Tipo de Propiedad"
               sx={{ bgcolor: "#ffecb3" }}
             >
@@ -182,6 +227,7 @@ export const Form = () => {
               onChange={handleChange3}
               labelId="vivienda"
               label=" Tipo de Vivienda"
+              name="type_vivienda"
               sx={{ bgcolor: "#ffecb3" }}
             >
               {livingPlaces.map((option) => (
@@ -212,6 +258,9 @@ export const Form = () => {
               variant="outlined"
               placeholder="Dirección del inmueble"
               fullWidth
+              name="address"
+              value={form.address}
+              onChange={handleChangeInput}
               margin="normal"
             />
 
@@ -223,6 +272,9 @@ export const Form = () => {
               placeholder="Número de la dirección"
               fullWidth
               margin="normal"
+              value={form.number}
+              name="number"
+              onChange={handleChangeInput}
             />
           </Box>
 
@@ -235,6 +287,9 @@ export const Form = () => {
               placeholder="Ingrese el número y/o letra del apartamento"
               fullWidth
               margin="normal"
+              name="apartment"
+              value={form.apartment}
+              onChange={handleChangeInput}
             />
 
             <TextField
@@ -245,6 +300,9 @@ export const Form = () => {
               placeholder="Piso del Apartamento"
               fullWidth
               margin="normal"
+              name="floor"
+              value={form.floor}
+              onChange={handleChangeInput}
             />
           </Box>
 
@@ -257,6 +315,9 @@ export const Form = () => {
               placeholder="Ingrese la ubicación "
               fullWidth
               margin="normal"
+              name="location"
+              value={form.location}
+              onChange={handleChangeInput}
             />
 
             <TextField
@@ -267,6 +328,9 @@ export const Form = () => {
               placeholder="Ingrese la provincia"
               fullWidth
               margin="normal"
+              name="province"
+              value={form.province}
+              onChange={handleChangeInput}
             />
 
             <TextField
@@ -277,6 +341,9 @@ export const Form = () => {
               placeholder="Ingrese el código postal"
               fullWidth
               margin="normal"
+              name="postalCode"
+              value={form.postalCode}
+              onChange={handleChangeInput}
             />
           </Box>
         </>
@@ -349,6 +416,10 @@ export const Form = () => {
               </Button>
               <Button onClick={() => nextStep()}>
                 {activeStep === steps.length - 1 ? "Finalizar" : "Siguiente"}
+              </Button>
+
+              <Button onClick={handleClick}>
+                enviar formulario
               </Button>
             </>
           )}

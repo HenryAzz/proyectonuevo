@@ -1,17 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { Button } from "@mui/material";
+import {miArray} from './config'
 
 type TypeUploadWidget = () => JSX.Element;
 
 declare global {
   interface Window {
     cloudinary: any;
+  
   }
 }
 
 const UploadWidget: TypeUploadWidget = () => {
-  const str: string[] = [];
+  
 
   useEffect(() => {
     const cloudName = "dmwmdylpa";
@@ -24,9 +26,7 @@ const UploadWidget: TypeUploadWidget = () => {
       },
       (error: any, result: any) => {
         if (!error && result && result.event === "success") {
-          str.push(result.info.secure_url);
-          console.log(result.info);
-          console.log("Done! Here is the image info: ", str);
+          miArray.push(result.info.secure_url);
         }
       }
     );
