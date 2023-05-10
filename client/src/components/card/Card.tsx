@@ -7,6 +7,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 type CardProps = {
   address: string;
@@ -23,6 +24,7 @@ export const CardComponent: React.FC<CardProps> = ({
   type,
   id,
 }) => {
+  const navigate = useNavigate();
   const urlImage = pictures[0].img;
   return (
     <Card>
@@ -32,7 +34,7 @@ export const CardComponent: React.FC<CardProps> = ({
           <Typography variant="h4" mt={1}>
             {type}
           </Typography>
-          <Typography component="h5" variant="body2" mt={1}>
+          <Typography component="h6" variant="body2" mt={1}>
             {address}
           </Typography>
           <Typography component="h5" variant="body2" mt={1}>
@@ -41,10 +43,10 @@ export const CardComponent: React.FC<CardProps> = ({
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button variant="contained" href="/" sx={{ margin: 1 }}>
+        <Button variant="contained" href="#" sx={{ margin: 1 }}>
           Hacer Reserva
         </Button>
-        <Button variant="outlined" href={`/property/${id}`}>
+        <Button variant="outlined" onClick={() => navigate(`/property/${id}`)}>
           Mas Informacion
         </Button>
       </CardActions>
