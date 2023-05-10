@@ -68,3 +68,14 @@ export const putProp = async (req: Request, res: Response) => {
   }
 };
 
+//Funcion que trae la propiedad por id
+export const getPropById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  console.log(id);
+
+  const propertyFound = await Property.findOne({ where: { id: Number(id) } });
+  console.log(propertyFound);
+
+  return res.status(200).send(propertyFound);
+};

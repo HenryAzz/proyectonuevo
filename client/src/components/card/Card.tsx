@@ -13,7 +13,7 @@ type CardProps = {
   description: string;
   pictures: string[];
   type: string;
-  key: number;
+  id: number;
 };
 
 export const CardComponent: React.FC<CardProps> = ({
@@ -21,7 +21,7 @@ export const CardComponent: React.FC<CardProps> = ({
   description,
   pictures,
   type,
-  key,
+  id,
 }) => {
   const urlImage = pictures[0].img;
   return (
@@ -41,8 +41,12 @@ export const CardComponent: React.FC<CardProps> = ({
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button variant="contained">Hacer Reserva</Button>
-        <Button variant="outlined">Mas Informacion</Button>
+        <Button variant="contained" href="/" sx={{ margin: 1 }}>
+          Hacer Reserva
+        </Button>
+        <Button variant="outlined" href={`/property/${id}`}>
+          Mas Informacion
+        </Button>
       </CardActions>
     </Card>
   );
