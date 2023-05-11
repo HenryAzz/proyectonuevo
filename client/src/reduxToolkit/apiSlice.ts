@@ -49,7 +49,7 @@ export const apiSlice = createApi({
       }),
     }),
 
-    ////metodos para enviar y recibr data de la ruta form
+    //metodos para enviar y recibr data de la ruta form
 
     createForm: builder.mutation<form, createFormRequest>({
       query: (form) => ({
@@ -57,6 +57,13 @@ export const apiSlice = createApi({
         method: "POST",
         body: form,
       }),
+    }),
+
+    //mercadopago
+    getMercadopago: builder.query<form, string>({
+      query: (id) => {
+        return `/mercadopago/${id}`
+      },
     }),
 
     //metodos para enviar y recibr data de la ruta broker
@@ -102,5 +109,6 @@ export const {
   useCreatePropertyMutation,
   useDeletPropertyByIDMutation,
   useCreateUserMutation,
-  useCreateFormMutation
+  useCreateFormMutation,
+  useGetMercadopagoQuery,
 } = apiSlice;

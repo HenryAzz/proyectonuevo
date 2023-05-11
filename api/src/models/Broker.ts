@@ -24,6 +24,7 @@ export class Broker extends Model<Broker> {
   //Modificado tipo enum que sea admin o broker
   @Column({ allowNull: false, type: DataType.ENUM("Admin", "Broker") })
   rol!: string;
+  
   @Column({ allowNull: false, type: DataType.ENUM("Local", "Vivienda", "Oficina", "Industria") })
   division!: string;
 
@@ -42,6 +43,8 @@ export class Broker extends Model<Broker> {
     defaultValue: "https://i.pinimg.com/originals/43/b6/17/43b617c260ae06d6ab6318176f20be50.png",
   })
   avatar!: string;
+
+  //Agrega todas las Operaciones del usuario hacia el Broker(vender, rentar, tasar)
   @HasMany(() => Form)
   properties!: Form[];
 }

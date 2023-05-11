@@ -48,6 +48,18 @@ export const findUserPerson_type = async function (person_type: string) {
   return db;
 };
 
+//findUserName
+export const findUserName = async function (name: string) {
+  const db = await User.findAll({
+    where: {
+      name: name,
+    },
+  });
+
+  return db;
+};
+
+
 
 // HELPER PUT //
 export const updatePasswordUser = async function (email: string) {

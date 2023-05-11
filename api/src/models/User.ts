@@ -14,7 +14,6 @@ import Form from "./Form";
 export class User extends Model<User> {
   @Column({
     type: DataType.INTEGER,
-    primaryKey: true,
     allowNull: false,
     autoIncrement: true,
     unique: true,
@@ -25,7 +24,7 @@ export class User extends Model<User> {
   @Column({ allowNull: false, type: DataType.ENUM("Cliente", "Proveedor") })
   rol!: string;
 
-  @Column({ allowNull: false })
+  @Column({ allowNull: false , primaryKey: true,})
   email!: string;
 
   @Column({ allowNull: true })

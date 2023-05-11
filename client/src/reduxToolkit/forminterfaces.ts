@@ -4,7 +4,7 @@ export interface form {
   picture_url: string[];
   unit_price: number;
   dni: string;
-  tel: string;
+  tel: number;
   type_prop: string;
   type_vivienda: string;
   address: string;
@@ -13,7 +13,8 @@ export interface form {
   floor: number;
   location: string;
   province: string;
-  postalCode: string; 
+  postalCode: string;
+  userEmail: string | null | undefined
 
 }
 
@@ -23,7 +24,7 @@ export interface createFormRequest {
   picture_url: string[];
   unit_price: number;
   dni: string;
-  tel: string;
+  tel: number;
   type_prop: string;
   type_vivienda: string;
   address: string;
@@ -32,5 +33,6 @@ export interface createFormRequest {
   floor: number;
   location: string;
   province: string;
-  postalCode: string; 
+  postalCode: string;
+  userEmail: string | null | undefined
 }

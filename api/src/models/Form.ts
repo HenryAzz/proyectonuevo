@@ -48,15 +48,15 @@ export default class Form extends Model {
   @Column({ allowNull: true })
   description!: string;
 
-  @Column({ allowNull: true })
-  picture_url!: string;
+  @Column({ allowNull: true, type: DataType.ARRAY(DataType.JSON) })
+  picture_url!: object;
 
   @Column({ allowNull: true })
   unit_price!: number;
 
   //Datos usuario
   @Column({ allowNull: false })
-  dni!: string;
+  dni!: number;
 
   @Column({ allowNull: false })
   tel!: number;
@@ -72,55 +72,55 @@ export default class Form extends Model {
     type: DataType.ENUM(...Object.values(TypeVivienda)),
     allowNull: false,
   })
-  type_vivienda: TypeVivienda;
+  type_vivienda!: TypeVivienda;
 
   // Detalles Propiedad
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  address: string;
+  address!: string;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  number: number;
+  number!: number;
 
   @Column({
     type: DataType.STRING,
     allowNull: true,
   })
-  apartment: string;
+  apartment!: string;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: true,
   })
-  floor: number;
+  floor!: number;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  location: string;
+  location!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  province: string;
+  province!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  postalCode: string;
+  postalCode!: string;
 
   // RELACIIONAR CON USER (USUARIO)
   @ForeignKey(() => User)
   @Column
-  userId!: number;
+  userEmail!: string;
 
   @BelongsTo(() => User)
   user!: User;

@@ -4,6 +4,7 @@ import {
   findUserRol,
   findUserByRolPersonType,
   findUserPerson_type,
+  findUserName,
   getUserSoloByEmail,
   updatePasswordUser
 } from "./uHelper";
@@ -20,7 +21,7 @@ const { User } = sequelize.models;
 export const getUser = async (req: Request, res: Response) => {
   //Tratamos errores por buenas practicas.
   try {
-    const { rol, person_type } = req.query;
+    const { rol, person_type, name } = req.query;
     //Si no hay rol, trae todos los usuarios.
     if (!rol && !person_type) {
       const users = await findUser(); //helper trae todas las props.
@@ -46,6 +47,12 @@ export const getUser = async (req: Request, res: Response) => {
     if (!rol && person_type) {
       const userPerson_type = await findUserPerson_type(person_type as string);
       return res.status(200).json(userPerson_type);
+    }
+
+    //Si hay un name me traigo ese usuario
+    if(name) {
+      const userName = await findUserName(name as string);
+      return res.status(200).json(userName);
     }
   } catch (error) {
     return res.status(404).send({ error: error }); //enviar tipo de error

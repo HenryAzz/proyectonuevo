@@ -58,7 +58,7 @@ export class Signal extends Model<Signal> {
   // RELACIONAR CON USER (CLIENTE)
   @ForeignKey(() => User)
   @Column
-  userId!: number;
+  userEmail!: string;
 
   @BelongsTo(() => User)
   user!: User;
