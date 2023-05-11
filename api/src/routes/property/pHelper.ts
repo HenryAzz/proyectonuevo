@@ -48,7 +48,7 @@ export const findProps = async function (operation, zone, maxPrice, propertyType
   const db = await Property.findAll({
     where: queryCreator(operation, zone, maxPrice, propertyType, situation),
 
-    attributes: ["id", "type", "address", "price", "situation", "operation", "pictures"],
+    //attributes: ["id", "type", "address", "price", "situation", "operation", "pictures"],
 
     order: [["id", "ASC"]],
   });

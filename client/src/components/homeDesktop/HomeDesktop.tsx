@@ -30,7 +30,7 @@ export const HomeDesktop: React.FC<filterPorps> = ({ stringQuery }) => {
         </Grid>
       ) : (
         <Box mt={20}>
-          <Typography variant="h4">Sin propiedades para mostrar</Typography>
+          <Typography variant="h4">Sin propiedades disponibles</Typography>
         </Box>
       )}
     </div>

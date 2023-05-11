@@ -12,9 +12,13 @@ import { useNavigate } from "react-router-dom";
 type CardProps = {
   address: string;
   description: string;
-  pictures: string[];
+  pictures: Picture[];
   type: string;
   id: number;
+};
+
+type Picture = {
+  img: string;
 };
 
 export const CardComponent: React.FC<CardProps> = ({
