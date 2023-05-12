@@ -9,7 +9,7 @@ export const Carrousel = (images: any) => {
   console.log(images);
 
   return (
-    <Carousel indicators={false}>
+    <Carousel indicators={false} sx={{ width: "100%" }}>
       {images.images.map((item: any, index: number) => (
         <Item key={index} img={item.img} />
       ))}
@@ -19,8 +19,8 @@ export const Carrousel = (images: any) => {
 
 const Item: React.FC<ItemProps> = ({ img }) => {
   return (
-    <Paper>
-      <img src={img} style={{ width: "100%", height: "400px" }} />
-    </Paper>
+    <>
+      <img src={img} style={{ width: "100%", height: "400px", borderRadius: "0.5em" }} />
+    </>
   );
 };

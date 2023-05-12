@@ -7,6 +7,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import Chip from "@mui/material/Chip";
 import { useNavigate } from "react-router-dom";
 
 type CardProps = {
@@ -43,9 +44,7 @@ export const CardComponent: React.FC<CardProps> = ({
           <Typography component="h6" variant="body2" mt={1}>
             {address}
           </Typography>
-          <Typography component="h6" variant="body2" mt={1} sx={{ bgcolor: "blue" }}>
-            {operation}
-          </Typography>
+          <Chip label={operation} color="primary" />
           <Typography component="h5" variant="body2" mt={1}>
             {description}
           </Typography>

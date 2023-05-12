@@ -1,7 +1,7 @@
 export const json = [
   {
     type: "Vivienda",
-    address: "JUJUY AV. al 1700 103",
+    address: "Av Jujuy 1400",
     spaces: 2,
     price: 184.0,
     pictures: [
