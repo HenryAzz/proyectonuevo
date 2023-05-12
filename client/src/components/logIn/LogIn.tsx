@@ -180,7 +180,7 @@ import { useCreateUserMutation } from "../../reduxToolkit/apiSlice";
 
 //import firebase methods
 import { auth, provider } from "../../firebase/firebase";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import Swal from "sweetalert2";
 
 export const LogIn = (handleChange: any) => {
@@ -207,15 +207,15 @@ export const LogIn = (handleChange: any) => {
 
   const Toast = Swal.mixin({
     toast: true,
-    position: 'top-end',
+    position: "top-end",
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
     didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  })
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   const validationSchema = Yup.object().shape({
     usuario: Yup.string()
@@ -229,6 +229,15 @@ export const LogIn = (handleChange: any) => {
       props.resetForm();
       props.setSubmitting(false);
     }, 2000);
+    /* signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      // Success
+    })
+    .catch((error: any) => {
+      const errorCode: any = error.code;
+      const errorMessage: any = error.message;
+      console.log(errorCode, errorMessage);
+    }); */
   };
 
   const handleGoogleSignIn = async () => {
@@ -247,19 +256,19 @@ export const LogIn = (handleChange: any) => {
         crateUser(newUser);
 
         Toast.fire({
-          icon: 'success',
-          title: 'Inicio de Sesión con Google Exitoso'
-        })
+          icon: "success",
+          title: "Inicio de Sesión con Google Exitoso",
+        });
 
         navigate("/home");
       }
     } catch (error: any) {
       console.log("Error signing in with Google:", error.message);
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Algo salió mal al vincular cuenta Google..!!',
-        confirmButtonColor: '#3085d6',
+        icon: "error",
+        title: "Oops...",
+        text: "Algo salió mal al vincular cuenta Google..!!",
+        confirmButtonColor: "#3085d6",
       });
     }
   };

@@ -77,12 +77,14 @@ export const Registro = () => {
       .required("*Campo Obligatorio"),
     termsAndConditions: Yup.string().oneOf(["true"], "Aceptar términos y condiciones"),
   });
-  const onSubmit = async (values: any) => {
-    try {
-      await createUserWithEmailAndPassword(auth, values.email, values.password);
-    } catch (error) {
-      console.log(error);
-    }
+  const onSubmit = (values: any) => {
+    createUserWithEmailAndPassword(auth, values.email, values.password)
+      .then(() => {
+        console.log("Usuario creado exitosamente");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     navigate("/home");
   };
   return (
