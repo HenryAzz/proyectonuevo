@@ -1,19 +1,23 @@
 import Carousel from "react-material-ui-carousel";
 import { Paper } from "@mui/material";
 
-export const Carrousel = (data: any) => {
-  console.log(data.data);
+type ItemProps = {
+  img: string;
+};
+
+export const Carrousel = (images: any) => {
+  console.log(images);
 
   return (
     <Carousel indicators={false}>
-      {data.data.map((item: string, index: number) => (
+      {images.images.map((item: any, index: number) => (
         <Item key={index} img={item.img} />
       ))}
     </Carousel>
   );
 };
 
-const Item = ({ img }) => {
+const Item: React.FC<ItemProps> = ({ img }) => {
   return (
     <Paper>
       <img src={img} style={{ width: "100%", height: "400px" }} />

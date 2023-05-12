@@ -24,6 +24,7 @@ export const HomeDesktop: React.FC<filterPorps> = ({ stringQuery }) => {
                 pictures={element.pictures}
                 type={element.type}
                 id={element.id}
+                operation={element.operation}
               />
             </Grid>
           ))}

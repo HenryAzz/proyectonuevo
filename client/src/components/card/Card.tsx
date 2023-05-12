@@ -12,12 +12,13 @@ import { useNavigate } from "react-router-dom";
 type CardProps = {
   address: string;
   description: string;
-  pictures: Picture[];
+  pictures: any;
   type: string;
   id: number;
+  operation: string;
 };
 
-type Picture = {
+type Pictures = {
   img: string;
 };
 
@@ -27,6 +28,7 @@ export const CardComponent: React.FC<CardProps> = ({
   pictures,
   type,
   id,
+  operation,
 }) => {
   const navigate = useNavigate();
   const urlImage = pictures[0].img;
@@ -40,6 +42,9 @@ export const CardComponent: React.FC<CardProps> = ({
           </Typography>
           <Typography component="h6" variant="body2" mt={1}>
             {address}
+          </Typography>
+          <Typography component="h6" variant="body2" mt={1} sx={{ bgcolor: "blue" }}>
+            {operation}
           </Typography>
           <Typography component="h5" variant="body2" mt={1}>
             {description}

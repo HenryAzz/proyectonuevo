@@ -20,7 +20,6 @@ export const CardDetail = () => {
         <Grid item sx={{ display: "flex", justifyContent: "center" }}>
           <img src={Logo} alt="PropTech logo" height="70vh" />
         </Grid>
-
         {isLoading ? (
           <Typography variant="h4">Cargando...</Typography>
         ) : (
@@ -32,7 +31,7 @@ export const CardDetail = () => {
               direction={{ xs: "column", md: "row" }}
             >
               <Grid item xs={6} sx={{ mr: 1, height: "400px" }}>
-                <Carrousel data={data?.pictures} />
+                <Carrousel images={data?.pictures} />
               </Grid>
               <Grid
                 item
