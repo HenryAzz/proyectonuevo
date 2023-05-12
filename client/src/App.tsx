@@ -8,6 +8,7 @@ import { Registro } from "./components/registro/Registro";
 //import { FormVenta } from "./components/formVenta/formVenta";
 //import { FormTasar } from "./components/formTasar/formTasar";
 import { Form } from "./components/form/form";
+import { TestComponent } from "./components/tetscomponent/TestComponent";
 function App() {
   return (
     <div>
@@ -20,6 +21,7 @@ function App() {
         {/* <Route path="/formVenta" element={<FormVenta />} /> */}
         {/* <Route path="/formTasar" element={<FormTasar />} /> */}
         <Route path="/form" element={<Form />} />
+        <Route path="/test" element={<TestComponent />} />
       </Routes>
     </div>
   );

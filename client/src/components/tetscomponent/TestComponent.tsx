@@ -16,7 +16,12 @@ import { useCreateUserMutation } from "../../reduxToolkit/apiSlice";
 
 //import firebase methods
 import { auth, provider } from "../../firebase/firebase";
-import { signInWithPopup, createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
 export const TestComponent = () => {
   const [user, setUser] = useState<string | null | undefined>(null);
@@ -34,9 +39,9 @@ export const TestComponent = () => {
     };
   }, []);
 
-  const { data, isLoading } = useGetPropertyByIdQuery(1);
+  /* const { data, isLoading } = useGetPropertyByIdQuery(1);
 
-  console.log(data, isLoading);
+  console.log(data, isLoading); */
   //RTQ query
   const [createProperty] = useCreatePropertyMutation();
   const [deleteProperty] = useDeletPropertyByIDMutation();
@@ -101,12 +106,12 @@ export const TestComponent = () => {
 
   const handlerEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
-    console.log(email);
+    //console.log(email);
   };
 
   const handlerPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
-    console.log(password);
+    //console.log(password);
   };
 
   const singIN = async () => {
@@ -114,6 +119,16 @@ export const TestComponent = () => {
       await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const singIN2 = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error: any) {
+      const errorCode: any = error.code;
+      const errorMessage: any = error.message;
+      console.log(errorCode, errorMessage);
     }
   };
 
@@ -159,7 +174,7 @@ export const TestComponent = () => {
         <Button variant="contained" onClick={handlerDelete} sx={{ mb: 1 }}>
           Crear inmueble
         </Button>
-        <Button variant="contained" onClick={singIN} sx={{ mb: 1 }}>
+        <Button variant="contained" onClick={singIN2} sx={{ mb: 1 }}>
           Iniciar sesion
         </Button>
         <Button variant="contained" onClick={handleGoogleSignIn} sx={{ mb: 1 }}>
