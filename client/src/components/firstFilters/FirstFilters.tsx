@@ -126,6 +126,7 @@ export const FirstFilters: React.FC<ChildComponentProps> = ({
               <br />
               <Link to="/home">
                 <Button
+                  id="alquiler"
                   variant="outlined"
                   sx={{ mb: 2, width: "200px", ml: "50px", border: 3, color: "#A0522D" }}
                   onClick={handlerClick}
@@ -149,6 +150,7 @@ export const FirstFilters: React.FC<ChildComponentProps> = ({
               <br />
               <Link to="/home">
                 <Button
+                  id="venta"
                   variant="outlined"
                   sx={{ mb: 2, width: "200px", ml: "50px", border: 3, color: "#A0522D" }}
                   onClick={handlerClick}
