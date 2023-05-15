@@ -17,8 +17,11 @@ import { auth, provider } from "../../firebase/firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { useCreateUserMutation } from "../../reduxToolkit/apiSlice";
 import { createUserRequest } from "../../reduxToolkit/authentication";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export const LogIn2 = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(false);
@@ -31,6 +34,18 @@ export const LogIn2 = () => {
   const isSubmitDisabled = !isValidEmail || !isValidPassword;
 
   const [crateUser] = useCreateUserMutation();
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -51,6 +66,7 @@ export const LogIn2 = () => {
     } catch (error: any) {
       console.log(error.message, error.code);
     }
+    navigate("/home");
   };
 
   const handleEmailFocus = () => {
@@ -77,8 +93,19 @@ export const LogIn2 = () => {
 
         crateUser(newUser);
       }
+      navigate("/home");
+      Toast.fire({
+        icon: "success",
+        title: "Inicio de Sesión con Google Exitoso",
+      });
     } catch (error: any) {
       console.log("Error signing in with Google:", error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Algo salió mal al vincular cuenta Google..!!",
+        confirmButtonColor: "#3085d6",
+      });
     }
   };
   return (
