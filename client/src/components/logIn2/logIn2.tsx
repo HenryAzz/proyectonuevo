@@ -13,6 +13,10 @@ import {
 } from "@mui/material";
 import { orange } from "@mui/material/colors";
 import mano from "../../image/mano.png";
+import { auth, provider } from "../../firebase/firebase";
+import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { useCreateUserMutation } from "../../reduxToolkit/apiSlice";
+import { createUserRequest } from "../../reduxToolkit/authentication";
 
 export const LogIn2 = () => {
   const [email, setEmail] = useState("");
@@ -26,6 +30,8 @@ export const LogIn2 = () => {
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   const isSubmitDisabled = !isValidEmail || !isValidPassword;
 
+  const [crateUser] = useCreateUserMutation();
+
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setEmail(value);
@@ -38,9 +44,13 @@ export const LogIn2 = () => {
     setIsValidPassword(passwordRegex.test(value));
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    // Add your form submission logic here
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error: any) {
+      console.log(error.message, error.code);
+    }
   };
 
   const handleEmailFocus = () => {
@@ -49,6 +59,27 @@ export const LogIn2 = () => {
 
   const handlePasswordFocus = () => {
     setIsPasswordFocused(true);
+  };
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      if (user !== null) {
+        const newUser: createUserRequest = {
+          name: user.displayName || "",
+          avatar: user.photoURL || "",
+          email: user.email || "",
+          hashGoogle: user.uid || "",
+          person_type: "Persona Fisica",
+          rol: "Cliente",
+        };
+        console.log(newUser);
+
+        crateUser(newUser);
+      }
+    } catch (error: any) {
+      console.log("Error signing in with Google:", error.message);
+    }
   };
   return (
     <Grid container sx={{ height: "100vh", justifyContent: "center", alignContent: "center" }}>
@@ -128,7 +159,7 @@ export const LogIn2 = () => {
               >
                 Ingresar
               </Button>
-              <Button variant="outlined" fullWidth sx={{ mb: 2 }}>
+              <Button variant="outlined" fullWidth sx={{ mb: 2 }} onClick={handleGoogleSignIn}>
                 Conectar con Google
               </Button>
               <Grid container sx={{}}>

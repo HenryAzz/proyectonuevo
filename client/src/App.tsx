@@ -10,6 +10,7 @@ import { Registro } from "./components/registro/Registro";
 //import { FormTasar } from "./components/formTasar/formTasar";
 import { Form } from "./components/form/form";
 import { CardDetail } from "./components/cardDetail/CardDetail";
+import { TestComponent } from "./components/tetscomponent/TestComponent";
 function App() {
   return (
     <div>
