@@ -7,13 +7,20 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import Chip from "@mui/material/Chip";
+import { useNavigate } from "react-router-dom";
 
 type CardProps = {
   address: string;
   description: string;
-  pictures: string[];
+  pictures: any;
   type: string;
-  key: number;
+  id: number;
+  operation: string;
+};
+
+type Pictures = {
+  img: string;
 };
 
 export const CardComponent: React.FC<CardProps> = ({
@@ -21,8 +28,10 @@ export const CardComponent: React.FC<CardProps> = ({
   description,
   pictures,
   type,
-  key,
+  id,
+  operation,
 }) => {
+  const navigate = useNavigate();
   const urlImage = pictures[0].img;
   return (
     <Card>
@@ -32,17 +41,22 @@ export const CardComponent: React.FC<CardProps> = ({
           <Typography variant="h4" mt={1}>
             {type}
           </Typography>
-          <Typography component="h5" variant="body2" mt={1}>
+          <Typography component="h6" variant="body2" mt={1}>
             {address}
           </Typography>
+          <Chip label={operation} color="primary" />
           <Typography component="h5" variant="body2" mt={1}>
             {description}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button variant="contained">Hacer Reserva</Button>
-        <Button variant="outlined">Mas Informacion</Button>
+        <Button variant="contained" href="#" sx={{ margin: 1 }}>
+          Hacer Reserva
+        </Button>
+        <Button variant="outlined" onClick={() => navigate(`/property/${id}`)}>
+          Mas Informacion
+        </Button>
       </CardActions>
     </Card>
   );
