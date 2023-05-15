@@ -8,7 +8,7 @@ import Logo from "../../image/logo.png";
 import { Carrousel } from "../carrousel/carrousel";
 
 export const CardDetail = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>() as { id: string };
   const { data, isLoading } = useGetPropertyByIdQuery(id);
   const colorf = orange[50];
 
