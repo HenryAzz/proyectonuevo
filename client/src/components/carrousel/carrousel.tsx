@@ -1,16 +1,17 @@
 import Carousel from "react-material-ui-carousel";
-import { Paper } from "@mui/material";
 
+type ImageProps = {
+  images: any;
+  duration: number;
+};
 type ItemProps = {
   img: string;
 };
 
-export const Carrousel = (images: any) => {
-  console.log(images);
-
+export const Carrousel: React.FC<ImageProps> = ({ images, duration }) => {
   return (
-    <Carousel indicators={false} sx={{ width: "100%" }}>
-      {images.images.map((item: any, index: number) => (
+    <Carousel indicators={false} sx={{ width: "100%" }} interval={duration * 1000}>
+      {images.map((item: any, index: number) => (
         <Item key={index} img={item.img} />
       ))}
     </Carousel>
