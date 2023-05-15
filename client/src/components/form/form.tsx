@@ -1,10 +1,10 @@
 import {
-  Typography,
+  // Typography,
   TextField,
   Button,
-  Stepper,
-  Step,
-  StepLabel,
+  // Stepper,
+  // Step,
+  // StepLabel,
   Box,
   Container,
   MenuItem,
@@ -19,16 +19,18 @@ import mano from "../../image/mano.png";
 import styled from "@emotion/styled";
 import UploadWidget from "./uploadWidget";
 import UploadWidget2 from "./uploadWidget2";
+import MPButton from '../mercadopago/Mercadopago'
 import { useCreateFormMutation } from "../../reduxToolkit/apiSlice";
 import { auth } from "../../firebase/firebase";
 import { miArray } from "./config";
+
 
 interface FormState {
   title: string;
   description: string;
   picture_url: string[];
   unit_price: number;
-  dni: string;
+  dni: number;
   tel: number;
   type_prop: string;
   type_vivienda: string;
@@ -39,19 +41,21 @@ interface FormState {
   location: string;
   province: string;
   postalCode: string;
-  userEmail: string | null | undefined;
+  email: string | null | undefined
+
 }
 
 export const Form = () => {
   const [user, setUser] = React.useState<string | null | undefined>(null);
   //usar la ruta para crear el formulario
   const [createForm] = useCreateFormMutation();
+  const [activeMP, setActiveMP] = React.useState<boolean>(false);
   const [form, setForm] = React.useState<FormState>({
     title: "",
     description: "deseo realizar la siguiente operacion:",
     picture_url: miArray,
     unit_price: 10,
-    dni: "",
+    dni: 0,
     tel: 0,
     type_prop: "",
     type_vivienda: "",
@@ -62,7 +66,7 @@ export const Form = () => {
     location: "",
     province: "",
     postalCode: "",
-    userEmail: "",
+    email: ""
   });
   
 
@@ -80,7 +84,7 @@ export const Form = () => {
     };
   }, []);
   
-
+  console.log(user)
 
   const property = [
     {
@@ -92,8 +96,12 @@ export const Form = () => {
       label: "Industria",
     },
     {
-      value: "others",
-      label: "Otros",
+      value: "vivienda",
+      label: "Vivienda",
+    },
+    {
+      value: "oficina",
+      label: "Oficina",
     },
   ];
 
@@ -114,16 +122,40 @@ export const Form = () => {
 
   const livingPlaces = [
     {
-      value: "Casa",
+      value: "casa",
       label: "Casa",
     },
     {
-      value: "Departamento",
+      value: "departamento",
       label: "Departamento",
     },
     {
-      value: "others",
-      label: "Otros",
+      value: "ph",
+      label: "Ph",
+    },
+    {
+      value: "edificio",
+      label: "Edificio",
+    },
+    {
+      value: "local",
+      label: "Local",
+    },
+    {
+      value: "industria",
+      label: "Industria",
+    },
+    {
+      value: "oficina",
+      label: "Oficina",
+    },
+    {
+      value: "loft",
+      label: "Loft",
+    },
+    {
+      value: "terreno",
+      label: "Terreno",
     },
   ];
 
@@ -133,8 +165,13 @@ export const Form = () => {
   });
 
   const handleClick =  () => {
-  createForm(form)
+    
+    createForm(form).then(() => setActiveMP(true))
   };
+
+  const handleClickUser = () => {
+    setForm({ ...form, email: user })
+  }
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (
@@ -354,8 +391,11 @@ export const Form = () => {
             onChange={handleChangeInput}
           />
         </Box>
-        <Button onClick={() => setForm({ ...form, userEmail : user })}> cargar info. usuario</Button>
         <Button onClick={handleClick}>enviar formulario</Button>
+        <Button onClick={handleClickUser}>CARGAR INFO USUARIO</Button>
+        {
+        activeMP ? <MPButton /> : false 
+        }
 
       </Container>
     </>

@@ -15,15 +15,15 @@ import { Broker } from "./Broker";
 import { User } from "./User";
 
 enum TypeVivienda {
-  CASA = "Casa",
-  PH = "PH",
-  DEPARTAMENTO = "Departamento",
-  EDIFICIO = "Edificio",
-  LOCAL = "Local",
-  INDUSTRIA = "Industria",
-  OFICINA = "Oficina",
-  LOFT = "Loft",
-  TERRENO = "Terreno",
+  CASA = "casa",
+  PH = "ph",
+  DEPARTAMENTO = "departamento",
+  EDIFICIO = "edificio",
+  LOCAL = "local",
+  INDUSTRIA = "industria",
+  OFICINA = "oficina",
+  LOFT = "loft",
+  TERRENO = "terreno",
 }
 
 @Table({ timestamps: true })
@@ -51,14 +51,14 @@ export default class Form extends Model {
   @Column({ allowNull: true, type: DataType.ARRAY(DataType.JSON) })
   picture_url!: object;
 
-  @Column({ allowNull: true })
+  @Column({ type: DataType.INTEGER, allowNull: true })
   unit_price!: number;
 
   //Datos usuario
-  @Column({ allowNull: false })
+  @Column({ type: DataType.INTEGER, allowNull: false })
   dni!: number;
 
-  @Column({ allowNull: false })
+  @Column({ type: DataType.INTEGER, allowNull: false })
   tel!: number;
 
   //Tipo de propiedad
@@ -120,7 +120,7 @@ export default class Form extends Model {
   // RELACIIONAR CON USER (USUARIO)
   @ForeignKey(() => User)
   @Column
-  userEmail!: string;
+  userId!: number;
 
   @BelongsTo(() => User)
   user!: User;

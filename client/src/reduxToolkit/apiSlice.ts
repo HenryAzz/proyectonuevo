@@ -49,6 +49,8 @@ export const apiSlice = createApi({
       }),
     }),
 
+
+
     //metodos para enviar y recibr data de la ruta form
 
     createForm: builder.mutation<form, createFormRequest>({
@@ -60,9 +62,9 @@ export const apiSlice = createApi({
     }),
 
     //mercadopago
-    getMercadopago: builder.query<form, string>({
-      query: (id) => {
-        return `/mercadopago/${id}`
+    getMercadopago: builder.query<string, void>({
+      query: () => {
+        return `/mercadopago`
       },
     }),
 

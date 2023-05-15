@@ -11,12 +11,15 @@ declare global {
   }
 }
 
+const CLOUD_NAME = import.meta.env.VITE_CLOUDNAME_CLOUDINARY
+const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET_CLOUDINARY
+
 const UploadWidget2: TypeUploadWidget = () => {
   
 
   useEffect(() => {
-    const cloudName = "dmwmdylpa";
-    const uploadPreset = "dkmqrwwv";
+    const cloudName = CLOUD_NAME 
+    const uploadPreset = UPLOAD_PRESET 
 
     const myWidget = window.cloudinary.createUploadWidget(
       {

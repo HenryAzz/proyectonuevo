@@ -1,4 +1,1 @@
-
-
-export const miArray: string[] = [];
-
+export const miArray: string[] = []; 

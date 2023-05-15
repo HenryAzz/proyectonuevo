@@ -17,14 +17,15 @@ export class User extends Model<User> {
     allowNull: false,
     autoIncrement: true,
     unique: true,
+    primaryKey: true
   })
   id!: number;
 
   //Modificado tipo enum que sea cliente o proveedor
-  @Column({ allowNull: false, type: DataType.ENUM("Cliente", "Proveedor") })
+  @Column({ allowNull: false, type: DataType.ENUM("Cliente", "Proveedor"), defaultValue: "Cliente" })
   rol!: string;
 
-  @Column({ allowNull: false , primaryKey: true,})
+  @Column({ allowNull: false })
   email!: string;
 
   @Column({ allowNull: true })
@@ -34,6 +35,7 @@ export class User extends Model<User> {
   @Column({
     allowNull: false,
     type: DataType.ENUM("Persona Fisica", "Persona Juridica"),
+    defaultValue: "Persona Fisica"
   })
   person_type!: string;
 

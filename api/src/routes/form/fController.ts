@@ -59,6 +59,8 @@ export const getForm = async (req: Request, res: Response) => {
 export const postForm = async (req: Request, res: Response) => {
   try {
     const newForm = await createForm(req.body);
+
+    
     return res.status(200).json(newForm);
   } catch (error: any) {
     console.log(error.message)

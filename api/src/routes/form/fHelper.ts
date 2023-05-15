@@ -1,7 +1,7 @@
 //Funciones que se conectan con la DB y obtienen la informacion
 
 import { sequelize } from "../../db";
-const { Form } = sequelize.models;
+const { Form, User, Broker } = sequelize.models;
 import { Op } from "sequelize";
 
 //GET FORM (FILTERS)
@@ -73,10 +73,10 @@ export const queryForm = (
   tel,
   type_prop,
   type_vivienda,
-  Address,
-  Apartment,
-  Floor,
-  Location,
+  address,
+  apartment,
+  floor,
+  location,
   province,
   postalCode
 ): any => {
@@ -138,31 +138,31 @@ export const queryForm = (
     };
   }
 
-  if (Address) {
+  if (address) {
     query = {
       ...query,
-      Address: { [Op.eq]: Address },
+      address: { [Op.eq]: address },
     };
   }
 
-  if (Apartment) {
+  if (apartment) {
     query = {
       ...query,
-      Apartment: { [Op.eq]: Apartment },
+      apartment: { [Op.eq]: apartment },
     };
   }
 
-  if (Floor) {
+  if (floor) {
     query = {
       ...query,
-      Floor: { [Op.eq]: Floor },
+      Floor: { [Op.eq]: floor },
     };
   }
 
-  if (Location) {
+  if (location) {
     query = {
       ...query,
-      Location: { [Op.eq]: Location },
+      location: { [Op.eq]: location },
     };
   }
 
@@ -184,8 +184,50 @@ export const queryForm = (
 };
 
 //CREAR FORM (OPERACION)
-export const createForm = (date) => {
-  const newForm = Form.create(date);
+export const createForm = async (data) => {
+  console.log("data", data)
+  const { 
+    title,
+    description,
+    picture_url,
+    unit_price,
+    dni,
+    tel,
+    type_prop,
+    type_vivienda,
+    address,
+    number,
+    apartment,
+    floor,
+    location,
+    province,
+    postalCode,
+    email,
+    } = data
+
+    const findUserByEmail = await User.findOne({where : {email : email}})
+    const findBrokerByDivision = await Broker.findOne({where : {division : type_prop}})
+
+  const newForm = await Form.create({ 
+    title: title,
+    description: description,
+    picture_url: picture_url,
+    unit_price: unit_price,
+    dni: dni,
+    tel: tel,
+    type_prop: type_prop,
+    type_vivienda:  type_vivienda,
+    address: address,
+    number: number,
+    apartment: apartment,
+    floor: floor,
+    location: location,
+    province: province,
+    postalCode: postalCode,
+    userId: findUserByEmail.dataValues.id,
+    brokerId: findBrokerByDivision.dataValues.id
+  });
+
   return newForm;
 };
 
@@ -205,11 +247,11 @@ export const idForm = async (id: number) => {
       "tel",
       "type_prop",
       "type_vivienda",
-      "Address",
-      "Number",
-      "Apartment",
-      "Floor",
-      "Location",
+      "address",
+      "number",
+      "apartment",
+      "floor",
+      "location",
       "province",
       "postalCode",
     ],
