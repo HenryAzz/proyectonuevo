@@ -200,8 +200,8 @@ export const LogIn = (handleChange: any) => {
 
   const btnstyle = { margin: "8px 0", color: "white" };
   const initialValues = {
-    unername: "",
-    contraseña: "",
+    username: "",
+    password: "",
     recuerdame: false,
   };
 
@@ -334,19 +334,17 @@ export const LogIn = (handleChange: any) => {
                     control={<Checkbox color="primary" />}
                     label="Recordarme"
                   />
-                  <Link to="/home">
-                    <Button
-                      type="submit"
-                      color="primary"
-                      variant="outlined"
-                      disabled={props.isSubmitting}
-                      sx={{ bgcolor: "#D2B48C" }}
-                      style={btnstyle}
-                      fullWidth
-                    >
-                      {props.isSubmitting ? "Loading" : "Ingresar"}
-                    </Button>
-                  </Link>
+                  <Button
+                    type="submit"
+                    color="primary"
+                    variant="outlined"
+                    disabled={props.isSubmitting}
+                    sx={{ bgcolor: "#D2B48C" }}
+                    style={btnstyle}
+                    fullWidth
+                  >
+                    {props.isSubmitting ? "Loading" : "Ingresar"}
+                  </Button>
                   <Button
                     variant="outlined"
                     onClick={handleGoogleSignIn}

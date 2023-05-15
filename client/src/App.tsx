@@ -2,6 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { Landing } from "./components/landing/Landing";
 import { LogIn } from "./components/logIn/LogIn";
+import { LogIn2 } from "./components/logIn2/logIn2";
 import { About } from "./components/about/About";
 import HomeContainer from "./components/homeContainer/HomeContainer";
 import { Registro } from "./components/registro/Registro";
@@ -15,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<HomeContainer />} />
-        <Route path="/logIN" element={<LogIn />} />
+        <Route path="/logIN" element={<LogIn2 />} />
         <Route path="/about" element={<About />} />
         <Route path="/formularioRegistro" element={<Registro />} />
         {/* <Route path="/formVenta" element={<FormVenta />} /> */}
