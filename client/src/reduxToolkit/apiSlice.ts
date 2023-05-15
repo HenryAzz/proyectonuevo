@@ -21,7 +21,7 @@ export const apiSlice = createApi({
         return `/property${query}`;
       },
     }),
-    getPropertyById: builder.query<property, number>({
+    getPropertyById: builder.query<property, string>({
       query: (id) => `/property/${id}`,
     }),
 
