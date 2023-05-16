@@ -38,13 +38,13 @@ export const CardComponent: React.FC<CardProps> = ({
   return (
     <Card>
       <CardActionArea>
-        <CardMedia component="img" image={pictures[0].img} height="150" alt="imagen" />
+        <CardMedia component="img" src={pictures[0].img} height="150" alt="imagen" />
         <CardContent>
           <Typography variant="h4" mt={1}>
             {type}
           </Typography>
-          <Typography variant="h4" mt={1}>
-            ${price}
+          <Typography variant="h6" mt={1}>
+            $ {price}
           </Typography>
           <Typography component="h6" variant="body2" mt={1}>
             {address}
