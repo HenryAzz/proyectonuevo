@@ -20,6 +20,9 @@ import styled from "@emotion/styled";
 import mano from "../../image/mano.png";
 import { Link } from "react-router-dom";
 import React from "react";
+import { auth } from "../../firebase/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -45,6 +48,7 @@ export const Registro = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
 
   const initialValues = {
     name: "",
@@ -73,13 +77,15 @@ export const Registro = () => {
       .required("*Campo Obligatorio"),
     termsAndConditions: Yup.string().oneOf(["true"], "Aceptar términos y condiciones"),
   });
-  const onSubmit = (values: any, props: any) => {
-    console.log(values);
-    console.log(props);
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-    }, 2000);
+  const onSubmit = (values: any) => {
+    createUserWithEmailAndPassword(auth, values.email, values.password)
+      .then(() => {
+        console.log("Usuario creado exitosamente");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    navigate("/home");
   };
   return (
     <Container sx={{ width: "auto" }}>
