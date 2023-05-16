@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
 import { useGetPropertysFilterQuery } from "../../reduxToolkit/apiSlice";
@@ -16,7 +17,7 @@ export const HomeDesktop: React.FC<filterPorps> = ({ stringQuery }) => {
     <div style={{ display: "flex", justifyContent: "center" }}>
       {data?.length !== 0 ? (
         <Grid container spacing={2} sx={{ mt: 18, width: "80vw" }}>
-          {data?.map((element, index) => (
+          {data?.map((element: any, index: number) => (
             <Grid item xs={8} sm={8} md={6} lg={4} key={index}>
               <CardComponent
                 address={element.address}
@@ -25,6 +26,7 @@ export const HomeDesktop: React.FC<filterPorps> = ({ stringQuery }) => {
                 type={element.type}
                 id={element.id}
                 operation={element.operation}
+                price={element.price}
               />
             </Grid>
           ))}
