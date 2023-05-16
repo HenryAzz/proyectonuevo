@@ -5,12 +5,14 @@ import axios from 'axios'
 declare const window: any;
 
 
-export default function MPButton() {
+export default function MPButton(props:any) {
+
+    const form = props.list 
 
   useEffect(() => {
     // The async function is needed since we can't do async stuff in the top level of our useEffect
     const fetchCheckout = async () => {
-      const response = await axios.get<{ global: string }>(`http://localhost:3001/mercadopago`);
+      const response = await axios.post(`http://localhost:3001/mercadopago`, form);
 
       const data = response.data
 
@@ -22,7 +24,7 @@ export default function MPButton() {
         script.setAttribute('data-preference-id', data.global) // Here we set its data-preference-id to the ID that the Mercado Pago API gives us
         document.body.appendChild(script) // Here we append it to the body of our page
 
-        const mp = new window.MercadoPago("TEST-62756b50-37d0-44b1-96c3-7df66ca36d66", {
+        const mp = new window.MercadoPago( import.meta.env.VITE_MERCADOPAGO_TOKEN_CLIENT, {
           locale: 'es-AR'
         })
 

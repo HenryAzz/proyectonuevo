@@ -19,11 +19,10 @@ import mano from "../../image/mano.png";
 import styled from "@emotion/styled";
 import UploadWidget from "./uploadWidget";
 import UploadWidget2 from "./uploadWidget2";
-import MPButton from '../mercadopago/Mercadopago'
+import MPButton from "../mercadopago/Mercadopago";
 import { useCreateFormMutation } from "../../reduxToolkit/apiSlice";
 import { auth } from "../../firebase/firebase";
 import { miArray } from "./config";
-
 
 interface FormState {
   title: string;
@@ -41,8 +40,7 @@ interface FormState {
   location: string;
   province: string;
   postalCode: string;
-  email: string | null | undefined
-
+  email: string | null | undefined;
 }
 
 export const Form = () => {
@@ -52,7 +50,7 @@ export const Form = () => {
   const [activeMP, setActiveMP] = React.useState<boolean>(false);
   const [form, setForm] = React.useState<FormState>({
     title: "",
-    description: "deseo realizar la siguiente operacion:",
+    description: "operaciones",
     picture_url: miArray,
     unit_price: 10,
     dni: 0,
@@ -66,9 +64,8 @@ export const Form = () => {
     location: "",
     province: "",
     postalCode: "",
-    email: ""
+    email: "",
   });
-  
 
   React.useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -78,13 +75,11 @@ export const Form = () => {
         setUser(null);
       }
     });
-    
+
     return () => {
       unsubscribe;
     };
   }, []);
-  
-  console.log(user)
 
   const property = [
     {
@@ -164,14 +159,15 @@ export const Form = () => {
     height: 50,
   });
 
-  const handleClick =  () => {
-    
-    createForm(form).then(() => setActiveMP(true))
+  const handleClick = () => {
+    createForm(form)
+      .then(() => setActiveMP(true))
+      .catch((error) => console.log(error));
   };
 
   const handleClickUser = () => {
-    setForm({ ...form, email: user })
-  }
+    setForm({ ...form, email: user });
+  };
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (
@@ -189,8 +185,6 @@ export const Form = () => {
   const handleChange = (event: SelectChangeEvent) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
-
-  console.log(form);
 
   return (
     <>
@@ -393,10 +387,7 @@ export const Form = () => {
         </Box>
         <Button onClick={handleClick}>enviar formulario</Button>
         <Button onClick={handleClickUser}>CARGAR INFO USUARIO</Button>
-        {
-        activeMP ? <MPButton /> : false 
-        }
-
+        {activeMP ? <MPButton list={form} /> : false}
       </Container>
     </>
   );

@@ -185,7 +185,7 @@ export const queryForm = (
 
 //CREAR FORM (OPERACION)
 export const createForm = async (data) => {
-  console.log("data", data)
+
   const { 
     title,
     description,

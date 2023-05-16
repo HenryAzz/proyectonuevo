@@ -105,7 +105,7 @@ export const googleAcces = async (req: Request, res: Response) => {
   const comparing = req.body;
   try {
     const response = await getUserSoloByEmail(comparing);
-    console.log("esto es comparing ==>", response);
+    //console.log("esto es comparing ==>", response);
     if (!response) return res.status(400).send("Error: password wrong");
     return res.status(200).json(response);
   } catch (error) {
