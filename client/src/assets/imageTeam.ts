@@ -65,3 +65,5 @@ export const teamMembers = [
     path2: "https://www.linkedin.com",
   },
 ];
+
+export const videoUrl = "https://drive.google.com/uc?id=1J7l2MspwPTo6crVQvpiPgyx_LKkNRCLd";

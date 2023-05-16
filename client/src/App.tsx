@@ -20,8 +20,6 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/formularioRegistro" element={<Registro />} />
         <Route path="/property/:id" element={<CardDetail />} />
-        {/* <Route path="/formVenta" element={<FormVenta />} /> */}
-        {/* <Route path="/formTasar" element={<FormTasar />} /> */}
         <Route path="/form" element={<Form />} />
       </Routes>
     </div>

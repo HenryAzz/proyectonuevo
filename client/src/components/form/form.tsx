@@ -19,7 +19,7 @@ import mano from "../../image/mano.png";
 import styled from "@emotion/styled";
 import UploadWidget from "./uploadWidget";
 import UploadWidget2 from "./uploadWidget2";
-import UploadWidget3 from "./uploadWidget2";
+//import UploadWidget3 from "./uploadWidget3";
 
 export const Form = () => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -355,7 +355,7 @@ export const Form = () => {
           <br />
           <br />
           <br />
-          <Link to="/firstFilters">
+          <Link to="/home">
             <Button>Volver al Inicio</Button>
           </Link>
         </div>

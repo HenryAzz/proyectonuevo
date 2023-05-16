@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -120,11 +121,11 @@ export const SearchBar = () => {
         filterSelectedOptions
         value={value}
         noOptionsText="Elegir Localidad"
-        onChange={(event: any, newValue: PlaceType | null) => {
+        onChange={(_event, newValue: PlaceType | null) => {
           setOptions(newValue ? [newValue, ...options] : options);
           setValue(newValue);
         }}
-        onInputChange={(event, newInputValue) => {
+        onInputChange={(_event, newInputValue) => {
           setInputValue(newInputValue);
         }}
         renderInput={(params) => (
