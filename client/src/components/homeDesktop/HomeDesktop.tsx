@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
 import { useGetPropertysFilterQuery } from "../../reduxToolkit/apiSlice";
@@ -25,6 +26,7 @@ export const HomeDesktop: React.FC<filterPorps> = ({ stringQuery }) => {
                 type={element.type}
                 id={element.id}
                 operation={element.operation}
+                price={element.price}
               />
             </Grid>
           ))}

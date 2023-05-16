@@ -38,6 +38,13 @@ const UploadWidget2: TypeUploadWidget = () => {
       },
       false
     );
+    (document.getElementById("upload_widget2") as HTMLElement).addEventListener(
+      "click",
+      function () {
+        myWidget.open();
+      },
+      false
+    );
   }, []);
 
   return (
@@ -47,7 +54,7 @@ const UploadWidget2: TypeUploadWidget = () => {
           Adjunte imagen del frente del DNI
         </Button>
 
-        <Button sx={{ bgcolor: "#ffecb3", height: "30px" }} id="upload_widget">
+        <Button sx={{ bgcolor: "#ffecb3", height: "30px" }} id="upload_widget2">
           Adjunte imagen del dorso del DNI
         </Button>
       </Box>
