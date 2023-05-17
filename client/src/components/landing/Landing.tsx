@@ -1,52 +1,48 @@
-import { Button, Card, CardActions, CardMedia, Grid, Container } from "@mui/material";
-import video from "../../assets/video.mp4";
+import { Container, Grid, Box } from "@mui/material";
+import video from "../../image/Diseño sin título_1.mp4";
 import { Link } from "react-router-dom";
-import logo from "../../image/logo.png";
-//import { videoUrl } from "../../assets/imageTeam";
+import s from "../landing/Landing.module.css";
 
 export const Landing = () => {
   return (
-    <>
-      <Container sx={{}}>
-        {" "}
-        <br />
-        <img src={logo} alt="logo" width="250px" height="50px" />
-        <Grid
-          container
-          sx={{
-            direction: "column",
-            alignItems: "center",
-            justify: "center",
-          }}
-        >
-          <Card>
-            <CardMedia
-              component="video"
-              src={video}
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <Container>
+        <Grid container>
+          <Grid item xs={8} sm={8} md={6} lg={4}>
+            <video
+              id="video"
               autoPlay
-              muted
               loop
-              controls
-              title="imagen"
-              style={{ height: "80vh", width: "auto" }}
-            ></CardMedia>
-            <CardActions
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+              muted
+              src={video}
+              style={{
+                position: "fixed",
+                width: "100%",
+                left: "50%",
+                top: "50%",
+
+                objectFit: "cover",
+                transform: "translate(-50%, -50%)",
+                zIndex: "-1",
               }}
-            >
+            ></video>
+            <br />
+            <Box display="flex" justifyContent="center" alignContent="center" sx={{ ml: 80 }}>
               <Link to="/home">
-                <Button variant="contained">Ingresar</Button>
+                <strong>
+                  <button className={s.bt}>INGRESAR</button>
+                </strong>
               </Link>
+
               <Link to="/about">
-                <Button variant="outlined">Sobre Nosotros</Button>
+                <strong>
+                  <button className={s.bt}>NOSOTROS</button>
+                </strong>
               </Link>
-            </CardActions>
-          </Card>
+            </Box>
+          </Grid>
         </Grid>
       </Container>
-    </>
+    </div>
   );
 };
