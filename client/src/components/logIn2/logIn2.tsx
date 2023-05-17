@@ -171,9 +171,15 @@ export const LogIn2 = () => {
                   <FormControlLabel control={<Checkbox />} label="Recordarme" />
                 </Grid>
                 <Grid item>
-                  <Typography variant="body2" color="textSecondary">
-                    Olvide mi contraseña
-                  </Typography>
+                  <Link to="/reset" style={{ textDecoration: "none" }}>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      sx={{ "&:hover": { fontSize: "0.9rem" } }}
+                    >
+                      Olvide mi contraseña
+                    </Typography>
+                  </Link>
                 </Grid>
               </Grid>
               <Button

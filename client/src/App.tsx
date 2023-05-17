@@ -10,6 +10,7 @@ import { Registro } from "./components/registro/Registro";
 //import { FormTasar } from "./components/formTasar/formTasar";
 import { Form } from "./components/form/form";
 import { CardDetail } from "./components/cardDetail/CardDetail";
+import { ResetPassword } from "./components/resetPassword/ResetPassword";
 function App() {
   return (
     <div>
@@ -23,6 +24,7 @@ function App() {
         {/* <Route path="/formVenta" element={<FormVenta />} /> */}
         {/* <Route path="/formTasar" element={<FormTasar />} /> */}
         <Route path="/form" element={<Form />} />
+        <Route path="/reset" element={<ResetPassword />} />
       </Routes>
     </div>
   );
