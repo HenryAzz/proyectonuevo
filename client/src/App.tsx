@@ -16,9 +16,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<HomeContainer />} />
-        <Route path="/logIN" element={<LogIn2 />} />
+        <Route path="/login" element={<LogIn2 />} />
         <Route path="/about" element={<About />} />
-        <Route path="/formularioRegistro" element={<Registro />} />
+        <Route path="/registro" element={<Registro />} />
         <Route path="/property/:id" element={<CardDetail />} />
         <Route path="/form" element={<Form />} />
       </Routes>
