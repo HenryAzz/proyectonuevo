@@ -193,7 +193,7 @@ export const LogIn2 = () => {
                 <Typography variant="body2" align="center" sx={{ width: "60%" }}>
                   No tenes una cuenta?
                 </Typography>
-                <Link to="/formularioRegistro">
+                <Link to="/registro">
                   <Typography variant="body2" sx={{ marginLeft: "5px", width: "30%" }}>
                     Registrate
                   </Typography>
