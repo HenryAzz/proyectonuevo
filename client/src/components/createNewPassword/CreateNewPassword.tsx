@@ -13,7 +13,7 @@ export const CreateNewPassword = () => {
   //const navigate = useNavigate();
 
   const location = useLocation();
-  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isMachingPassword, setIsMachingPassword] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
@@ -36,27 +36,22 @@ export const CreateNewPassword = () => {
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    setPassword(value);
+    setNewPassword(value);
     setIsValidPassword(passwordRegex.test(value));
   };
 
   const handleMachingPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setConfirmPassword(value);
-    let result = value === password && passwordRegex.test(value);
+    let result = value === newPassword && passwordRegex.test(value);
     setIsMachingPassword(result);
-
-    if (value === password) {
-    }
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    //navigate("/logIn2");
     try {
       const actionCode = location.search.substring(1);
-      await confirmPasswordReset(auth, actionCode, password);
+      await confirmPasswordReset(auth, actionCode, newPassword);
       Toast.fire({
         icon: "success",
         title: "Cambio de contraseña exitoso..!!",
@@ -112,7 +107,7 @@ export const CreateNewPassword = () => {
                   label="ingrese su nueva contraseña"
                   type="password"
                   variant="outlined"
-                  value={password}
+                  value={newPassword}
                   onChange={handlePasswordChange}
                   onFocus={handlePasswordFocus}
                   error={!isValidPassword && isPasswordFocused}

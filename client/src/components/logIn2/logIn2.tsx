@@ -61,10 +61,21 @@ export const LogIn2 = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      Toast.fire({
+        icon: "success",
+        title: "Inicio de Sesión Exitoso",
+      });
     } catch (error: any) {
       console.log(error.message, error.code);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Algo salió mal al vincular cuenta Google..!!",
+        confirmButtonColor: "#3085d6",
+      });
     }
     navigate("/home");
   };
