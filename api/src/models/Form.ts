@@ -55,7 +55,7 @@ export default class Form extends Model {
   unit_price!: number;
 
   //Datos usuario
-  @Column({ type: DataType.INTEGER, allowNull: false })
+  @Column({ type: DataType.INTEGER, allowNull: false, unique: true })
   dni!: number;
 
   @Column({ type: DataType.INTEGER, allowNull: false })
@@ -116,6 +116,18 @@ export default class Form extends Model {
     allowNull: false,
   })
   postalCode!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  preferenceIdMP!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  payed!: string;
 
   // RELACIIONAR CON USER (USUARIO)
   @ForeignKey(() => User)
