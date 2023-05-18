@@ -1,5 +1,5 @@
 import { Box, Container, Typography, Grid, Button } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetPropertyByIdQuery } from "../../reduxToolkit/apiSlice";
 import Divider from "@mui/material/Divider";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -8,7 +8,7 @@ import Logo from "../../image/logo.png";
 import { Carrousel } from "../carrousel/carrousel";
 
 export const CardDetail = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>() as { id: string };
   const { data, isLoading } = useGetPropertyByIdQuery(id);
   const colorf = orange[50];
 
@@ -68,9 +68,11 @@ export const CardDetail = () => {
                   <Typography>{data?.description}</Typography>
                 </Box>
                 <Divider sx={{ width: "100%" }} />
-                <Button variant="contained" sx={{ mt: 1 }}>
-                  Hacer Reserva
-                </Button>
+                <Link to="#">
+                  <Button variant="contained" sx={{ mt: 1 }}>
+                    Hacer Reserva
+                  </Button>
+                </Link>
               </Grid>
             </Grid>
             <Box
@@ -81,9 +83,11 @@ export const CardDetail = () => {
                 mt: 2,
               }}
             >
-              <Button variant="contained" startIcon={<ArrowBackIcon />} href="/home">
-                Volver
-              </Button>
+              <Link to="/home">
+                <Button variant="contained" startIcon={<ArrowBackIcon />}>
+                  Volver
+                </Button>
+              </Link>
             </Box>
           </Box>
         )}

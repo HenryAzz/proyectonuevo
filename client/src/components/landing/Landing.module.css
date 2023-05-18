@@ -1,0 +1,32 @@
+button {
+  color: #fff;
+  transition: 0.25s;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
+  background: rgba(207, 118, 45, 0.65);
+  border: 2px solid;
+  font: inherit;
+  line-height: 1;
+  margin: 0.5em;
+  padding: 1em 2em;
+}
+
+.bt:hover,
+.bt:focus {
+  animation: bt 1s;
+  box-shadow: 0 0 0 2em transparent;
+}
+@keyframes bt {
+  0% {
+    box-shadow: 0 0 0 0 var(--hover);
+  }
+}
+
+.bt:local(.bt) {
+  --color: #ff5900cb;
+  --hover: #ff9900;
+}

@@ -40,7 +40,6 @@ const UploadWidget2: TypeUploadWidget = () => {
       },
       false
     );
-
     (document.getElementById("upload_widget2") as HTMLElement).addEventListener(
       "click",
       function () {
