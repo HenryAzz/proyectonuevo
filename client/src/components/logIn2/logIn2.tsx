@@ -61,12 +61,23 @@ export const LogIn2 = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      navigate("/home");
+      Toast.fire({
+        icon: "success",
+        title: "Inicio de Sesión Exitoso",
+      });
     } catch (error: any) {
       console.log(error.message, error.code);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Algo salió mal al vincular cuenta Google..!!",
+        confirmButtonColor: "#3085d6",
+      });
     }
-    navigate("/home");
   };
 
   const handleEmailFocus = () => {
@@ -171,9 +182,15 @@ export const LogIn2 = () => {
                   <FormControlLabel control={<Checkbox />} label="Recordarme" />
                 </Grid>
                 <Grid item>
-                  <Typography variant="body2" color="textSecondary">
-                    Olvide mi contraseña
-                  </Typography>
+                  <Link to="/reset" style={{ textDecoration: "none" }}>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      sx={{ "&:hover": { fontSize: "0.9rem" } }}
+                    >
+                      Olvide mi contraseña
+                    </Typography>
+                  </Link>
                 </Grid>
               </Grid>
               <Button

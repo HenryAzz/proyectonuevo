@@ -1,6 +1,6 @@
 .bt {
-  width: 100px;
-  height: 10px;
+  color: #fff;
+  transition: 0.25s;
 
   border-radius: 5px;
   padding: 10px 25px;
