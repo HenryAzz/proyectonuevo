@@ -12,6 +12,7 @@ import { Form } from "./components/form/form";
 import { CardDetail } from "./components/cardDetail/CardDetail";
 import { ResetPassword } from "./components/resetPassword/ResetPassword";
 import { CreateNewPassword } from "./components/createNewPassword/CreateNewPassword";
+import {Signal} from './components/reserva/Reserva'
 function App() {
   return (
     <div>
@@ -25,6 +26,7 @@ function App() {
         <Route path="/form" element={<Form />} />
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/newPass" element={<CreateNewPassword />} />
+        <Route path="/reserva/:id" element={<Signal />} />
       </Routes>
     </div>
   );
