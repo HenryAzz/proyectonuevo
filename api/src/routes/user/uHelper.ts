@@ -106,12 +106,12 @@ function generateRandomPassword(length: number): string {
 
 export async function getUserSoloByEmail(comparing) {
   let { email } = comparing;
-  console.log("esto es denfro de getUserSoloByEmail", email);
+  //console.log("esto es denfro de getUserSoloByEmail", email);
   let userByEmail;
   let emailDataBase = await User.findOne({ where: { email } });
   if (!emailDataBase) {
     userByEmail = await createUser(comparing); //google create
-    console.log("esto es userByEmail =>", userByEmail);
+    //console.log("esto es userByEmail =>", userByEmail);
   } else {
     const { email, hashgoogle } = comparing;
     // console.log("esto es hashgoogle ==>",hashgoogle)

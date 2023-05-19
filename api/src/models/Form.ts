@@ -55,7 +55,7 @@ export default class Form extends Model {
   unit_price!: number;
 
   //Datos usuario
-  @Column({ type: DataType.INTEGER, allowNull: false, unique: true })
+  @Column({ type: DataType.INTEGER, allowNull: false })
   dni!: number;
 
   @Column({ type: DataType.INTEGER, allowNull: false })

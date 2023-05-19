@@ -1,16 +1,14 @@
 import {
-  // Typography,
   TextField,
   Button,
-  // Stepper,
-  // Step,
-  // StepLabel,
   Box,
   Container,
   MenuItem,
   Select,
   FormControl,
   InputLabel,
+  Typography,
+  Grid
 } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
 import React from "react";
@@ -22,6 +20,7 @@ import UploadWidget2 from "./uploadWidget2";
 import MPButton from "../mercadopago/Mercadopago";
 import { useCreateFormMutation } from "../../reduxToolkit/apiSlice";
 import { auth } from "../../firebase/firebase";
+import { orange } from "@mui/material/colors";
 import { miArray } from "./config";
 
 interface FormState {
@@ -64,23 +63,27 @@ export const Form = () => {
     location: "",
     province: "",
     postalCode: "",
-    email: "",
+    email: null,
   });
 
   React.useEffect(() => {
+
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        setUser(user.email);
+        setUser(user.email)
+        setForm({ ...form, email: user.email})
       } else {
         setUser(null);
       }
     });
-
+    
     return () => {
       unsubscribe;
     };
   }, []);
-
+  
+  console.log(activeMP)
+  console.log(form)
   const property = [
     {
       value: "local", //shop
@@ -159,14 +162,10 @@ export const Form = () => {
     height: 50,
   });
 
-  const handleClick = () => {
-    createForm(form)
-      .then(() => setActiveMP(true))
-      .catch((error) => console.log(error));
-  };
+  const handleClick = async () => {
 
-  const handleClickUser = () => {
-    setForm({ ...form, email: user });
+   await createForm(form)
+    setActiveMP(true)
   };
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -188,6 +187,25 @@ export const Form = () => {
 
   return (
     <>
+    {
+        !user ? <Grid container sx={{height:"100vh", flexDirection:"column", justifyContent:"Center", alignContent:"Center"}} > 
+        <Grid item xs={6} sx={{backgroundColor:orange[50], p:2, borderRadius: "10px", boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)"}}>
+        <Box sx={{ width: "100%", mb: 2 }}>
+          <Link to="/home">
+            <img src={mano} alt="logo" style={{ width: "65px" }} />
+          </Link>
+        </Box>
+          <Box sx={{backgroundColor:"white", display:"flex", flexDirection:"column", justifyContent:"Center", alignContent:"Center", p:2, height:"80%", borderRadius: "10px"}}>
+          <Typography variant="h5">
+            Antes de llenar el formaulario debe iniciar sesión:
+          </Typography>
+          <Link to="/login" style={{alignSelf:"center"}}>
+          <button> Ir a iniciar sesión</button>
+          </Link>
+          </Box>
+        </Grid>
+        </Grid> :
+    
       <Container>
         <Link to="/home">
           <Img src={mano} alt="logo" />
@@ -386,9 +404,9 @@ export const Form = () => {
           />
         </Box>
         <Button onClick={handleClick}>enviar formulario</Button>
-        <Button onClick={handleClickUser}>CARGAR INFO USUARIO</Button>
         {activeMP ? <MPButton list={form} /> : false}
       </Container>
+      }
     </>
   );
 };
