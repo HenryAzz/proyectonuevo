@@ -4,6 +4,7 @@ import routesBroker from "./brokers/broker";
 import routesProperty from "./property/pRoot";
 import routesSignal from "./signal/signal";
 import routesForm from "./form/fRoot";
+import routesConsult from "./consult/consult";
 // import routesMessage from "./message/message"
 const router = Router();
 
@@ -16,6 +17,8 @@ router.use("/property", routesProperty);
 router.use("/signal", routesSignal);
 
 router.use("/form", routesForm);
+
+router.use("/consult", routesConsult);
 
 // router.use('/message', routesMessage)
 
