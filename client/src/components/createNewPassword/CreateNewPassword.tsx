@@ -6,11 +6,11 @@ import { orange } from "@mui/material/colors";
 import mano from "../../image/mano.png";
 import { auth } from "../../firebase/firebase";
 import { confirmPasswordReset } from "firebase/auth";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export const CreateNewPassword = () => {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const location = useLocation();
   const [newPassword, setNewPassword] = useState("");
@@ -53,6 +53,7 @@ export const CreateNewPassword = () => {
       const searchParams = new URLSearchParams(location.search);
       const actionCode = searchParams.get("oobCode") as string;
       await confirmPasswordReset(auth, actionCode, newPassword);
+      navigate("/login");
       Toast.fire({
         icon: "success",
         title: "Cambio de contraseña exitoso..!!",
