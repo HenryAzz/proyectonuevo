@@ -68,6 +68,7 @@ export const Form = () => {
 
   React.useEffect(() => {
 
+    
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user.email)

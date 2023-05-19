@@ -23,7 +23,6 @@ export default function MPButton(props:any) {
         script.src = 'https://sdk.mercadopago.com/js/v2' // The link where the script is hosted
         script.setAttribute('data-preference-id', data.global) // Here we set its data-preference-id to the ID that the Mercado Pago API gives us
         document.body.appendChild(script) // Here we append it to the body of our page
-
         const mp = new window.MercadoPago( import.meta.env.VITE_MERCADOPAGO_TOKEN_CLIENT, {
           locale: 'es-AR'
         })

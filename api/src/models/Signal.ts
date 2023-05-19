@@ -39,6 +39,15 @@ export class Signal extends Model<Signal> {
   @Column({ allowNull: false })
   documentation!: string;
 
+  @Column({ allowNull: false })
+  price!: number;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  payed!: string;
+
   // RELACIIONAR CON PROPERTY (PROPIEDAD)
   @ForeignKey(() => Property)
   @Column
