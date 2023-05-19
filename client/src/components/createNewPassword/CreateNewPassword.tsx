@@ -50,7 +50,8 @@ export const CreateNewPassword = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const actionCode = location.search.substring(1);
+      const searchParams = new URLSearchParams(location.search);
+      const actionCode = searchParams.get("oobCode") as string;
       await confirmPasswordReset(auth, actionCode, newPassword);
       Toast.fire({
         icon: "success",
