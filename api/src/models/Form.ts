@@ -15,15 +15,15 @@ import { Broker } from "./Broker";
 import { User } from "./User";
 
 enum TypeVivienda {
-  CASA = "Casa",
-  PH = "PH",
-  DEPARTAMENTO = "Departamento",
-  EDIFICIO = "Edificio",
-  LOCAL = "Local",
-  INDUSTRIA = "Industria",
-  OFICINA = "Oficina",
-  LOFT = "Loft",
-  TERRENO = "Terreno",
+  CASA = "casa",
+  PH = "ph",
+  DEPARTAMENTO = "departamento",
+  EDIFICIO = "edificio",
+  LOCAL = "local",
+  INDUSTRIA = "industria",
+  OFICINA = "oficina",
+  LOFT = "loft",
+  TERRENO = "terreno",
 }
 
 @Table({ timestamps: true })
@@ -48,17 +48,17 @@ export default class Form extends Model {
   @Column({ allowNull: true })
   description!: string;
 
-  @Column({ allowNull: true })
-  picture_url!: string;
+  @Column({ allowNull: true, type: DataType.ARRAY(DataType.JSON) })
+  picture_url!: object;
 
-  @Column({ allowNull: true })
+  @Column({ type: DataType.INTEGER, allowNull: true })
   unit_price!: number;
 
   //Datos usuario
-  @Column({ allowNull: false })
-  dni!: string;
+  @Column({ type: DataType.INTEGER, allowNull: false })
+  dni!: number;
 
-  @Column({ allowNull: false })
+  @Column({ type: DataType.INTEGER, allowNull: false })
   tel!: number;
 
   //Tipo de propiedad
@@ -72,50 +72,62 @@ export default class Form extends Model {
     type: DataType.ENUM(...Object.values(TypeVivienda)),
     allowNull: false,
   })
-  type_vivienda: TypeVivienda;
+  type_vivienda!: TypeVivienda;
 
   // Detalles Propiedad
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  Address: string;
+  address!: string;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  Number: number;
+  number!: number;
 
   @Column({
     type: DataType.STRING,
     allowNull: true,
   })
-  Apartment: string;
+  apartment!: string;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: true,
   })
-  Floor: number;
+  floor!: number;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  Location: string;
+  location!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  province: string;
+  province!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  postalCode: string;
+  postalCode!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  preferenceIdMP!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  payed!: string;
 
   // RELACIIONAR CON USER (USUARIO)
   @ForeignKey(() => User)
