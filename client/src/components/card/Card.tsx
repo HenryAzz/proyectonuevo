@@ -54,7 +54,7 @@ export const CardComponent: React.FC<CardProps> = ({
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Link to="#">
+        <Link to={`/reserva/${id}`}>
           <Button variant="contained" sx={{ margin: 1 }}>
             Hacer Reserva
           </Button>
