@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { Button } from "@mui/material";
-import {miArray} from './config'
+
 
 
 type TypeUploadWidget = () => JSX.Element;
+
+const arr: string[] = []
 
 declare global {
   interface Window {
@@ -16,12 +18,12 @@ declare global {
 const CLOUD_NAME = import.meta.env.VITE_CLOUDNAME_CLOUDINARY
 const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET_CLOUDINARY
 
-const UploadWidget: TypeUploadWidget = () => {
+const UploadWidget3: TypeUploadWidget = () => {
   
 
   useEffect(() => {
-    const cloudName = CLOUD_NAME//"dmwmdylpa";
-    const uploadPreset = UPLOAD_PRESET//"dkmqrwwv";
+    const cloudName = CLOUD_NAME
+    const uploadPreset = UPLOAD_PRESET
 
   
       const myWidget = window.cloudinary.createUploadWidget(
@@ -32,12 +34,12 @@ const UploadWidget: TypeUploadWidget = () => {
         },
         (error: any, result: any) => {
           if (!error && result && result.event === "success") {
-            miArray.push(result.info.secure_url);
+            arr.push(result.info.secure_url);
           }
         }
       );
 
-      (document.getElementById("upload_widget3") as HTMLElement).addEventListener(
+      (document.getElementById("upload_widget4") as HTMLElement).addEventListener(
         "click",
         function () {
           myWidget.open();
@@ -49,11 +51,11 @@ const UploadWidget: TypeUploadWidget = () => {
 
   return (
     <div>
-      <Button sx={{ bgcolor: "#ffecb3", height: "30px" }} id="upload_widget3">
-        Adjunte imagen del título de propiedad
+      <Button sx={{ bgcolor: "#ffecb3", height: "30px" }} id="upload_widget4">
+        Adjuntar imagen comprobante ingreso
       </Button>
     </div>
   );
 };
 
-export default UploadWidget;
+export default UploadWidget3;

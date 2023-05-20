@@ -48,6 +48,18 @@ export const findUserPerson_type = async function (person_type: string) {
   return db;
 };
 
+//findUserName
+export const findUserName = async function (name: string) {
+  const db = await User.findAll({
+    where: {
+      name: name,
+    },
+  });
+
+  return db;
+};
+
+
 
 // HELPER PUT //
 export const updatePasswordUser = async function (email: string) {
@@ -94,12 +106,12 @@ function generateRandomPassword(length: number): string {
 
 export async function getUserSoloByEmail(comparing) {
   let { email } = comparing;
-  console.log("esto es denfro de getUserSoloByEmail", email);
+  //console.log("esto es denfro de getUserSoloByEmail", email);
   let userByEmail;
   let emailDataBase = await User.findOne({ where: { email } });
   if (!emailDataBase) {
     userByEmail = await createUser(comparing); //google create
-    console.log("esto es userByEmail =>", userByEmail);
+    //console.log("esto es userByEmail =>", userByEmail);
   } else {
     const { email, hashgoogle } = comparing;
     // console.log("esto es hashgoogle ==>",hashgoogle)

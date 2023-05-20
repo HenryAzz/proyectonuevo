@@ -6,7 +6,7 @@ interface StatesState {
 }
 
 const initialState: StatesState = {
-  value: false,
+  value: false
 };
 
 const statesSlice = createSlice({
@@ -15,7 +15,7 @@ const statesSlice = createSlice({
   reducers: {
     setValue: (state, action: PayloadAction<boolean>) => {
       state.value = action.payload;
-    },
+    }
   },
 });
 
