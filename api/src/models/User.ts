@@ -14,15 +14,15 @@ import Form from "./Form";
 export class User extends Model<User> {
   @Column({
     type: DataType.INTEGER,
-    primaryKey: true,
     allowNull: false,
     autoIncrement: true,
     unique: true,
+    primaryKey: true
   })
   id!: number;
 
   //Modificado tipo enum que sea cliente o proveedor
-  @Column({ allowNull: false, type: DataType.ENUM("Cliente", "Proveedor") })
+  @Column({ allowNull: false, type: DataType.ENUM("Cliente", "Proveedor"), defaultValue: "Cliente" })
   rol!: string;
 
   @Column({ allowNull: false })
@@ -35,6 +35,7 @@ export class User extends Model<User> {
   @Column({
     allowNull: false,
     type: DataType.ENUM("Persona Fisica", "Persona Juridica"),
+    defaultValue: "Persona Fisica"
   })
   person_type!: string;
 

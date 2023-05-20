@@ -1,52 +1,70 @@
-import { Button, Card, CardActions, CardMedia, Grid, Container } from "@mui/material";
-import video from "../../assets/video.mp4";
+import { Container, Grid, Button } from "@mui/material";
+import video from "../../image/video19.mp4";
 import { Link } from "react-router-dom";
-import logo from "../../image/logo.png";
-//import { videoUrl } from "../../assets/imageTeam";
+import s from "../landing/Landing.module.css";
+import queryString from 'query-string'; //info por query
+import axios from 'axios'
+import {useEffect} from 'react'
 
 export const Landing = () => {
+
+  const queryParams = queryString.parse(window.location.search)
+  useEffect(() => {
+    const fetchPayment = async () => {
+      try {
+        await axios.post(`http://localhost:3001/mercadopago/payment`, queryParams);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchPayment();
+    
+  },[queryParams])
+
   return (
-    <>
-      <Container sx={{}}>
-        {" "}
-        <br />
-        <img src={logo} alt="logo" width="250px" height="50px" />
-        <Grid
-          container
-          sx={{
-            direction: "column",
-            alignItems: "center",
-            justify: "center",
-          }}
-        >
-          <Card>
-            <CardMedia
-              component="video"
-              src={video}
-              autoPlay
-              muted
-              loop
-              controls
-              title="imagen"
-              style={{ height: "80vh", width: "auto" }}
-            ></CardMedia>
-            <CardActions
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Link to="/home">
-                <Button variant="contained">Ingresar</Button>
-              </Link>
-              <Link to="/about">
-                <Button variant="outlined">Sobre Nosotros</Button>
-              </Link>
-            </CardActions>
-          </Card>
+    <Container>
+      <br />
+      <Grid container justifyContent="end" alignContent="end" position="fixed">
+        <Link to="/home">
+          <Button style={{ fontSize: 17 }} sx={{ color: "black" }} className={s.bt}>
+            <span>
+              <strong>INGRESAR</strong>
+            </span>
+          </Button>
+        </Link>
+
+        <Grid item xs={8} sm={8} md={6} lg={4}>
+          <video
+            id="video"
+            autoPlay
+            loop
+            muted
+            src={video}
+            style={{
+              position: "fixed",
+              width: "100%",
+              left: "50%",
+              top: "50%",
+
+              objectFit: "cover",
+              transform: "translate(-50%, -50%)",
+              zIndex: "-1",
+            }}
+          ></video>
+          <br />
+          <div className={s.box}>
+            <div className={s.box2}>
+              CONTACTO:
+              <br />
+              Av. 9 de Julio 580
+              <br />
+              Whatsapp: 011-155895324 <br />
+              PF.prop.tech@gmail.com <br />
+            </div>
+          </div>
         </Grid>
-      </Container>
-    </>
+      </Grid>
+    </Container>
   );
 };

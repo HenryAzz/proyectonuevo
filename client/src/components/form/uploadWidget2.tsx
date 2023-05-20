@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { Button, Box } from "@mui/material";
+import {miArray} from './config'
 
 type TypeUploadWidget = () => JSX.Element;
 
@@ -10,12 +11,15 @@ declare global {
   }
 }
 
+const CLOUD_NAME = import.meta.env.VITE_CLOUDNAME_CLOUDINARY
+const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET_CLOUDINARY
+
 const UploadWidget2: TypeUploadWidget = () => {
-  const str: string[] = [];
+  
 
   useEffect(() => {
-    const cloudName = "dmwmdylpa";
-    const uploadPreset = "dkmqrwwv";
+    const cloudName = CLOUD_NAME 
+    const uploadPreset = UPLOAD_PRESET 
 
     const myWidget = window.cloudinary.createUploadWidget(
       {
@@ -24,9 +28,7 @@ const UploadWidget2: TypeUploadWidget = () => {
       },
       (error: any, result: any) => {
         if (!error && result && result.event === "success") {
-          str.push(result.info.secure_url);
-          console.log(result.info);
-          console.log("Done! Here is the image info: ", str);
+          miArray.push(result.info.secure_url);
         }
       }
     );
