@@ -5,7 +5,7 @@ import { Grid } from "@mui/material";
 // import axios from 'axios'
 //import { HomeMovil } from "../homeMovil/HomeMovil";
 import { HomeDesktop } from "../homeDesktop/HomeDesktop";
-import { Navbar } from "../navbar/Navbar";
+//import { Navbar } from "../navbar/Navbar";
 import { FirstFilters } from "../firstFilters/FirstFilters";
 import { NavBarTest } from "../navbarTest/NavBarTest";
 import { SecondFilters } from "../secondFilters/secondFilters";
@@ -41,14 +41,14 @@ const HomeContainer = () => {
         <Grid item xs={12}>
           <NavBarTest />
         </Grid>
-        <Grid item xs={12} md={3} sx={{ border: "1px solid red", p: 2 }}>
+        <Grid item xs={12} md={3} sx={{ p: 2 }}>
           {isScreenMdUp ? (
             <FirstFilters setStringQuery={setStringQuery} stringQuery={stringQuery} />
           ) : (
             <SecondFilters setStringQuery={setStringQuery} stringQuery={stringQuery} />
           )}
         </Grid>
-        <Grid item xs={12} md={9} sx={{ border: "1px solid red" }}>
+        <Grid item xs={12} md={9} sx={{}}>
           <HomeDesktop stringQuery={stringQuery} />
         </Grid>
       </Grid>

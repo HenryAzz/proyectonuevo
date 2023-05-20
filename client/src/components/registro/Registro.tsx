@@ -96,7 +96,7 @@ export const Registro = () => {
         console.log(error);
       });
 
-    navigate("/home");
+    navigate("/login");
   };
   return (
     <Container sx={{ width: "auto" }}>
