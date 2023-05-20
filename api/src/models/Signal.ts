@@ -32,12 +32,21 @@ export class Signal extends Model<Signal> {
   //Modificado nombre de la columna status por situation y agregado enum
   @Column({
     allowNull: false,
-    type: DataType.ENUM("Reservado", "Aceptado", "Rechazado"),
+    type: DataType.ENUM("Reservado", "Aceptado", "Rechazado"), defaultValue: "Reservado"
   })
   situation!: string;
 
   @Column({ allowNull: false })
   documentation!: string;
+
+  @Column({ allowNull: false })
+  price!: number;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  payed!: string;
 
   // RELACIIONAR CON PROPERTY (PROPIEDAD)
   @ForeignKey(() => Property)

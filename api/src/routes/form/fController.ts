@@ -43,12 +43,12 @@ export const getForm = async (req: Request, res: Response) => {
         province,
         postalCode
       );
-      console.log("no paso");
+      //console.log("no paso");
       return res.status(200).json(form);
     }
 
     const formTotal = await Form.findAll();
-    console.log("paso");
+    //console.log("paso");
     res.status(200).json(formTotal);
   } catch (error: any) {
     return res.status(404).send({ error: error.message });
@@ -58,9 +58,10 @@ export const getForm = async (req: Request, res: Response) => {
 //POST
 export const postForm = async (req: Request, res: Response) => {
   try {
-    const newForm = await createForm(req.body);
+    const newForm = await createForm(req.body);    
     return res.status(200).json(newForm);
   } catch (error: any) {
+    console.log(error.message)
     return res.status(404).send({ error: error.message });
   }
 };

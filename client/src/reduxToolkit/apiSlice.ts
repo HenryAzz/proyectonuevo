@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { property, createPropertyRequest } from "./propertyinterfaces";
+import {form, createFormRequest} from './forminterfaces'
 import { Broker, CreateBrokerRequest } from "./brokerInterfaces";
 import { createUserRequest } from "./authentication";
+import {User} from './userInterface'
 
 const API_URL = "http://localhost:3001";
 
@@ -48,6 +50,7 @@ export const apiSlice = createApi({
       }),
     }),
 
+    
     //metodos para enviar y recibr data de la ruta broker
     getBrokers: builder.query<Broker[], void>({
       query: () => "/broker",
@@ -76,6 +79,21 @@ export const apiSlice = createApi({
         body: createUserRequest,
       }),
     }),
+    
+    //Encontrar usuario por nombre
+    getUserByName: builder.query<User[] | undefined, string | null | undefined>({
+      query: (displayName) => `/user?name=${displayName}`,
+    }),
+
+    //metodos para enviar y recibr data de la ruta form
+    
+    createForm: builder.mutation<form, createFormRequest>({
+      query: (form) => ({
+        url: "/form",
+        method: "POST",
+        body: form,
+      }),
+    }),
   }),
 });
 
@@ -91,4 +109,6 @@ export const {
   useCreatePropertyMutation,
   useDeletPropertyByIDMutation,
   useCreateUserMutation,
+  useCreateFormMutation,
+  useGetUserByNameQuery
 } = apiSlice;

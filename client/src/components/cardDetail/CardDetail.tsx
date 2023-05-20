@@ -68,7 +68,7 @@ export const CardDetail = () => {
                   <Typography>{data?.description}</Typography>
                 </Box>
                 <Divider sx={{ width: "100%" }} />
-                <Link to="#">
+                <Link to={`/reserva/${id}`}>
                   <Button variant="contained" sx={{ mt: 1 }}>
                     Hacer Reserva
                   </Button>
