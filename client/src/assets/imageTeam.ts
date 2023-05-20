@@ -5,13 +5,13 @@ import samuel from "../assets/samuel.jpeg";
 import zuli from "../assets/zuli.jpeg";
 import diego from "../assets/diego.jpeg";
 import santi from "../assets/santi.jpeg";
+import carli from "../assets/cali.jpg";
 
 export const teamMembers = [
   {
     name: "Carla Formento",
     role: "Front End Developer",
-    image:
-      "https://media.licdn.com/dms/image/D4D03AQHTAmDobs0Rmw/profile-displayphoto-shrink_800_800/0/1671311798297?e=1689206400&v=beta&t=5QArZH4ug0KtMdWyy6kzoDCU_7KxLDiiRnPGJ-tb9CM",
+    image: carli,
     path: "https://github.com/Carlunchi",
     path2: "https://www.linkedin.com/in/carla-formento/",
   },
@@ -20,17 +20,17 @@ export const teamMembers = [
     role: "Full Stack Developer",
     image: azz,
     path: "https://github.com/HenryAzz",
-    path2: "https://www.linkedin.com",
+    path2: "https://www.linkedin.com/in/azsc/",
   },
   {
     name: "Gustavo Guaimas",
     role: "Front End Developer",
     image: gustavo,
     path: "https://github.com/gguaimas85",
-    path2: "https://www.linkedin.com",
+    path2: "https://www.linkedin.com/in/gustavoguaimas/",
   },
   {
-    name: "Samuel Delgado",
+    name: "Samuel Bocanegra",
     role: "Back End Developer",
     image: samuel,
     path: "https://github.com/kaylreese",
@@ -41,7 +41,7 @@ export const teamMembers = [
     role: "Full Stack Developer",
     image: argio,
     path: "https://github.com/elto82",
-    path2: "https://www.linkedin.com",
+    path2: "https://www.linkedin.com/in/antonio-arias-22558814a/",
   },
   {
     name: "Zulimar Tovar",
@@ -55,14 +55,14 @@ export const teamMembers = [
     role: "Back End Developer",
     image: santi,
     path: "https://github.com/sachibarajas",
-    path2: "https://www.linkedin.com",
+    path2: "https://www.linkedin.com/in/santiago-barajas-362011248/",
   },
   {
     name: "Diego Piola",
     role: "Front End Developer",
     image: diego,
     path: "https://github.com/Diegohp141",
-    path2: "https://www.linkedin.com",
+    path2: "https://www.linkedin.com/in/diego-hernan-piola-ab4380144/",
   },
 ];
 
