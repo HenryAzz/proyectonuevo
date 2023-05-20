@@ -8,7 +8,7 @@ import {
   FormControl,
   InputLabel,
   Typography,
-  Grid
+  Grid,
 } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
 import React from "react";
@@ -67,24 +67,20 @@ export const Form = () => {
   });
 
   React.useEffect(() => {
-
-    
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        setUser(user.email)
-        setForm({ ...form, email: user.email})
+        setUser(user.email);
+        setForm({ ...form, email: user.email });
       } else {
         setUser(null);
       }
     });
-    
+
     return () => {
       unsubscribe;
     };
   }, []);
-  
-  console.log(activeMP)
-  console.log(form)
+
   const property = [
     {
       value: "local", //shop
@@ -164,9 +160,8 @@ export const Form = () => {
   });
 
   const handleClick = async () => {
-
-   await createForm(form)
-    setActiveMP(true)
+    await createForm(form);
+    setActiveMP(true);
   };
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -188,226 +183,254 @@ export const Form = () => {
 
   return (
     <>
-    {
-        !user ? <Grid container sx={{height:"100vh", flexDirection:"column", justifyContent:"Center", alignContent:"Center"}} > 
-        <Grid item xs={6} sx={{backgroundColor:orange[50], p:2, borderRadius: "10px", boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)"}}>
-        <Box sx={{ width: "100%", mb: 2 }}>
-          <Link to="/home">
-            <img src={mano} alt="logo" style={{ width: "65px" }} />
-          </Link>
-        </Box>
-          <Box sx={{backgroundColor:"white", display:"flex", flexDirection:"column", justifyContent:"Center", alignContent:"Center", p:2, height:"80%", borderRadius: "10px"}}>
-          <Typography variant="h5">
-            Antes de llenar el formaulario debe iniciar sesión:
-          </Typography>
-          <Link to="/login" style={{alignSelf:"center"}}>
-          <button> Ir a iniciar sesión</button>
-          </Link>
-          </Box>
+      {!user ? (
+        <Grid
+          container
+          sx={{
+            height: "100vh",
+            flexDirection: "column",
+            justifyContent: "Center",
+            alignContent: "Center",
+          }}
+        >
+          <Grid
+            item
+            xs={6}
+            sx={{
+              backgroundColor: orange[50],
+              p: 2,
+              borderRadius: "10px",
+              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
+            }}
+          >
+            <Box sx={{ width: "100%", mb: 2 }}>
+              <Link to="/home">
+                <img src={mano} alt="logo" style={{ width: "65px" }} />
+              </Link>
+            </Box>
+            <Box
+              sx={{
+                backgroundColor: "white",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "Center",
+                alignContent: "Center",
+                p: 2,
+                height: "80%",
+                borderRadius: "10px",
+              }}
+            >
+              <Typography variant="h5">
+                Antes de llenar el formaulario debe iniciar sesión:
+              </Typography>
+              <Link to="/login" style={{ alignSelf: "center" }}>
+                <button> Ir a iniciar sesión</button>
+              </Link>
+            </Box>
+          </Grid>
         </Grid>
-        </Grid> :
-    
-      <Container>
-        <Link to="/home">
-          <Img src={mano} alt="logo" />
-        </Link>
-        <Box sx={{ display: "flex", gap: 2 }}>
-          <TextField
-            sx={{ bgcolor: "#ffecb3" }}
-            id="dni-propietaio"
-            label="DNI del propietario"
-            variant="outlined"
-            placeholder="Ingrese su DNI"
-            name="dni"
-            value={form.dni}
-            onChange={handleChangeInput}
-            fullWidth
-            margin="normal"
-          />
+      ) : (
+        <Container>
+          <Link to="/home">
+            <Img src={mano} alt="logo" />
+          </Link>
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <TextField
+              sx={{ bgcolor: "#ffecb3" }}
+              id="dni-propietaio"
+              label="DNI del propietario"
+              variant="outlined"
+              placeholder="Ingrese su DNI"
+              name="dni"
+              value={form.dni}
+              onChange={handleChangeInput}
+              fullWidth
+              margin="normal"
+            />
 
-          <TextField
-            sx={{ bgcolor: "#ffecb3" }}
-            id="alternate-phone"
-            label="Teléfono"
-            variant="outlined"
-            placeholder="Ingrese su número de Teléfono"
-            fullWidth
-            name="tel"
-            value={form.tel}
-            onChange={handleChangeInput}
-            margin="normal"
-          />
-        </Box>
+            <TextField
+              sx={{ bgcolor: "#ffecb3" }}
+              id="alternate-phone"
+              label="Teléfono"
+              variant="outlined"
+              placeholder="Ingrese su número de Teléfono"
+              fullWidth
+              name="tel"
+              value={form.tel}
+              onChange={handleChangeInput}
+              margin="normal"
+            />
+          </Box>
 
-        <UploadWidget2 />
+          <UploadWidget2 />
 
-        <br />
-        <br />
+          <br />
+          <br />
 
-        <FormControl fullWidth sx={{ height: "auto" }}>
-          <InputLabel id="operaciones">Tipo de Operación</InputLabel>
-          <Select
-            value={form.title}
-            onChange={handleChange}
-            labelId="operaciones"
-            label=" Tipo de Operaciones"
-            name="title"
-            sx={{ bgcolor: "#ffecb3" }}
-          >
-            {operation.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+          <FormControl fullWidth sx={{ height: "auto" }}>
+            <InputLabel id="operaciones">Tipo de Operación</InputLabel>
+            <Select
+              value={form.title}
+              onChange={handleChange}
+              labelId="operaciones"
+              label=" Tipo de Operaciones"
+              name="title"
+              sx={{ bgcolor: "#ffecb3" }}
+            >
+              {operation.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-        <br />
-        <br />
-        <FormControl fullWidth sx={{ height: "auto" }}>
-          <InputLabel id="propiedad">Tipo de Propiedad</InputLabel>
-          <Select
-            value={form.type_prop}
-            onChange={handleChange}
-            labelId="propiedad"
-            name="type_prop"
-            label=" Tipo de Propiedad"
-            sx={{ bgcolor: "#ffecb3" }}
-          >
-            {property.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+          <br />
+          <br />
+          <FormControl fullWidth sx={{ height: "auto" }}>
+            <InputLabel id="propiedad">Tipo de Propiedad</InputLabel>
+            <Select
+              value={form.type_prop}
+              onChange={handleChange}
+              labelId="propiedad"
+              name="type_prop"
+              label=" Tipo de Propiedad"
+              sx={{ bgcolor: "#ffecb3" }}
+            >
+              {property.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-        <br />
-        <br />
+          <br />
+          <br />
 
-        <FormControl fullWidth sx={{ height: "auto" }}>
-          <InputLabel id="vivienda">Tipo de Vivienda</InputLabel>
-          <Select
-            value={form.type_vivienda}
-            onChange={handleChange}
-            labelId="vivienda"
-            label=" Tipo de Vivienda"
-            name="type_vivienda"
-            sx={{ bgcolor: "#ffecb3" }}
-          >
-            {livingPlaces.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+          <FormControl fullWidth sx={{ height: "auto" }}>
+            <InputLabel id="vivienda">Tipo de Vivienda</InputLabel>
+            <Select
+              value={form.type_vivienda}
+              onChange={handleChange}
+              labelId="vivienda"
+              label=" Tipo de Vivienda"
+              name="type_vivienda"
+              sx={{ bgcolor: "#ffecb3" }}
+            >
+              {livingPlaces.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-        <br />
-        <br />
+          <br />
+          <br />
 
-        <UploadWidget />
+          <UploadWidget />
 
-        <Box sx={{ display: "flex", gap: 2 }}>
-          <TextField
-            sx={{ bgcolor: "#ffecb3" }}
-            id="direccion"
-            label="Dirección"
-            variant="outlined"
-            placeholder="Dirección del inmueble"
-            fullWidth
-            name="address"
-            value={form.address}
-            onChange={handleChangeInput}
-            margin="normal"
-          />
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <TextField
+              sx={{ bgcolor: "#ffecb3" }}
+              id="direccion"
+              label="Dirección"
+              variant="outlined"
+              placeholder="Dirección del inmueble"
+              fullWidth
+              name="address"
+              value={form.address}
+              onChange={handleChangeInput}
+              margin="normal"
+            />
 
-          <TextField
-            sx={{ bgcolor: "#ffecb3" }}
-            id="numero"
-            label="Número"
-            variant="outlined"
-            placeholder="Número de la dirección"
-            fullWidth
-            margin="normal"
-            value={form.number}
-            name="number"
-            onChange={handleChangeInput}
-          />
-        </Box>
+            <TextField
+              sx={{ bgcolor: "#ffecb3" }}
+              id="numero"
+              label="Número"
+              variant="outlined"
+              placeholder="Número de la dirección"
+              fullWidth
+              margin="normal"
+              value={form.number}
+              name="number"
+              onChange={handleChangeInput}
+            />
+          </Box>
 
-        <Box sx={{ display: "flex", gap: 2 }}>
-          <TextField
-            sx={{ bgcolor: "#ffecb3" }}
-            id="dpto"
-            label="Apartamento"
-            variant="outlined"
-            placeholder="Ingrese el número y/o letra del apartamento"
-            fullWidth
-            margin="normal"
-            name="apartment"
-            value={form.apartment}
-            onChange={handleChangeInput}
-          />
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <TextField
+              sx={{ bgcolor: "#ffecb3" }}
+              id="dpto"
+              label="Apartamento"
+              variant="outlined"
+              placeholder="Ingrese el número y/o letra del apartamento"
+              fullWidth
+              margin="normal"
+              name="apartment"
+              value={form.apartment}
+              onChange={handleChangeInput}
+            />
 
-          <TextField
-            sx={{ bgcolor: "#ffecb3" }}
-            id="piso"
-            label="Piso"
-            variant="outlined"
-            placeholder="Piso del Apartamento"
-            fullWidth
-            margin="normal"
-            name="floor"
-            value={form.floor}
-            onChange={handleChangeInput}
-          />
-        </Box>
+            <TextField
+              sx={{ bgcolor: "#ffecb3" }}
+              id="piso"
+              label="Piso"
+              variant="outlined"
+              placeholder="Piso del Apartamento"
+              fullWidth
+              margin="normal"
+              name="floor"
+              value={form.floor}
+              onChange={handleChangeInput}
+            />
+          </Box>
 
-        <Box sx={{ display: "flex", gap: 2 }}>
-          <TextField
-            sx={{ bgcolor: "#ffecb3" }}
-            id="localidad"
-            label="Ubicación"
-            variant="outlined"
-            placeholder="Ingrese la ubicación "
-            fullWidth
-            margin="normal"
-            name="location"
-            value={form.location}
-            onChange={handleChangeInput}
-          />
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <TextField
+              sx={{ bgcolor: "#ffecb3" }}
+              id="localidad"
+              label="Ubicación"
+              variant="outlined"
+              placeholder="Ingrese la ubicación "
+              fullWidth
+              margin="normal"
+              name="location"
+              value={form.location}
+              onChange={handleChangeInput}
+            />
 
-          <TextField
-            sx={{ bgcolor: "#ffecb3" }}
-            id="provincia"
-            label="Provincia"
-            variant="outlined"
-            placeholder="Ingrese la provincia"
-            fullWidth
-            margin="normal"
-            name="province"
-            value={form.province}
-            onChange={handleChangeInput}
-          />
+            <TextField
+              sx={{ bgcolor: "#ffecb3" }}
+              id="provincia"
+              label="Provincia"
+              variant="outlined"
+              placeholder="Ingrese la provincia"
+              fullWidth
+              margin="normal"
+              name="province"
+              value={form.province}
+              onChange={handleChangeInput}
+            />
 
-          <TextField
-            sx={{ bgcolor: "#ffecb3" }}
-            id="codigo-postal"
-            label="Código Postal"
-            variant="outlined"
-            placeholder="Ingrese el código postal"
-            fullWidth
-            margin="normal"
-            name="postalCode"
-            value={form.postalCode}
-            onChange={handleChangeInput}
-          />
-        </Box>
-        <Button onClick={handleClick}>enviar formulario</Button>
-        {activeMP ? <MPButton list={form} /> : false}
-      </Container>
-      }
+            <TextField
+              sx={{ bgcolor: "#ffecb3" }}
+              id="codigo-postal"
+              label="Código Postal"
+              variant="outlined"
+              placeholder="Ingrese el código postal"
+              fullWidth
+              margin="normal"
+              name="postalCode"
+              value={form.postalCode}
+              onChange={handleChangeInput}
+            />
+          </Box>
+          <Button onClick={handleClick}>enviar formulario</Button>
+          {activeMP ? <MPButton list={form} /> : false}
+        </Container>
+      )}
     </>
   );
 };
@@ -535,7 +558,7 @@ export const Form = () => {
 //     setForm({...form, [event.target.name]: event.target.value})
 //   };
 
-//   console.log(form)
+//
 //   const DniForm = () => {
 
 //     return (

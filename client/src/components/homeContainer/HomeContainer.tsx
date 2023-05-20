@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Box } from "@mui/material";
+import { useState } from "react";
+import { Grid } from "@mui/material";
 //import { Theme, useTheme } from "@mui/material/styles";
 // import queryString from 'query-string'; //info por query
 // import axios from 'axios'
@@ -7,6 +7,9 @@ import { Box } from "@mui/material";
 import { HomeDesktop } from "../homeDesktop/HomeDesktop";
 import { Navbar } from "../navbar/Navbar";
 import { FirstFilters } from "../firstFilters/FirstFilters";
+import { NavBarTest } from "../navbarTest/NavBarTest";
+import { SecondFilters } from "../secondFilters/secondFilters";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 const HomeContainer = () => {
   //validar pago por mercadopago
@@ -26,23 +29,29 @@ const HomeContainer = () => {
 
   // },[queryParams])
 
-  const [missingFilters, setMissingFilters] = useState<boolean>(false);
   const [stringQuery, setStringQuery] = useState<string>("?");
+
+  const theme = useTheme();
+  const isScreenMdUp = useMediaQuery(theme.breakpoints.up("md"));
 
   return (
     <>
-      {missingFilters ? (
-        <Box>
-          <Navbar setStringQuery={setStringQuery} stringQuery={stringQuery} />
+      <Grid container sx={{ flexDirection: "row" }}>
+        {/* <Navbar setStringQuery={setStringQuery} stringQuery={stringQuery} /> */}
+        <Grid item xs={12}>
+          <NavBarTest />
+        </Grid>
+        <Grid item xs={12} md={3} sx={{ border: "1px solid red", p: 2 }}>
+          {isScreenMdUp ? (
+            <FirstFilters setStringQuery={setStringQuery} stringQuery={stringQuery} />
+          ) : (
+            <SecondFilters setStringQuery={setStringQuery} stringQuery={stringQuery} />
+          )}
+        </Grid>
+        <Grid item xs={12} md={9} sx={{ border: "1px solid red" }}>
           <HomeDesktop stringQuery={stringQuery} />
-        </Box>
-      ) : (
-        <FirstFilters
-          setMissingFilters={setMissingFilters}
-          setStringQuery={setStringQuery}
-          stringQuery={stringQuery}
-        />
-      )}
+        </Grid>
+      </Grid>
     </>
   );
 };

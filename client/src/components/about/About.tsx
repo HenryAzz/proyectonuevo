@@ -49,7 +49,7 @@ export const About = () => {
                 </Typography>
                 <Box sx={{ ml: 4 }}>
                   <IconButton>
-                    <Link to={member.path}>
+                    <Link to={member.path} target="_blank">
                       <GitHubIcon sx={{ color: "#171515" }} />
                     </Link>
                   </IconButton>

@@ -23,6 +23,7 @@ import React from "react";
 import { auth } from "../../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useCreateUserMutation } from "../../reduxToolkit/apiSlice";
 
 const style = {
   position: "absolute",
@@ -36,7 +37,13 @@ const style = {
   p: 4,
 };
 
+interface CreateUser {
+  name: string;
+  email: string;
+}
+
 export const Registro = () => {
+  const [createUser] = useCreateUserMutation();
   const paperStyle = { padding: 20, width: 350, margin: "0 auto" };
   const headerStyle = { margin: 0 };
   const colorf = orange[50];
@@ -78,13 +85,17 @@ export const Registro = () => {
     termsAndConditions: Yup.string().oneOf(["true"], "Aceptar términos y condiciones"),
   });
   const onSubmit = (values: any) => {
-    createUserWithEmailAndPassword(auth, values.email, values.password)
-      .then(() => {
-        console.log("Usuario creado exitosamente");
-      })
+    createUserWithEmailAndPassword(auth, values.email, values.password);
+    let data: CreateUser = {
+      name: values.name,
+      email: values.email,
+    };
+    createUser(data)
+      .then(() => {})
       .catch((error) => {
         console.log(error);
       });
+
     navigate("/home");
   };
   return (

@@ -59,7 +59,6 @@ export const CreateNewPassword = () => {
         title: "Cambio de contraseña exitoso..!!",
       });
     } catch (error: any) {
-      console.log(error.message, error.code);
       Swal.fire({
         icon: "error",
         title: "Oops...",

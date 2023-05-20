@@ -15,7 +15,7 @@ import { orange } from "@mui/material/colors";
 import mano from "../../image/mano.png";
 import { auth, provider } from "../../firebase/firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
-import { useCreateUserMutation } from "../../reduxToolkit/apiSlice";
+import { useCreateUserGoogleMutation } from "../../reduxToolkit/apiSlice";
 import { createUserRequest } from "../../reduxToolkit/authentication";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -33,7 +33,7 @@ export const LogIn2 = () => {
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   const isSubmitDisabled = !isValidEmail || !isValidPassword;
 
-  const [crateUser] = useCreateUserMutation();
+  const [crateUser] = useCreateUserGoogleMutation();
 
   const Toast = Swal.mixin({
     toast: true,
@@ -70,7 +70,6 @@ export const LogIn2 = () => {
         title: "Inicio de Sesión Exitoso",
       });
     } catch (error: any) {
-      console.log(error.message, error.code);
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -97,10 +96,7 @@ export const LogIn2 = () => {
           avatar: user.photoURL || "",
           email: user.email || "",
           hashGoogle: user.uid || "",
-          person_type: "Persona Fisica",
-          rol: "Cliente",
         };
-        console.log(newUser);
 
         crateUser(newUser);
       }
@@ -110,7 +106,6 @@ export const LogIn2 = () => {
         title: "Inicio de Sesión con Google Exitoso",
       });
     } catch (error: any) {
-      console.log("Error signing in with Google:", error.message);
       Swal.fire({
         icon: "error",
         title: "Oops...",
