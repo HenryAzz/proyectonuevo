@@ -48,6 +48,12 @@ export class Signal extends Model<Signal> {
   })
   payed!: string;
 
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  preferenceId!: string;
+
   // RELACIIONAR CON PROPERTY (PROPIEDAD)
   @ForeignKey(() => Property)
   @Column

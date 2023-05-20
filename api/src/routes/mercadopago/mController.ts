@@ -12,10 +12,8 @@ const { Form } = sequelize.models;
 export const createOrder = async (req: Request, res: Response) => {
 
   const form = req.body
-
+  
   const findForm = await Form.findOne({where: { dni : form.dni}})
-
-  console.log(findForm.dataValues)
 
   mercadopago.configure({ access_token: config.accessToken });
 
@@ -47,14 +45,15 @@ export const createOrder = async (req: Request, res: Response) => {
     .create(preference)
     .then( async function (response) {
     
-      await Form.update(
-        { 
-          preferenceIdMP :  response.body.id 
-        },
-        {
-          where: { id: findForm.dataValues.id}
-        })
-      
+      if(findForm) {
+        await Form.update(
+          { 
+            preferenceIdMP :  response.body.id 
+          },
+          {
+            where: { id: findForm.dataValues.id}
+          })
+      }
       res.status(200).json({global: response.body.id});
     })
     .catch((error) => {

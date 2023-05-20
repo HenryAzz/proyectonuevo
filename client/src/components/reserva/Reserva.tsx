@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
-import { Box, Container, Typography, Grid, Button, TextField } from "@mui/material";
-import { useGetPropertyByIdQuery, useGetUserByNameQuery } from "../../reduxToolkit/apiSlice";
+import { Box, Typography, TextField } from "@mui/material";
+import { useGetPropertyByIdQuery, useGetUserByNameQuery, useCreateSignalMutation } from "../../reduxToolkit/apiSlice";
 import { useParams } from "react-router-dom";
 import UploadWidget3 from "./uploadWidget.tsx";
 import { auth } from "../../firebase/firebase";
@@ -10,15 +10,16 @@ export const Signal = () => {
   const { id } = useParams<{ id: string }>() as { id: string };
   const { data, isLoading } = useGetPropertyByIdQuery(id);
   const { currentData } = useGetUserByNameQuery(user);
+  const [createSignal] = useCreateSignalMutation()
 
-  const [formSignal, SetFormSignal] = useState({
+  const formSignal= {
     operation: data?.operation,
     documentation: [],
+    price: 5,
     propertyId: data?.id,
     brokerId: 1,
     userId: currentData?.[0]?.id,
-    price: 5
-  })
+  }
 
   console.log(formSignal)
   useEffect(() => {

@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { property, createPropertyRequest } from "./propertyinterfaces";
-import {form, createFormRequest} from './forminterfaces'
+import { createFormRequest } from './forminterfaces';
+import {createSignalRequest} from './signalInterface'
 import { Broker, CreateBrokerRequest } from "./brokerInterfaces";
 import { createUserRequest } from "./authentication";
 import {User} from './userInterface'
@@ -87,11 +88,19 @@ export const apiSlice = createApi({
 
     //metodos para enviar y recibr data de la ruta form
     
-    createForm: builder.mutation<form, createFormRequest>({
-      query: (form) => ({
+    createForm: builder.mutation<createFormRequest, createFormRequest>({
+      query: (createFormRequest) => ({
         url: "/form",
         method: "POST",
-        body: form,
+        body: createFormRequest,
+      }),
+    }),
+
+    createSignal: builder.mutation<createSignalRequest, createSignalRequest>({
+      query: (createSignalRequest) => ({
+        url: "/signal",
+        method: "POST",
+        body: createSignalRequest,
       }),
     }),
   }),
@@ -110,5 +119,6 @@ export const {
   useDeletPropertyByIDMutation,
   useCreateUserMutation,
   useCreateFormMutation,
-  useGetUserByNameQuery
+  useGetUserByNameQuery,
+  useCreateSignalMutation
 } = apiSlice;
