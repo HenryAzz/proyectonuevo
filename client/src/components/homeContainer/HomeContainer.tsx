@@ -9,7 +9,6 @@ import { NavBar } from "../navbar/Navbar";
 import { FirstFilters } from "../firstFilters/FirstFilters";
 import { SecondFilters } from "../secondFilters/secondFilters";
 import { useTheme, useMediaQuery } from "@mui/material";
-import { SearchBar } from "../searchBar/SearchBar";
 
 const HomeContainer = () => {
   //validar pago por mercadopago
@@ -41,11 +40,6 @@ const HomeContainer = () => {
         <Grid item xs={12} sx={{ mb: 2 }}>
           <NavBar />
         </Grid>
-        {isScreenMdUp ? (
-          <Grid item xs={12} sx={{ mb: 2 }}>
-            <SearchBar />
-          </Grid>
-        ) : null}
         <Grid item xs={12} md={3} sx={{ p: 2, position: "sticky", top: "0", zIndex: "999" }}>
           {isScreenMdUp ? (
             <FirstFilters

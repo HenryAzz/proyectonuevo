@@ -91,7 +91,7 @@ export const NavBar = () => {
       sx={{
         justifyContent: "space-around",
         height: "15vh",
-        backgroundColor: orange[50],
+        backgroundColor: "#ffe0b2",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
       }}
       onClick={handleMenuCloseOutside}
@@ -153,9 +153,9 @@ export const NavBar = () => {
         </Link>
       </Grid>
       <Grid item xs={2} sx={{ display: "flex", justifyContent: "center" }}>
-        <Link to="#" style={{ textDecoration: "none" }}>
+        <Link to="/review" style={{ textDecoration: "none" }}>
           <Typography variant="h6" sx={{ color: theme.palette.primary.main }}>
-            Proyectar
+            Testimonio
           </Typography>
         </Link>
       </Grid>

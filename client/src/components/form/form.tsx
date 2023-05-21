@@ -22,6 +22,7 @@ import { useCreateFormMutation } from "../../reduxToolkit/apiSlice";
 import { auth } from "../../firebase/firebase";
 import { orange } from "@mui/material/colors";
 import { miArray } from "./config";
+import { NavBar } from "../navbar/Navbar";
 
 interface FormState {
   title: string;
@@ -183,6 +184,7 @@ export const Form = () => {
 
   return (
     <>
+      <NavBar />
       {!user ? (
         <Grid
           container
@@ -230,7 +232,7 @@ export const Form = () => {
           </Grid>
         </Grid>
       ) : (
-        <Container>
+        <Container sx={{ my: 3 }}>
           <Link to="/home">
             <Img src={mano} alt="logo" />
           </Link>

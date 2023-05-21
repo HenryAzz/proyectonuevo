@@ -104,7 +104,7 @@ export const SecondFilters: React.FC<filterPorps> = ({
   return (
     <Grid container sx={{}}>
       <Button onClick={handleDrawerOpen} sx={{}}>
-        <TuneIcon />
+        <TuneIcon sx={{ fontSize: "2rem" }} />
       </Button>
 
       <Drawer

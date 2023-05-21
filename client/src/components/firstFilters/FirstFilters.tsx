@@ -79,7 +79,7 @@ export const FirstFilters: React.FC<filterPorps> = ({
       container
       sx={{
         flexDirection: "column",
-        backgroundColor: "#ffe0b2a6",
+        backgroundColor: "#ffe0b2",
         borderRadius: "10px",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
       }}
