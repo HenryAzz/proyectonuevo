@@ -9,3 +9,14 @@ export function getRequestedFilters(array: Array<any>, key: string): Array<strin
 
   return requestedKeyArray;
 }
+
+export function getUnicKeys(array: Record<string, any>[]): string[] {
+  const UnicKeys: Set<string> = new Set();
+
+  array.forEach((object) => {
+    const keys = Object.keys(object);
+    keys.forEach((key) => UnicKeys.add(key));
+  });
+
+  return Array.from(UnicKeys);
+}

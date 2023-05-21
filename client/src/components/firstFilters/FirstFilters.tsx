@@ -9,18 +9,40 @@ import {
 import {
   useGetPropertiesQuery /* useGetPropertysFilterQuery */,
 } from "../../reduxToolkit/apiSlice";
-import { getRequestedFilters } from "../../auxiliaryfunctions/auxiliaryfunctions";
-import { useState } from "react";
+import { getRequestedFilters, getUnicKeys } from "../../auxiliaryfunctions/auxiliaryfunctions";
+import { useEffect } from "react";
 
 type filterPorps = {
   setStringQuery: React.Dispatch<React.SetStateAction<string>>;
   stringQuery: string;
+  checkedValues: Record<string, boolean>;
+  setCheckedValues: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
 };
 
-export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuery }) => {
+export const FirstFilters: React.FC<filterPorps> = ({
+  setStringQuery,
+  stringQuery,
+  checkedValues,
+  setCheckedValues,
+}) => {
   //const { data, isLoading } = useGetPropertysFilterQuery(stringQuery);
   const { data: allProperty } = useGetPropertiesQuery();
-  const [checkedValues, setCheckedValues] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    const initialValues: Record<string, boolean> = {};
+
+    if (allProperty !== undefined) {
+      let keys = getUnicKeys(allProperty);
+      keys.forEach((key) => {
+        initialValues[key] = false;
+      });
+    }
+
+    setCheckedValues((prevCheckedValues) => ({
+      ...prevCheckedValues,
+      ...initialValues,
+    }));
+  }, [allProperty, setCheckedValues]);
 
   const handleItemClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const cardId = event.currentTarget.id;
@@ -75,7 +97,7 @@ export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuer
             {getRequestedFilters(allProperty, "operation").map((elem, index) => (
               <FormControlLabel
                 key={index}
-                control={<Checkbox />}
+                control={<Checkbox checked={!!checkedValues[elem]} />}
                 label={elem}
                 labelPlacement="start"
                 sx={{
@@ -107,7 +129,7 @@ export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuer
             {getRequestedFilters(allProperty, "type").map((elem, index) => (
               <FormControlLabel
                 key={index}
-                control={<Checkbox />}
+                control={<Checkbox checked={!!checkedValues[elem]} />}
                 label={elem}
                 labelPlacement="start"
                 sx={{
@@ -139,7 +161,7 @@ export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuer
             {getRequestedFilters(allProperty, "bedroom").map((elem, index) => (
               <FormControlLabel
                 key={index}
-                control={<Checkbox />}
+                control={<Checkbox checked={!!checkedValues[`${elem}`]} />}
                 label={`Total:  ${elem}`}
                 labelPlacement="start"
                 sx={{
@@ -166,13 +188,13 @@ export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuer
         }}
         onClick={handleItemClick}
       >
-        <Typography variant="h5">cantidad de metros</Typography>
+        <Typography variant="h5">Area</Typography>
         {allProperty?.length ? (
           <FormControl component="fieldset">
             {getRequestedFilters(allProperty, "total_area").map((elem, index) => (
               <FormControlLabel
                 key={index}
-                control={<Checkbox />}
+                control={<Checkbox checked={!!checkedValues[`${elem}`]} />}
                 label={`${elem} metros`}
                 labelPlacement="start"
                 sx={{

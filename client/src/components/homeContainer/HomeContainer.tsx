@@ -5,11 +5,11 @@ import { Grid } from "@mui/material";
 // import axios from 'axios'
 //import { HomeMovil } from "../homeMovil/HomeMovil";
 import { HomeDesktop } from "../homeDesktop/HomeDesktop";
-//import { Navbar } from "../navbar/Navbar";
+import { NavBar } from "../navbar/Navbar";
 import { FirstFilters } from "../firstFilters/FirstFilters";
-import { NavBarTest } from "../navbarTest/NavBarTest";
 import { SecondFilters } from "../secondFilters/secondFilters";
 import { useTheme, useMediaQuery } from "@mui/material";
+import { SearchBar } from "../searchBar/SearchBar";
 
 const HomeContainer = () => {
   //validar pago por mercadopago
@@ -38,13 +38,22 @@ const HomeContainer = () => {
   return (
     <>
       <Grid container sx={{ flexDirection: "row" }}>
-        {/* <Navbar setStringQuery={setStringQuery} stringQuery={stringQuery} /> */}
-        <Grid item xs={12}>
-          <NavBarTest />
+        <Grid item xs={12} sx={{ mb: 2 }}>
+          <NavBar />
         </Grid>
+        {isScreenMdUp ? (
+          <Grid item xs={12} sx={{ mb: 2 }}>
+            <SearchBar />
+          </Grid>
+        ) : null}
         <Grid item xs={12} md={3} sx={{ p: 2, position: "sticky", top: "0", zIndex: "999" }}>
           {isScreenMdUp ? (
-            <FirstFilters setStringQuery={setStringQuery} stringQuery={stringQuery} />
+            <FirstFilters
+              setStringQuery={setStringQuery}
+              stringQuery={stringQuery}
+              checkedValues={checkedValues}
+              setCheckedValues={setCheckedValues}
+            />
           ) : (
             <SecondFilters
               setStringQuery={setStringQuery}

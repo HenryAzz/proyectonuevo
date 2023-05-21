@@ -108,7 +108,7 @@ export const SearchBar = () => {
   };
 
   return (
-    <Grid container direction="row" justifyContent="center">
+    <Grid container direction="row" justifyContent="center" sx={{}}>
       <Autocomplete
         id="google-map-demo"
         size="small"

@@ -27,7 +27,8 @@ import {
 } from "@mui/material";
 import TuneIcon from "@mui/icons-material/Tune";
 import { useGetPropertiesQuery } from "../../reduxToolkit/apiSlice";
-import { getRequestedFilters } from "../../auxiliaryfunctions/auxiliaryfunctions";
+import { getRequestedFilters, getUnicKeys } from "../../auxiliaryfunctions/auxiliaryfunctions";
+import { useEffect } from "react";
 
 type filterPorps = {
   setStringQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -43,6 +44,22 @@ export const SecondFilters: React.FC<filterPorps> = ({
   setCheckedValues,
 }) => {
   const { data: allProperty } = useGetPropertiesQuery();
+
+  useEffect(() => {
+    const initialValues: Record<string, boolean> = {};
+
+    if (allProperty !== undefined) {
+      let keys = getUnicKeys(allProperty);
+      keys.forEach((key) => {
+        initialValues[key] = false;
+      });
+    }
+
+    setCheckedValues((prevCheckedValues) => ({
+      ...prevCheckedValues,
+      ...initialValues,
+    }));
+  }, [allProperty, setCheckedValues]);
 
   const [open, setOpen] = useState(false);
 
@@ -122,7 +139,7 @@ export const SecondFilters: React.FC<filterPorps> = ({
                   {getRequestedFilters(allProperty, "operation").map((elem, index) => (
                     <FormControlLabel
                       key={index}
-                      control={<Checkbox />}
+                      control={<Checkbox checked={!!checkedValues[elem]} />}
                       label={elem}
                       labelPlacement="start"
                       sx={{
@@ -154,7 +171,7 @@ export const SecondFilters: React.FC<filterPorps> = ({
                   {getRequestedFilters(allProperty, "type").map((elem, index) => (
                     <FormControlLabel
                       key={index}
-                      control={<Checkbox />}
+                      control={<Checkbox checked={!!checkedValues[elem]} />}
                       label={elem}
                       labelPlacement="start"
                       sx={{
@@ -186,7 +203,7 @@ export const SecondFilters: React.FC<filterPorps> = ({
                   {getRequestedFilters(allProperty, "bedroom").map((elem, index) => (
                     <FormControlLabel
                       key={index}
-                      control={<Checkbox />}
+                      control={<Checkbox checked={!!checkedValues[`${elem}`]} />}
                       label={`Total:  ${elem}`}
                       labelPlacement="start"
                       sx={{
@@ -219,7 +236,7 @@ export const SecondFilters: React.FC<filterPorps> = ({
                   {getRequestedFilters(allProperty, "total_area").map((elem, index) => (
                     <FormControlLabel
                       key={index}
-                      control={<Checkbox />}
+                      control={<Checkbox checked={!!checkedValues[`${elem}`]} />}
                       label={`${elem} metros`}
                       labelPlacement="start"
                       sx={{
