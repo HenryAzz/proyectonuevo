@@ -1,6 +1,5 @@
 import {
   Grid,
-  Card,
   CircularProgress,
   Typography,
   Checkbox,
@@ -11,7 +10,7 @@ import {
   useGetPropertiesQuery /* useGetPropertysFilterQuery */,
 } from "../../reduxToolkit/apiSlice";
 import { getRequestedFilters } from "../../auxiliaryfunctions/auxiliaryfunctions";
-import { orange } from "@mui/material/colors";
+import { useState } from "react";
 
 type filterPorps = {
   setStringQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -21,10 +20,11 @@ type filterPorps = {
 export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuery }) => {
   //const { data, isLoading } = useGetPropertysFilterQuery(stringQuery);
   const { data: allProperty } = useGetPropertiesQuery();
+  const [checkedValues, setCheckedValues] = useState<Record<string, boolean>>({});
 
   const handleItemClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const cardId = event.currentTarget.id;
-    const checkboxId = (event.target as HTMLInputElement).id;
+    const checkboxId = (event.target as HTMLInputElement).name;
     const searchString = `${cardId}=${checkboxId}`;
 
     if (stringQuery.includes(searchString)) {
@@ -43,6 +43,13 @@ export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuer
         stringQuery !== "?" ? `${stringQuery}&${searchString}` : `?${searchString}`;
       setStringQuery(updatedStringQuery);
     }
+
+    console.log("ID del FormControlLabel:", checkboxId);
+    const isChecked = checkedValues[checkboxId];
+    setCheckedValues((prevCheckedValues) => ({
+      ...prevCheckedValues,
+      [checkboxId]: !isChecked,
+    }));
   };
 
   return (
@@ -68,7 +75,7 @@ export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuer
             {getRequestedFilters(allProperty, "operation").map((elem, index) => (
               <FormControlLabel
                 key={index}
-                control={<Checkbox id={elem} />}
+                control={<Checkbox />}
                 label={elem}
                 labelPlacement="start"
                 sx={{
@@ -77,6 +84,8 @@ export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuer
                   alignItems: "center",
                   marginTop: "8px",
                 }}
+                id={elem}
+                name={elem}
               />
             ))}
           </FormControl>
@@ -98,7 +107,7 @@ export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuer
             {getRequestedFilters(allProperty, "type").map((elem, index) => (
               <FormControlLabel
                 key={index}
-                control={<Checkbox id={elem} />}
+                control={<Checkbox />}
                 label={elem}
                 labelPlacement="start"
                 sx={{
@@ -107,6 +116,8 @@ export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuer
                   alignItems: "center",
                   marginTop: "8px",
                 }}
+                id={elem}
+                name={elem}
               />
             ))}
           </FormControl>
@@ -128,7 +139,7 @@ export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuer
             {getRequestedFilters(allProperty, "bedroom").map((elem, index) => (
               <FormControlLabel
                 key={index}
-                control={<Checkbox id={elem} />}
+                control={<Checkbox />}
                 label={`Total:  ${elem}`}
                 labelPlacement="start"
                 sx={{
@@ -137,6 +148,8 @@ export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuer
                   alignItems: "center",
                   marginTop: "8px",
                 }}
+                id={`${elem}`}
+                name={`${elem}`}
               />
             ))}
           </FormControl>
@@ -159,7 +172,7 @@ export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuer
             {getRequestedFilters(allProperty, "total_area").map((elem, index) => (
               <FormControlLabel
                 key={index}
-                control={<Checkbox id={elem} />}
+                control={<Checkbox />}
                 label={`${elem} metros`}
                 labelPlacement="start"
                 sx={{
@@ -168,6 +181,8 @@ export const FirstFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuer
                   alignItems: "center",
                   marginTop: "8px",
                 }}
+                id={`${elem}`}
+                name={`${elem}`}
               />
             ))}
           </FormControl>
