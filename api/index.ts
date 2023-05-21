@@ -1,6 +1,7 @@
 import { sequelize } from "./src/db";
 import app from "./src/app";
-import {countBroker} from './jsonBrokerCorreo'
+import {countBroker} from './jsonBrokerCorreo';
+import { fillDataBase } from "./src/routes/property/pHelper";
 
 const {Broker} = sequelize.models
 
