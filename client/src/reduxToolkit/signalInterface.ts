@@ -1,8 +1,8 @@
 export interface createSignalRequest {
-  operation: string,
+  operation: string | undefined,
   documentation: string[],
   price: number,
-  propertyId: number,
+  propertyId: number | undefined,
   brokerId: number,
-  userId: number,
+  userId: number | undefined,
 }

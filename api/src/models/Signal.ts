@@ -36,8 +36,8 @@ export class Signal extends Model<Signal> {
   })
   situation!: string;
 
-  @Column({ allowNull: false })
-  documentation!: string;
+  @Column({ allowNull: true, type: DataType.ARRAY(DataType.JSON)  })
+  documentation!: object;
 
   @Column({ allowNull: false })
   price!: number;

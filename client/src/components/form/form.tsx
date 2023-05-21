@@ -17,10 +17,12 @@ import mano from "../../image/mano.png";
 import styled from "@emotion/styled";
 import UploadWidget from "./uploadWidget";
 import UploadWidget2 from "./uploadWidget2";
-import { useCreateFormMutation } from "../../reduxToolkit/apiSlice";
+import { useCreateFormMutation, useGetUserByNameQuery } from "../../reduxToolkit/apiSlice";
 import { auth } from "../../firebase/firebase";
 import { orange } from "@mui/material/colors";
+import * as Yup from 'yup';
 import { miArray } from "./config";
+import Swal from "sweetalert2";
 import axios from "axios";
 
 declare const window: any;
@@ -46,6 +48,8 @@ interface FormState {
 
 export const Form = () => {
   const [user, setUser] = React.useState<string | null | undefined>(null);
+  const [userName, setUserName] = React.useState<string | null | undefined>(null);
+  const { currentData } = useGetUserByNameQuery(userName);
   //usar la ruta para crear el formulario
   const [createForm] = useCreateFormMutation();
   const [form, setForm] = React.useState<FormState>({
@@ -67,10 +71,42 @@ export const Form = () => {
     email: null,
   });
 
+  const schema = Yup.object().shape({
+    dni: Yup.string().matches(/^\d{8,}$/, "Debe tener al menos 8 dígitos el dni")
+    .transform((value, originalValue) => {
+      // Convierte el número a cadena de texto antes de la validación
+      if (typeof originalValue === 'number') {
+        return originalValue.toString();
+      }
+      return value;
+    }),
+    tel: Yup.string().matches(/^\d{10,}$/, "Debe tener al menos 10 dígitos el numero telefonico")
+    .transform((value, originalValue) => {
+      // Convierte el número a cadena de texto antes de la validación
+      if (typeof originalValue === 'number') {
+        return originalValue.toString();
+      }
+      return value;
+    }),
+    title: Yup.string().required('Seleccione un tipo de operación'),
+    type_prop: Yup.string().required('Seleccione un tipo de propiedad'),
+    type_vivienda: Yup.string().required('Seleccione un tipo de vivienda'),
+    picture_url: Yup.array().min(3, 'se requieren min 3 archivos.').required('se requieren las imagenes solicitadas.'),
+    address: Yup.string().required('La dirección es requerida'),
+    number: Yup.number().required('El número de la dirección es requerido'),
+    apartment: Yup.string().required('El apartamento es requerido'),
+    floor: Yup.number().required('El número de piso es requerido'),
+    location: Yup.string().required('La ubicación es requerida'),
+    province: Yup.string().required('La provincia es requerida'),
+    postalCode: Yup.string().required('El código postal es requerido'),
+  });
+
+
   React.useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user.email);
+        setUserName(user.displayName);
         setForm({ ...form, email: user.email });
       } else {
         setUser(null);
@@ -82,8 +118,7 @@ export const Form = () => {
     };
   }, []);
 
-  //console.log(activeMP)
-  console.log(form);
+
   const property = [
     {
       value: "local", //shop
@@ -163,11 +198,18 @@ export const Form = () => {
   });
 
   const handleClick = async () => {
+    try {
     //enviar peticion post a la api, para crear formulario
+    await schema.validate(form, { abortEarly: false });
     await createForm(form);
 
+    Swal.fire({
+      title: 'Exitoso!',
+      text: 'Formulario llenado correctamente, proceder al realizar el pago',
+    })
+
     //generar luego del envio de la info a la api la orden de pago de mercadopago
-    const response = await axios.post(`http://localhost:3001/mercadopago`, form);
+    const response = await axios.post(import.meta.env.VITE_URL_MERCADOPAGO, form);
 
     const data = response.data;
     if (data.global) {
@@ -188,6 +230,22 @@ export const Form = () => {
       } else {
         console.error("MercadoPago no está disponible");
       }
+    }
+      
+    } catch (errors: any) {
+      const validationErrors: Record<string, string> = {};
+      errors.inner.forEach((error: any) => {
+        validationErrors[error.path] = error.message;
+      });
+
+      const errorMessages = Object.values(validationErrors).join(', ');
+  
+      Swal.fire({
+        icon: 'error',
+        title: 'Corregir los siguientes errores:',
+        text: errorMessages,
+        footer: 'completar de manera correcta el formulario'
+      })
     }
   };
 
@@ -210,53 +268,7 @@ export const Form = () => {
 
   return (
     <>
-      {!user ? (
-        <Grid
-          container
-          sx={{
-            height: "100vh",
-            flexDirection: "column",
-            justifyContent: "Center",
-            alignContent: "Center",
-          }}
-        >
-          <Grid
-            item
-            xs={6}
-            sx={{
-              backgroundColor: orange[50],
-              p: 2,
-              borderRadius: "10px",
-              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
-            }}
-          >
-            <Box sx={{ width: "100%", mb: 2 }}>
-              <Link to="/home">
-                <img src={mano} alt="logo" style={{ width: "65px" }} />
-              </Link>
-            </Box>
-            <Box
-              sx={{
-                backgroundColor: "white",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "Center",
-                alignContent: "Center",
-                p: 2,
-                height: "80%",
-                borderRadius: "10px",
-              }}
-            >
-              <Typography variant="h5">
-                Antes de llenar el formaulario debe iniciar sesión:
-              </Typography>
-              <Link to="/login" style={{ alignSelf: "center" }}>
-                <button> Ir a iniciar sesión</button>
-              </Link>
-            </Box>
-          </Grid>
-        </Grid>
-      ) : (
+      {user ?  (
         <Container>
           <Link to="/home">
             <Img src={mano} alt="logo" />
@@ -457,9 +469,55 @@ export const Form = () => {
           <Button onClick={handleClick}>enviar formulario</Button>
           <div className="cho-container"></div>
         </Container>
-      )}
+      ): (
+        <Grid
+          container
+          sx={{
+            height: "100vh",
+            flexDirection: "column",
+            justifyContent: "Center",
+            alignContent: "Center",
+          }}
+        >
+          <Grid
+            item
+            xs={6}
+            sx={{
+              backgroundColor: orange[50],
+              p: 2,
+              borderRadius: "10px",
+              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
+            }}
+          >
+            <Box sx={{ width: "100%", mb: 2 }}>
+              <Link to="/home">
+                <img src={mano} alt="logo" style={{ width: "65px" }} />
+              </Link>
+            </Box>
+            <Box
+              sx={{
+                backgroundColor: "white",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "Center",
+                alignContent: "Center",
+                p: 2,
+                height: "80%",
+                borderRadius: "10px",
+              }}
+            >
+              <Typography variant="h5">
+                Antes de llenar el formaulario debe iniciar sesión:
+              </Typography>
+              <Link to="/login" style={{ alignSelf: "center" }}>
+                <button> Ir a iniciar sesión</button>
+              </Link>
+            </Box>
+          </Grid>
+        </Grid>
+      ) }
     </>
-  );
+  )
 };
 
 //CODIGO DE CARLI
