@@ -9,16 +9,14 @@ type filterPorps = {
 };
 
 export const HomeDesktop: React.FC<filterPorps> = ({ stringQuery }) => {
-  const { data, isLoading } = useGetPropertysFilterQuery(stringQuery);
-
-  isLoading ? console.log("cargando") : console.log(data);
+  const { data } = useGetPropertysFilterQuery(stringQuery);
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       {data?.length !== 0 ? (
-        <Grid container spacing={2} sx={{ mt: 18, width: "80vw" }}>
+        <Grid container spacing={2} sx={{ mt: 2, width: "80vw", justifyContent: "space-around" }}>
           {data?.map((element: any, index: number) => (
-            <Grid item xs={8} sm={8} md={6} lg={4} key={index}>
+            <Grid item xs={8} sm={8} md={5} lg={5} key={index}>
               <CardComponent
                 address={element.address}
                 description={element.description}

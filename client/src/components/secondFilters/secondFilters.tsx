@@ -1,13 +1,5 @@
-import {
-  Button,
-  Stack,
-  Menu,
-  MenuItem,
-  FormControl,
-  FormControlLabel,
-  Checkbox,
-} from "@mui/material";
-import { useState, useRef } from "react";
+/* import { Grid } from "@mui/material";
+import { useGetPropertysFilterQuery } from "../../reduxToolkit/apiSlice";
 
 type filterPorps = {
   setStringQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -15,66 +7,256 @@ type filterPorps = {
 };
 
 export const SecondFilters: React.FC<filterPorps> = ({ setStringQuery, stringQuery }) => {
-  const handlerClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    const { id } = event.currentTarget;
-    let newQuery = stringQuery.replace(/&type=[^&]*/g, "");
-    newQuery += `&type=${id}`;
+  const { data, isLoading } = useGetPropertysFilterQuery(stringQuery);
 
-    setStringQuery(newQuery);
+  console.log(data, isLoading, setStringQuery);
+  return <Grid></Grid>;
+};
+ */
+
+import { useState } from "react";
+import {
+  Grid,
+  Button,
+  Drawer,
+  CircularProgress,
+  Typography,
+  Checkbox,
+  FormControlLabel,
+  FormControl,
+} from "@mui/material";
+import TuneIcon from "@mui/icons-material/Tune";
+import { useGetPropertiesQuery } from "../../reduxToolkit/apiSlice";
+import { getRequestedFilters, getUnicKeys } from "../../auxiliaryfunctions/auxiliaryfunctions";
+import { useEffect } from "react";
+
+type filterPorps = {
+  setStringQuery: React.Dispatch<React.SetStateAction<string>>;
+  stringQuery: string;
+  checkedValues: Record<string, boolean>;
+  setCheckedValues: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
+};
+
+export const SecondFilters: React.FC<filterPorps> = ({
+  setStringQuery,
+  stringQuery,
+  checkedValues,
+  setCheckedValues,
+}) => {
+  const { data: allProperty } = useGetPropertiesQuery();
+
+  useEffect(() => {
+    const initialValues: Record<string, boolean> = {};
+
+    if (allProperty !== undefined) {
+      let keys = getUnicKeys(allProperty);
+      keys.forEach((key) => {
+        initialValues[key] = false;
+      });
+    }
+
+    setCheckedValues((prevCheckedValues) => ({
+      ...prevCheckedValues,
+      ...initialValues,
+    }));
+  }, [allProperty, setCheckedValues]);
+
+  const [open, setOpen] = useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
   };
-  const properties: string[] = ["vivienda", "oficina", "local", "industria"];
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const ref = useRef<HTMLButtonElement>(null);
-
-  const handleClick = () => {
-    setAnchorEl(ref.current);
+  const handleDrawerClose = () => {
+    setOpen(false);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleItemClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const cardId = event.currentTarget.id;
+    const checkboxId = (event.target as HTMLInputElement).name;
+    const searchString = `${cardId}=${checkboxId}`;
+
+    if (stringQuery.includes(searchString)) {
+      // El estado stringQuery contiene la cadena generada por la función, así que la quitamos
+      let updatedStringQuery = stringQuery
+        .replace(`${searchString}&`, "")
+        .replace(`&${searchString}`, "")
+        .replace(searchString, "");
+      updatedStringQuery = updatedStringQuery.startsWith("&")
+        ? updatedStringQuery.substring(1)
+        : updatedStringQuery;
+      setStringQuery(updatedStringQuery);
+    } else {
+      // El estado stringQuery no contiene la cadena generada por la función, así que la agregamos
+      const updatedStringQuery =
+        stringQuery !== "?" ? `${stringQuery}&${searchString}` : `?${searchString}`;
+      setStringQuery(updatedStringQuery);
+    }
+
+    console.log("ID del FormControlLabel:", checkboxId);
+    const isChecked = checkedValues[checkboxId];
+    setCheckedValues((prevCheckedValues) => ({
+      ...prevCheckedValues,
+      [checkboxId]: !isChecked,
+    }));
   };
 
-  /* const dataButton = (e: any) => {
-    const typeOfProperty = e.currentTarget.id;
-
-    typeOfProperty !== "zona"
-      ? console.log(e.currentTarget.id)
-      : console.log("No es un tipo de vivienda");
-  }; */
   return (
-    <div>
-      <Stack
-        direction="row"
-        spacing={1}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          alignContent: "center",
-          mt: "2vw",
-          width: "75vw",
+    <Grid container sx={{}}>
+      <Button onClick={handleDrawerOpen} sx={{}}>
+        <TuneIcon sx={{ fontSize: "2rem" }} />
+      </Button>
+
+      <Drawer
+        anchor="left"
+        open={open}
+        onClose={handleDrawerClose}
+        PaperProps={{
+          style: {
+            backgroundColor: "#ffe0b2",
+          },
         }}
+        sx={{ width: "100%", flexShrink: 0, mt: 20, position: "relative" }}
       >
-        <Button variant="contained" fullWidth id="zona" ref={ref} onClick={handleClick}>
-          Zona
-        </Button>
-        {properties.map((element, index) => (
-          <Button variant="contained" onClick={handlerClick} fullWidth id={element} key={index}>
-            {element}
-          </Button>
-        ))}
-      </Stack>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem>
-          <FormControl>
-            <FormControlLabel control={<Checkbox />} label="Zona 1" labelPlacement="start" />
-            <FormControlLabel control={<Checkbox />} label="Zona 2" labelPlacement="start" />
-            <FormControlLabel control={<Checkbox />} label="Zona 3" labelPlacement="start" />
-          </FormControl>
-        </MenuItem>
-      </Menu>
-    </div>
+        {
+          <Grid
+            container
+            sx={{
+              flexDirection: "column",
+              /* backgroundColor: "#ffe0b2a6", */
+            }}
+          >
+            <Grid
+              id="operation"
+              sx={{
+                p: 2,
+              }}
+              onClick={handleItemClick}
+            >
+              <Typography variant="h5">Tipo de operacion</Typography>
+              {allProperty?.length ? (
+                <FormControl component="fieldset">
+                  {getRequestedFilters(allProperty, "operation").map((elem, index) => (
+                    <FormControlLabel
+                      key={index}
+                      control={<Checkbox checked={!!checkedValues[elem]} />}
+                      label={elem}
+                      labelPlacement="start"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginTop: "8px",
+                      }}
+                      id={elem}
+                      name={elem}
+                    />
+                  ))}
+                </FormControl>
+              ) : (
+                <CircularProgress sx={{ fontSize: "3rem" }} />
+              )}
+            </Grid>
+
+            <Grid
+              id="type"
+              sx={{
+                p: 2,
+              }}
+              onClick={handleItemClick}
+            >
+              <Typography variant="h5">Tipo de Inmueble</Typography>
+              {allProperty?.length ? (
+                <FormControl component="fieldset">
+                  {getRequestedFilters(allProperty, "type").map((elem, index) => (
+                    <FormControlLabel
+                      key={index}
+                      control={<Checkbox checked={!!checkedValues[elem]} />}
+                      label={elem}
+                      labelPlacement="start"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginTop: "8px",
+                      }}
+                      id={elem}
+                      name={elem}
+                    />
+                  ))}
+                </FormControl>
+              ) : (
+                <CircularProgress sx={{ fontSize: "3rem" }} />
+              )}
+            </Grid>
+
+            <Grid
+              id="bedroom"
+              sx={{
+                p: 2,
+              }}
+              onClick={handleItemClick}
+            >
+              <Typography variant="h5">cantidad de habitaciones</Typography>
+              {allProperty?.length ? (
+                <FormControl component="fieldset">
+                  {getRequestedFilters(allProperty, "bedroom").map((elem, index) => (
+                    <FormControlLabel
+                      key={index}
+                      control={<Checkbox checked={!!checkedValues[`${elem}`]} />}
+                      label={`Total:  ${elem}`}
+                      labelPlacement="start"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginTop: "8px",
+                      }}
+                      id={`${elem}`}
+                      name={`${elem}`}
+                    />
+                  ))}
+                </FormControl>
+              ) : (
+                <CircularProgress sx={{ fontSize: "3rem" }} />
+              )}
+            </Grid>
+
+            <Grid
+              id="total_area"
+              sx={{
+                p: 2,
+                mb: 2,
+              }}
+              onClick={handleItemClick}
+            >
+              <Typography variant="h5">cantidad de metros</Typography>
+              {allProperty?.length ? (
+                <FormControl component="fieldset">
+                  {getRequestedFilters(allProperty, "total_area").map((elem, index) => (
+                    <FormControlLabel
+                      key={index}
+                      control={<Checkbox checked={!!checkedValues[`${elem}`]} />}
+                      label={`${elem} metros`}
+                      labelPlacement="start"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginTop: "8px",
+                      }}
+                      id={`${elem}`}
+                      name={`${elem}`}
+                    />
+                  ))}
+                </FormControl>
+              ) : (
+                <CircularProgress sx={{ fontSize: "3rem" }} />
+              )}
+            </Grid>
+          </Grid>
+        }
+      </Drawer>
+    </Grid>
   );
 };

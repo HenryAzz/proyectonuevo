@@ -65,12 +65,12 @@ export const postUser = async (req: Request, res: Response) => {
     const user = req.body;
 
     //validamos si los campos son nulos.
-    if (!user.rol || !user.email || !user.password || !user.person_type || !user.name) {
+    if (!user.email ||   !user.name) {
       throw new Error("Campos incompletos, completar correctamente datos.");
     } else {
       //si los campos son correctos, creamos el usuario.
       await User.create(req.body);
-
+      console.log(`rol del usuario ${user.rol}`);
       //ENVIAR EMAIL A USUARIO
       const emailTemplate = user.rol === "Cliente" ? clientUserTemplate(user.name) : supplierUserTemplate(user.name);
       let sendmail = await MailService(user.email, "Bienvenido - PropTech", emailTemplate.html
@@ -78,8 +78,8 @@ export const postUser = async (req: Request, res: Response) => {
 
       res.send({ msj: "Usuario creado correctamente", user: req.body });
     }
-  } catch (error) {
-    res.status(404).send({ error: error });
+  } catch (error:any) {
+    res.status(404).send({ error: error.message });
   }
 };
 
