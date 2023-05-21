@@ -1,6 +1,7 @@
 import { sequelize } from "./src/db";
 import app from "./src/app";
-import {countBroker} from './jsonBrokerCorreo'
+import {countBroker} from './jsonBrokerCorreo';
+import { fillDataBase } from "./src/routes/property/pHelper";
 
 const {Broker} = sequelize.models
 
@@ -11,6 +12,7 @@ sequelize
     //cargar unos usuarios de broker para prueba
       await Broker.bulkCreate(countBroker)
     app.listen(3001, function () {
+      fillDataBase();
       console.log("App is listening on port 3001!");
     });
   })
