@@ -111,7 +111,7 @@
 
   -moz-animation: my-animation 5s linear infinite;
   -webkit-animation: my-animation 5s linear infinite;
-  animation: my-animation 5s linear infinite;
+  animation: my-animation 10s linear infinite;
 }
 
 /* for Firefox */
