@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
-import { Box } from "@mui/material";
+import { useState } from "react";
+import { Grid } from "@mui/material";
 //import { Theme, useTheme } from "@mui/material/styles";
 // import queryString from 'query-string'; //info por query
 // import axios from 'axios'
 //import { HomeMovil } from "../homeMovil/HomeMovil";
 import { HomeDesktop } from "../homeDesktop/HomeDesktop";
-import { Navbar } from "../navbar/Navbar";
+import { NavBar } from "../navbar/Navbar";
 import { FirstFilters } from "../firstFilters/FirstFilters";
+import { SecondFilters } from "../secondFilters/secondFilters";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 const HomeContainer = () => {
   //validar pago por mercadopago
@@ -26,23 +28,39 @@ const HomeContainer = () => {
 
   // },[queryParams])
 
-  const [missingFilters, setMissingFilters] = useState<boolean>(false);
   const [stringQuery, setStringQuery] = useState<string>("?");
+
+  const theme = useTheme();
+  const isScreenMdUp = useMediaQuery(theme.breakpoints.up("md"));
+  const [checkedValues, setCheckedValues] = useState<Record<string, boolean>>({});
 
   return (
     <>
-      {missingFilters ? (
-        <Box>
-          <Navbar setStringQuery={setStringQuery} stringQuery={stringQuery} />
+      <Grid container sx={{ flexDirection: "row" }}>
+        <Grid item xs={12} sx={{ mb: 2 }}>
+          <NavBar />
+        </Grid>
+        <Grid item xs={12} md={3} sx={{ p: 2, position: "sticky", top: "0", zIndex: "999" }}>
+          {isScreenMdUp ? (
+            <FirstFilters
+              setStringQuery={setStringQuery}
+              stringQuery={stringQuery}
+              checkedValues={checkedValues}
+              setCheckedValues={setCheckedValues}
+            />
+          ) : (
+            <SecondFilters
+              setStringQuery={setStringQuery}
+              stringQuery={stringQuery}
+              checkedValues={checkedValues}
+              setCheckedValues={setCheckedValues}
+            />
+          )}
+        </Grid>
+        <Grid item xs={12} md={9} sx={{}}>
           <HomeDesktop stringQuery={stringQuery} />
-        </Box>
-      ) : (
-        <FirstFilters
-          setMissingFilters={setMissingFilters}
-          setStringQuery={setStringQuery}
-          stringQuery={stringQuery}
-        />
-      )}
+        </Grid>
+      </Grid>
     </>
   );
 };

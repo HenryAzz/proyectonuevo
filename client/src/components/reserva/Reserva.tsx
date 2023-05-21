@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from "react";
 import { Box, Container, Typography, Grid, Button, TextField } from "@mui/material";
 import { useGetPropertyByIdQuery, useGetUserByNameQuery } from "../../reduxToolkit/apiSlice";
 import { useParams } from "react-router-dom";
@@ -17,21 +17,18 @@ export const Signal = () => {
     propertyId: data?.id,
     brokerId: 1,
     userId: currentData?.[0]?.id,
-    price: 5
-  })
+    price: 5,
+  });
 
-  console.log(formSignal)
   useEffect(() => {
-
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        //console.log(user.displayName)
-        setUser(user.displayName)
+        setUser(user.displayName);
       } else {
-        setUser(null)
+        setUser(null);
       }
     });
-    
+
     return () => {
       unsubscribe;
     };
