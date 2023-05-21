@@ -3,7 +3,7 @@
   border-radius: 20px;
   background: #f8f5f012;
   margin: 5px;
-  padding: 2px;
+  padding: 5px;
   color: black;
   text-align: center;
   box-shadow: 0 10px 40px rgba(9, 9, 9, 1);
@@ -30,7 +30,6 @@
 
 .card .content p {
   font-size: 18px;
-  /* line-height: 24px; */
 }
 .card .content .image {
   width: 128px;

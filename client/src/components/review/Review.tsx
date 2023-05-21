@@ -240,7 +240,7 @@ export const Review = () => {
             sx={{ color: "black" }}
           >
             <Form>
-              <Box>
+              <Box sx={{ display: "flex", gap: 2, my: 2 }}>
                 <Field
                   as={TextField}
                   fullWidth
