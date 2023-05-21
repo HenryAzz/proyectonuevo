@@ -2,7 +2,8 @@ import s from "./Review.module.css";
 import icon from "../../image/5066618.png";
 import icon2 from "../../image/5066622.png";
 import * as Yup from "yup";
-import { Box, Button, Paper, TextField, Grid } from "@mui/material";
+import { Box, Button, Paper, TextField } from "@mui/material";
+import { NavBar } from "../navbar/Navbar";
 import logo from "../../image/logo.png";
 import { StarRating } from "./StarRating";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -44,7 +45,7 @@ export const Review = () => {
 
   return (
     <Box>
-      <img src={logo} alt="logo" width="250px" height="50px" />
+      <NavBar />
       <br />
       <br />
 
