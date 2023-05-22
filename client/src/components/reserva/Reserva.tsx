@@ -9,11 +9,11 @@ import { useParams, Link } from "react-router-dom";
 import UploadWidget3 from "./uploadWidget.tsx";
 import { auth } from "../../firebase/firebase";
 import axios from "axios";
-import mano from "../../image/mano.png";
 import { orange } from "@mui/material/colors";
-import { valueCloud } from './config.ts'
+import { valueCloud } from "./config.ts";
 import Swal from "sweetalert2";
-import * as Yup from 'yup';
+import { NavBar } from "../navbar/Navbar";
+import * as Yup from "yup";
 
 declare const window: any;
 
@@ -42,7 +42,6 @@ export const Signal = () => {
     userId: currentData?.[0]?.id,
   };
 
-  
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -58,71 +57,68 @@ export const Signal = () => {
     };
   }, []);
 
-  
   const schema = Yup.object().shape({
-    operation: Yup.string().required('dato prellenado, de tipo de operacion'),
-    documentation: Yup.array().min(1, 'se requiere comprobante de ingreso.'),
-    propertyId: Yup.number().required('dato prellenado, identificación de la propiedad.'),
-    userId: Yup.number().required('dato prellenado, identificacion de usuario'),
+    operation: Yup.string().required("dato prellenado, de tipo de operacion"),
+    documentation: Yup.array().min(1, "se requiere comprobante de ingreso."),
+    propertyId: Yup.number().required("dato prellenado, identificación de la propiedad."),
+    userId: Yup.number().required("dato prellenado, identificacion de usuario"),
   });
 
   const handleClick = async () => {
-   try {
-        //enviar peticion post a la api, para crear formulario
-        await schema.validate(formSignal, { abortEarly: false });
-    await createSignal(formSignal);
+    try {
+      //enviar peticion post a la api, para crear formulario
+      await schema.validate(formSignal, { abortEarly: false });
+      await createSignal(formSignal);
 
-    Swal.fire({
-      title: 'Exitoso!',
-      text: 'Formulario llenado correctamente, proceder al realizar el pago',
-    })
+      Swal.fire({
+        title: "Exitoso!",
+        text: "Formulario llenado correctamente, proceder al realizar el pago",
+      });
 
+      const response = await axios.post(import.meta.env.VITE_URL_MERCADOPAGO_SIGNAL, formSignal);
 
-    const response = await axios.post(import.meta.env.VITE_URL_MERCADOPAGO_SIGNAL, formSignal);
+      const data = response.data;
+      if (data.global) {
+        if (data.global && window.MercadoPago) {
+          const mp = new window.MercadoPago(import.meta.env.VITE_MERCADOPAGO_TOKEN_CLIENT, {
+            locale: "es-AR",
+          });
 
-    const data = response.data;
-    if (data.global) {
-      
-      if (data.global && window.MercadoPago) {
-        const mp = new window.MercadoPago(import.meta.env.VITE_MERCADOPAGO_TOKEN_CLIENT, {
-          locale: "es-AR",
-        });
-
-        mp.checkout({
-          preference: {
-            id: data.global,
-          },
-          render: {
-            container: ".cho-container",
-            label: "Pagar",
-          },
-        });
-      } else {
-        console.error("MercadoPago no está disponible");
+          mp.checkout({
+            preference: {
+              id: data.global,
+            },
+            render: {
+              container: ".cho-container",
+              label: "Pagar",
+            },
+          });
+        } else {
+          console.error("MercadoPago no está disponible");
+        }
       }
-    }
-    
-   } catch (errors: any) {
-    const validationErrors: Record<string, string> = {};
+    } catch (errors: any) {
+      const validationErrors: Record<string, string> = {};
       errors.inner.forEach((error: any) => {
         validationErrors[error.path] = error.message;
       });
 
-      const errorMessages = Object.values(validationErrors).join(', ');
-  
+      const errorMessages = Object.values(validationErrors).join(", ");
+
       Swal.fire({
-        icon: 'error',
-        title: 'Corregir los siguientes errores:',
+        icon: "error",
+        title: "Corregir los siguientes errores:",
         text: errorMessages,
-        footer: 'completar de manera correcta el formulario'
-      })
+        footer: "completar de manera correcta el formulario",
+      });
     }
-    
-   }
-  
+  };
 
   return (
     <>
+      <NavBar />
+      <br />
+      <br />
       {!user ? (
         <Grid
           container
@@ -143,11 +139,6 @@ export const Signal = () => {
               boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
             }}
           >
-            <Box sx={{ width: "100%", mb: 2 }}>
-              <Link to="/home">
-                <img src={mano} alt="logo" style={{ width: "65px" }} />
-              </Link>
-            </Box>
             <Box
               sx={{
                 backgroundColor: "white",
@@ -169,7 +160,7 @@ export const Signal = () => {
             </Box>
           </Grid>
         </Grid>
-      )  : (
+      ) : (
         <Container>
           <Box
             sx={{
