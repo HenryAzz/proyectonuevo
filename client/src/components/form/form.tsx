@@ -22,6 +22,7 @@ import { auth } from "../../firebase/firebase";
 import { orange } from "@mui/material/colors";
 import * as Yup from 'yup';
 import { miArray } from "./config";
+import { NavBar } from "../navbar/Navbar";
 import Swal from "sweetalert2";
 import axios from "axios";
 

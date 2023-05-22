@@ -4,6 +4,7 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { Box, Button, Grid, Typography, TextField } from "@mui/material";
 import { orange } from "@mui/material/colors";
 import Swal from "sweetalert2";
+import { NavBar } from "../navbar/Navbar";
 
 export const ResetPassword = () => {
   const [email, setEmail] = useState("");
@@ -52,62 +53,67 @@ export const ResetPassword = () => {
   };
 
   return (
-    <Grid
-      container
-      sx={{
-        height: "100vh",
-        justifyContent: "center",
-        alignContent: "flex-start",
-        mt: 3,
-      }}
-    >
+    <>
+      <NavBar />
       <Grid
-        item
-        xs={5}
+        container
         sx={{
-          border: (theme) => `1px solid ${theme.palette.primary.main}`,
-          borderRadius: "10px",
-          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
-          p: 2,
-          display: "flex",
-          alignContent: "center",
-          backgroundColor: orange[50],
-          flexDirection: "column",
+          height: "100vh",
+          justifyContent: "center",
+          alignContent: "flex-start",
+          mt: 3,
         }}
       >
-        <Box
+        <Grid
+          item
+          xs={5}
           sx={{
+            border: (theme) => `1px solid ${theme.palette.primary.main}`,
+            borderRadius: "10px",
+            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
             p: 2,
             display: "flex",
+            alignContent: "center",
+            backgroundColor: orange[50],
             flexDirection: "column",
-            width: "100%",
-            backgroundColor: "white",
-            borderRadius: "10px",
           }}
         >
-          <Typography variant="h4" component="h3" sx={{ mb: 2, alignSelf: "flex-start" }}>
-            Recuperar contraseña
-          </Typography>
-          <TextField
-            label="Email"
-            type="email"
-            variant="outlined"
-            value={email}
-            onChange={handleEmailChange}
-            onFocus={handleEmailFocus}
-            error={!isValidEmail && isEmailFocused}
-            helperText={!isValidEmail && isEmailFocused ? "Tenes que ingresar un email valido" : ""}
-            sx={{ mb: 2, width: "80%", alignSelf: "center" }}
-          />
-          <Button
-            variant="contained"
-            onClick={handlePasswordReset}
-            sx={{ mb: 2, width: "80%", alignSelf: "center" }}
+          <Box
+            sx={{
+              p: 2,
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              backgroundColor: "white",
+              borderRadius: "10px",
+            }}
           >
-            Reset Password
-          </Button>
-        </Box>
+            <Typography variant="h4" component="h3" sx={{ mb: 2, alignSelf: "flex-start" }}>
+              Recuperar contraseña
+            </Typography>
+            <TextField
+              label="Email"
+              type="email"
+              variant="outlined"
+              value={email}
+              onChange={handleEmailChange}
+              onFocus={handleEmailFocus}
+              error={!isValidEmail && isEmailFocused}
+              helperText={
+                !isValidEmail && isEmailFocused ? "Tenes que ingresar un email valido" : ""
+              }
+              sx={{ mb: 2, width: "80%", alignSelf: "center" }}
+            />
+            <Button
+              variant="contained"
+              onClick={handlePasswordReset}
+              sx={{ mb: 2, width: "80%", alignSelf: "center" }}
+            >
+              Reset Password
+            </Button>
+          </Box>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 };

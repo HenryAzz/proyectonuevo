@@ -4,7 +4,7 @@ import { createFormRequest } from './forminterfaces';
 import {createSignalRequest} from './signalInterface'
 import { Broker, CreateBrokerRequest } from "./brokerInterfaces";
 import { createUserRequest } from "./authentication";
-import {User} from './userInterface'
+import { User } from "./userInterface";
 
 const API_URL = "http://localhost:3001";
 
@@ -19,8 +19,6 @@ export const apiSlice = createApi({
 
     getPropertysFilter: builder.query<property[], string>({
       query: (query) => {
-        console.log(query);
-
         return `/property${query}`;
       },
     }),
@@ -30,8 +28,6 @@ export const apiSlice = createApi({
 
     getPropertyByType: builder.query<property[], string>({
       query: (type) => {
-        console.log(type);
-
         return `/property/${type}`;
       },
     }),
@@ -51,7 +47,6 @@ export const apiSlice = createApi({
       }),
     }),
 
-    
     //metodos para enviar y recibr data de la ruta broker
     getBrokers: builder.query<Broker[], void>({
       query: () => "/broker",
@@ -73,14 +68,23 @@ export const apiSlice = createApi({
       }),
     }),
     //metodos para enviar y recibr data de la ruta authentication
+
     createUser: builder.mutation<createUserRequest, createUserRequest>({
+      query: (createUserRequest) => ({
+        url: "/user",
+        method: "POST",
+        body: createUserRequest,
+      }),
+    }),
+
+    createUserGoogle: builder.mutation<createUserRequest, createUserRequest>({
       query: (createUserRequest) => ({
         url: "/user/google",
         method: "POST",
         body: createUserRequest,
       }),
     }),
-    
+
     //Encontrar usuario por nombre
     getUserByName: builder.query<User[] | undefined, string | null | undefined>({
       query: (displayName) => `/user?name=${displayName}`,
@@ -118,6 +122,7 @@ export const {
   useCreatePropertyMutation,
   useDeletPropertyByIDMutation,
   useCreateUserMutation,
+  useCreateUserGoogleMutation,
   useCreateFormMutation,
   useGetUserByNameQuery,
   useCreateSignalMutation

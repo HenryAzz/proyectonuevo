@@ -43,6 +43,13 @@ export const deleteBrokerHandler =async (req:Request , res:Response) => {
     }
 }
 
-export const modifyBrokerHandler = () => {
-    
+//Modifica los datos de un broker recibiendo por query los campos a cambiar 
+export const modifyBrokerHandler = async (req:Request , res:Response) => {
+    const {id, name, rol, division, email, password} = req.query;
+    try {
+        const modBroker = modifyBroker(id, name, rol, division, email, password);
+        res.status(200).json(modBroker);
+    } catch (error:any) {
+        return res.status(404).send({error:error.message})
+    }
 }
