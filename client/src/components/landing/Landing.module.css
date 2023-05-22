@@ -89,7 +89,7 @@
 }
 
 .box {
-  border: rgb(243, 238, 238);
+  border: 2px solid rgb(243, 238, 238);
   border-radius: 5px;
   height: 100px;
   width: 350px;
@@ -97,8 +97,8 @@
   position: fixed;
   bottom: 15px;
   right: 100px;
-  color: rgb(243, 238, 238);
-  background-color: #f2c68456;
+  color: rgb(255, 255, 255);
+  background-color: rgb(242, 204, 148);
 }
 .box2 {
   height: 100%;
@@ -109,8 +109,8 @@
   -webkit-transform: translateY(100%);
   transform: translateY(100%);
 
-  -moz-animation: my-animation 5s linear infinite;
-  -webkit-animation: my-animation 5s linear infinite;
+  -moz-animation: my-animation 10s linear infinite;
+  -webkit-animation: my-animation 10s linear infinite;
   animation: my-animation 10s linear infinite;
 }
 
