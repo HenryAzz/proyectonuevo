@@ -59,6 +59,17 @@ export const findUserName = async function (name: string) {
   return db;
 };
 
+//findByEmail
+export const findUserByEmail = async function (email: string) {
+  const db = await User.findOne({
+    where: {
+      email: email,
+    },
+  });
+
+  return db;
+};
+
 
 
 // HELPER PUT //
