@@ -13,7 +13,6 @@ export const getBrokers = async () => {
 
 //Funcion que crea un nuevo broker o Admin
 export const createBroker = (body) =>{
-    console.log(body);
     const newBroker = Broker.create(body)
     return newBroker;
 }
