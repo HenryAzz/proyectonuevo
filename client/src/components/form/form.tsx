@@ -457,7 +457,7 @@ export const Form = () => {
               onChange={handleChangeInput}
             />
           </Box>
-          <Button onClick={handleClick}>enviar formulario</Button>
+          <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white"}}>enviar formulario</Button>
           <div className="cho-container"></div>
         </Container>
       ) : (
@@ -496,7 +496,7 @@ export const Form = () => {
                 Antes de llenar el formaulario debe iniciar sesión:
               </Typography>
               <Link to="/login" style={{ alignSelf: "center" }}>
-                <button> Ir a iniciar sesión</button>
+              <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white"}}> Iniciar sesión</Button>
               </Link>
             </Box>
           </Grid>

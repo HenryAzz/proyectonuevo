@@ -155,7 +155,7 @@ export const Signal = () => {
                 Antes de realizar la reserva debe iniciar sesión:
               </Typography>
               <Link to="/login" style={{ alignSelf: "center" }}>
-                <button> Ir a iniciar sesión</button>
+              <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white"}}> Iniciar sesión</Button>
               </Link>
             </Box>
           </Grid>
@@ -199,7 +199,7 @@ export const Signal = () => {
               disabled
             />
           </Box>
-          <Button onClick={handleClick}> Hacer reserva!</Button>
+          <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white"}}> Hacer reserva!</Button>
           <div className="cho-container"></div>
         </Container>
       )}
