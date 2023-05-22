@@ -11,7 +11,9 @@ const config = {
   dev: process.env.NODE_ENV !== "production",
   port: process.env.API_PORT || "3001",
   host: process.env.API_host || "localhost",
-  accessToken: process.env.PROD_ACCESS_TOKEN || ""
+  accessToken: process.env.PROD_ACCESS_TOKEN || "",
+  urlSuccess: process.env.URL_SUCCESS || "",
+  urlFailure: process.env.URL_FAILURE || ""
 };
 
 export default config;
