@@ -55,10 +55,10 @@ export default class Form extends Model {
   unit_price!: number;
 
   //Datos usuario
-  @Column({ type: DataType.INTEGER, allowNull: false })
+  @Column({ type: DataType.BIGINT, allowNull: false })
   dni!: number;
 
-  @Column({ type: DataType.INTEGER, allowNull: false })
+  @Column({ type: DataType.BIGINT, allowNull: false })
   tel!: number;
 
   //Tipo de propiedad

@@ -6,6 +6,9 @@
 
 .section {
   position: absolute;
+  grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+  display: grid;
+  grid-template-rows: "auto";
   width: 95%;
   height: 70vh;
   display: flex;
@@ -14,8 +17,6 @@
 }
 
 .section .slide {
-  position: relative;
-  background: #0f0;
   height: 100%;
   flex: 1;
   border-right: 3px solid #f2c684;
@@ -54,11 +55,11 @@
 }
 
 .section .slide .content {
-  position: absolute;
-  bottom: 0;
-  margin: 40px;
-  padding: 30px;
-  margin-bottom: 250px;
+  bottom: 5%;
+  margin: 5%;
+  padding: 1%;
+  word-wrap: break-word;
+
   background: #f2c68456;
   font-size: large;
   color: #000;
@@ -66,7 +67,7 @@
   opacity: 0;
   border-radius: 10px;
   transition: 0s;
-  transform: translateY(100px);
+  transform: translateY(50px);
 }
 
 .section .slide:hover .content {
@@ -80,9 +81,4 @@
 
 .img {
   text-align: center;
-}
-@media only screen and (min-width: 1280px) {
-  .section {
-    flex-direction: row;
-  }
 }
