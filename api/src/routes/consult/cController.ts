@@ -5,6 +5,8 @@ import {
 } from "./cHelper";
 import { sequelize } from "../../db";
 
+const { User } = sequelize.models;
+
 //Traemos la tabla de nuestra DB.
 const { Consult } = sequelize.models;
 
@@ -32,10 +34,20 @@ export const getCon = async (req: Request, res: Response) => {
 //  POST SIGNAL  //
 export const postCon = async (req: Request, res: Response) => {
   try {
-    console.log(req.body);
-    const newConsult = await Consult.create(req.body);
+    const { name, email, issue, description } = req.body;
+    let user = await User.findOne({ where: { email: email } });
 
-    res.send({ msj: "Consulta Creado correctamente" });
+    if(user){
+      const newConsult = await Consult.create({
+        issue: issue,
+        description: description,
+        userId: user.dataValues.id
+      });
+      res.send({ state: 1, msj: "Consulta Creado correctamente" });
+    }else{
+      res.send({ state: 0, msj: "El email proporcionado no está registrado en nuestro sistema" });
+    }
+      
   } catch (error) {
     res.status(404).send(error);
   }

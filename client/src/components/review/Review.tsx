@@ -7,38 +7,97 @@ import { NavBar } from "../navbar/Navbar";
 import logo from "../../image/logo.png";
 import { StarRating } from "./StarRating";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useCreateConsultMutation } from "../../reduxToolkit/apiSlice";
+import Swal from "sweetalert2";
+import { auth } from "../../firebase/firebase";
 
 export const Review = () => {
   const [value, setValue] = useState("");
+  const [user, setUser] = useState<string | null | undefined>(null);
+  const [createConsult, {data}] = useCreateConsultMutation();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user.email)
+      }
+    });
+
+    return () => {
+      unsubscribe;
+    };
+  }, []);
 
   const handleChange = (event: any) => {
     setValue(event.target.value);
   };
-  const onSubmit = (values: any, props: any) => {
-    console.log(values);
-    console.log(props);
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-    }, 2000);
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  const onSubmit = async(values: any, props: any) => {
+    if (user) {
+      try {
+        if(user===values.email){
+          const response = await createConsult(values);
+          Toast.fire({
+            icon: "success",
+            title: "Su consulta fue registrado correctamente",
+          });
+          setTimeout(() => {
+            props.resetForm();
+            props.setSubmitting(false);
+          }, 2000);
+        }else{
+          Toast.fire({
+            icon: "error",
+            title: "El email proporcionado no está registrado en nuestro sistema",
+          });
+        }      
+      }catch (errors: any) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Algo salió mal al registrar consulta..!!",
+          confirmButtonColor: "#3085d6",
+        });
+      }
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Debe iniciar Sesión para realizar una consulta..!!",
+        confirmButtonColor: "#3085d6",
+      });
+    }
   };
+
   const initialValues = {
     name: "",
     email: "",
-    motive: "",
-    message: "",
+    issue: "",
+    description: "",
   };
   const validationSchema = Yup.object().shape({
     name: Yup.string().min(3, "Es demasiado corto").required("Requerido"),
-    motive: Yup.string().min(3, "Es demasiado corto").required("Requerido"),
+    issue: Yup.string().min(3, "Es demasiado corto").required("Requerido"),
     email: Yup.string()
       .required("Requerido")
       .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, "Ingrese un correo electronico valido"),
-    message: Yup.string()
-      .min(100, "Cantidad minima de caracteres 100")
-      .required("Requerido")
-      .matches(/^.{100,}$/),
+    description: Yup.string()
+      .min(10, "Cantidad minima de caracteres 100")
+      // .required("Requerido"),
+      .matches(/^.{10,}$/),
 
     termsAndConditions: Yup.string().oneOf(["true"], "Accept terms & conditions"),
   });
@@ -274,14 +333,14 @@ export const Review = () => {
               <Field
                 as={TextField}
                 fullWidth
-                name="motive"
+                name="issue"
                 label="Asunto"
-                placeholder="Asundo de la consulta"
+                placeholder="Asunto de la consulta"
                 inputProps={{ style: { color: "black" } }}
                 InputLabelProps={{ style: { color: "black" } }}
                 helperText={
                   <strong>
-                    <ErrorMessage name="motive" />
+                    <ErrorMessage name="issue" />
                   </strong>
                 }
               />
@@ -291,22 +350,22 @@ export const Review = () => {
                   fullWidth
                   multiline
                   masRows={4}
-                  value={value}
-                  onChange={handleChange}
-                  name="message"
+                  // value={value}
+                  // onChange={handleChange}
+                  name="description"
                   label="Detallanos tu consulta"
                   placeholder="Detallanos tu consulta"
                   inputProps={{ style: { color: "black" } }}
                   InputLabelProps={{ style: { color: "black" } }}
                   helperText={
                     <strong>
-                      <ErrorMessage name="message" />
+                      <ErrorMessage name="description" />
                     </strong>
                   }
                 />
               </Box>
               <Box>
-                <Button variant="contained">Enviar Consulta</Button>
+                <Button type="submit" variant="contained">Enviar Consulta</Button>
               </Box>
             </Form>
           </Formik>
