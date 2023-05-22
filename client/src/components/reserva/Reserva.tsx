@@ -200,6 +200,8 @@ export const Signal = () => {
             />
           </Box>
           <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white"}}> Hacer reserva!</Button>
+          <br />
+          <br />
           <div className="cho-container"></div>
         </Container>
       )}

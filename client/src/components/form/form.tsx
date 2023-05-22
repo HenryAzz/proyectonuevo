@@ -458,6 +458,8 @@ export const Form = () => {
             />
           </Box>
           <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white"}}>enviar formulario</Button>
+          <br />
+          <br />
           <div className="cho-container"></div>
         </Container>
       ) : (
