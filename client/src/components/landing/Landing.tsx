@@ -11,8 +11,10 @@ export const Landing = () => {
   useEffect(() => {
     const fetchPayment = async () => {
       try {
-        await axios.post(`http://localhost:3001/mercadopago/payment`, queryParams);
-      } catch (error) {}
+        await axios.post(import.meta.env.VITE_URL_PAYMENT_MP, queryParams);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     fetchPayment();

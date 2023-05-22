@@ -67,6 +67,7 @@ export const postProp = async (req: Request, res: Response) => {
 
     res.send({ msj: "Signal Creado correctamente" });
   } catch (error) {
+    console.log(error)
     res.status(404).send(error);
   }
 };

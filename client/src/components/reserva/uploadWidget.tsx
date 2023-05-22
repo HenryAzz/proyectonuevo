@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { Button } from "@mui/material";
+import {valueCloud} from './config'
 
 
 
 type TypeUploadWidget = () => JSX.Element;
 
-const arr: string[] = []
+
 
 declare global {
   interface Window {
@@ -34,7 +35,8 @@ const UploadWidget3: TypeUploadWidget = () => {
         },
         (error: any, result: any) => {
           if (!error && result && result.event === "success") {
-            arr.push(result.info.secure_url);
+            valueCloud.push(result.info.secure_url);
+            
           }
         }
       );
