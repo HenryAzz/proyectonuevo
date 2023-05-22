@@ -17,7 +17,7 @@ import mano from "../../image/mano.png";
 import styled from "@emotion/styled";
 import UploadWidget from "./uploadWidget";
 import UploadWidget2 from "./uploadWidget2";
-import { useCreateFormMutation, useGetUserByNameQuery } from "../../reduxToolkit/apiSlice";
+import { useCreateFormMutation } from "../../reduxToolkit/apiSlice";
 import { auth } from "../../firebase/firebase";
 import { orange } from "@mui/material/colors";
 import * as Yup from 'yup';
@@ -49,8 +49,6 @@ interface FormState {
 
 export const Form = () => {
   const [user, setUser] = React.useState<string | null | undefined>(null);
-  const [userName, setUserName] = React.useState<string | null | undefined>(null);
-  const { currentData } = useGetUserByNameQuery(userName);
   //usar la ruta para crear el formulario
   const [createForm] = useCreateFormMutation();
   const [form, setForm] = React.useState<FormState>({
@@ -107,7 +105,6 @@ export const Form = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user.email);
-        setUserName(user.displayName);
         setForm({ ...form, email: user.email });
       } else {
         setUser(null);
@@ -269,6 +266,7 @@ export const Form = () => {
 
   return (
     <>
+    <NavBar />
       {user ?  (
         <Container>
           <Link to="/home">
