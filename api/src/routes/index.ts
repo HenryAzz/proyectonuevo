@@ -3,6 +3,7 @@ import routesUser from "./user/uRoot";
 import routesBroker from "./brokers/broker";
 import routesProperty from "./property/pRoot";
 import routesSignal from "./signal/signal";
+import routesReview from './Review/review'
 import routesForm from "./form/fRoot";
 
 import routesConsult from "./consult/consult";
@@ -25,6 +26,8 @@ router.use("/form", routesForm);
 router.use("/consult", routesConsult);
 
 router.use("/mercadopago", routesMercadopago);
+
+router.use("/review", routesReview)
 
 // router.use('/message', routesMessage)
 

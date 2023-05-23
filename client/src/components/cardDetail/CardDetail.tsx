@@ -12,8 +12,6 @@ export const CardDetail = () => {
   const { data, isLoading } = useGetPropertyByIdQuery(id);
   const colorf = orange[50];
 
-  console.log(data);
-
   return (
     <Box sx={{ width: "100%", pt: 4, display: "flex", justifyContent: "center" }}>
       <Container maxWidth="xl">

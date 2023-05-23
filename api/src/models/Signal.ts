@@ -25,19 +25,20 @@ export class Signal extends Model<Signal> {
   })
   id!: number;
 
-  //Modificado tipo enum que sea renta o alquiler
+  //Modificado tipo enum que sea renta o Alquiler
   @Column({ allowNull: false, type: DataType.ENUM("Alquiler", "Venta") })
   operation!: string;
 
   //Modificado nombre de la columna status por situation y agregado enum
   @Column({
     allowNull: false,
-    type: DataType.ENUM("Reservado", "Aceptado", "Rechazado"), defaultValue: "Reservado"
+    type: DataType.ENUM("Reservado", "Aceptado", "Rechazado"),
+    defaultValue: "Reservado",
   })
   situation!: string;
 
-  @Column({ allowNull: false })
-  documentation!: string;
+  @Column({ allowNull: true, type: DataType.ARRAY(DataType.JSON) })
+  documentation!: object;
 
   @Column({ allowNull: false })
   price!: number;
@@ -47,6 +48,12 @@ export class Signal extends Model<Signal> {
     allowNull: true,
   })
   payed!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  preferenceId!: string;
 
   // RELACIIONAR CON PROPERTY (PROPIEDAD)
   @ForeignKey(() => Property)

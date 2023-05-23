@@ -4,7 +4,6 @@ import { MailService } from "../../services/mailerService";
 import { randomBytes } from 'crypto';
 import resetPasswordTemplate from "../../templates/resetPasswordTemplate";
 import clientUserTemplate from "../../templates/clientUserTemplate";
-import supplierUserTemplate from "../../templates/supplierUserTemplate";
 
 const { User } = sequelize.models;
 
@@ -53,6 +52,17 @@ export const findUserName = async function (name: string) {
   const db = await User.findAll({
     where: {
       name: name,
+    },
+  });
+
+  return db;
+};
+
+//findByEmail
+export const findUserByEmail = async function (email: string) {
+  const db = await User.findOne({
+    where: {
+      email: email,
     },
   });
 
@@ -151,7 +161,7 @@ export default async function createUser({
   });
 
   //ENVIAR EMAIL A USUARIO
-  const emailTemplate = rol === "Cliente" ? clientUserTemplate(name) : supplierUserTemplate(name);
+  const emailTemplate = clientUserTemplate(name);
   let sendmail = await MailService(email, "Bienvenido - PropTech", emailTemplate.html
   );
 

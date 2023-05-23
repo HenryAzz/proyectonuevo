@@ -1,13 +1,10 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { Landing } from "./components/landing/Landing";
-//import { LogIn } from "./components/logIn/LogIn";
 import { LogIn2 } from "./components/logIn2/logIn2";
 import { About } from "./components/about/About";
 import HomeContainer from "./components/homeContainer/HomeContainer";
 import { Registro } from "./components/registro/Registro";
-//import { FormVenta } from "./components/formVenta/formVenta";
-//import { FormTasar } from "./components/formTasar/formTasar";
 import { Form } from "./components/form/form";
 import { CardDetail } from "./components/cardDetail/CardDetail";
 import { BrokerHome } from "./components/Admin/BrokerHome";
@@ -15,6 +12,8 @@ import { BrokerHome } from "./components/Admin/BrokerHome";
 import { ResetPassword } from "./components/resetPassword/ResetPassword";
 import { CreateNewPassword } from "./components/createNewPassword/CreateNewPassword";
 import { Signal } from "./components/reserva/Reserva";
+import { Review } from "./components/review/Review";
+import { UserProfile } from "./components/userProfile/UserProfile";
 function App() {
   return (
     <div>
@@ -30,6 +29,8 @@ function App() {
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/newPass" element={<CreateNewPassword />} />
         <Route path="/reserva/:id" element={<Signal />} />
+        <Route path="/review" element={<Review />} />
+        <Route path="/userProfile" element={<UserProfile />} />
       </Routes>
     </div>
   );

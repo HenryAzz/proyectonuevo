@@ -1,43 +1,84 @@
-.root {
+/* .conteiner {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+} */
+
+.section {
+  position: absolute;
+  grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+  display: grid;
+  grid-template-rows: "auto";
+  width: 95%;
+  height: 70vh;
   display: flex;
-  height: 100vh;
-  justify-content: center;
-  align-content: center;
+  border: 3px solid #f2c684;
+  border-radius: 10px;
 }
 
-.contianerAbout {
-  flex-direction: column;
-  width: 50vw;
-  backdrop-filter: blur(3px);
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
-  border-radius: 0.375rem;
-  margin: 10px;
+.section .slide {
+  height: 100%;
+  flex: 1;
+  border-right: 3px solid #f2c684;
+  overflow: hidden;
+  transition: 0.5s ease-in-out;
+  border-radius: 10px;
 }
 
-.containerImage {
-  display: flex;
-  justify-content: center;
-  margin: 2;
+.section .slide:last-child {
+  border-right: none;
 }
 
-.textAbout {
+.section .slide:hover {
+  flex-grow: 5;
+}
+
+.section .slide:nth-child(1) {
+  background: url("https://i.pinimg.com/564x/ac/36/dc/ac36dcf53d7df65fe99c89399051e2a0.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.section .slide:nth-child(2) {
+  background: url("https://i.pinimg.com/564x/ac/36/dc/ac36dcf53d7df65fe99c89399051e2a0.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.section .slide:nth-child(3) {
+  background: url("https://i.pinimg.com/564x/ac/36/dc/ac36dcf53d7df65fe99c89399051e2a0.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.section .slide .content {
+  bottom: 5%;
+  margin: 5%;
+  padding: 1%;
+  word-wrap: break-word;
+
+  background: #f2c68456;
+  font-size: large;
+  color: #000;
+  visibility: hidden;
+  opacity: 0;
+  border-radius: 10px;
+  transition: 0s;
+  transform: translateY(50px);
+}
+
+.section .slide:hover .content {
+  visibility: visible;
+  opacity: 1;
+  transition: 0.5s;
+
+  transition-delay: 0.5s;
+  transform: translateY(0);
+}
+
+.img {
   text-align: center;
-  font-size: xx-large;
-  width: auto;
-}
-
-@media (max-width: 800px) {
-  .image {
-    width: 60vw;
-  }
-}
-
-@media (max-width: 500px) {
-  .image {
-    width: 70vw;
-  }
-  .textAbout {
-    text-align: center;
-    font-size: medium;
-  }
 }
