@@ -28,6 +28,7 @@ interface intFormSignal {
 
 export const Signal = () => {
   const [user, setUser] = useState<string | null | undefined>(null);
+  console.log("user reserva", user)
   const { id } = useParams<{ id: string }>() as { id: string };
   const { data } = useGetPropertyByIdQuery(id);
   const { currentData } = useGetUserByNameQuery(user);
