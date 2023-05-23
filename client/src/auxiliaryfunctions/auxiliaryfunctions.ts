@@ -7,6 +7,10 @@ export function getRequestedFilters(array: Array<any>, key: string): Array<strin
     }
   });
 
+  if (!isNaN(Number(requestedKeyArray[0]))) {
+    requestedKeyArray.sort((a, b) => Number(a) - Number(b));
+  }
+
   return requestedKeyArray;
 }
 
@@ -20,3 +24,20 @@ export function getUnicKeys(array: Record<string, any>[]): string[] {
 
   return Array.from(UnicKeys);
 }
+
+export const getMinMaxValue = (data: any[], key: string): [number, number] => {
+  let minValue = Infinity;
+  let maxValue = -Infinity;
+
+  data.forEach((item) => {
+    const value = item[key];
+    if (value < minValue) {
+      minValue = value;
+    }
+    if (value > maxValue) {
+      maxValue = value;
+    }
+  });
+
+  return [minValue, maxValue];
+};

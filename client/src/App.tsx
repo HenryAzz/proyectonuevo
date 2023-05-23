@@ -11,6 +11,7 @@ import { ResetPassword } from "./components/resetPassword/ResetPassword";
 import { CreateNewPassword } from "./components/createNewPassword/CreateNewPassword";
 import { Signal } from "./components/reserva/Reserva";
 import { Review } from "./components/review/Review";
+import { UserProfile } from "./components/userProfile/UserProfile";
 function App() {
   return (
     <div>
@@ -26,6 +27,7 @@ function App() {
         <Route path="/newPass" element={<CreateNewPassword />} />
         <Route path="/reserva/:id" element={<Signal />} />
         <Route path="/review" element={<Review />} />
+        <Route path="/userProfile" element={<UserProfile />} />
       </Routes>
     </div>
   );
