@@ -6,4 +6,3 @@ export interface User {
   person_type: string;
   name: string;
 }
-
