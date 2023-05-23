@@ -18,14 +18,14 @@ export const createBroker = (body) =>{
 }
 
 //Funcion que obtiene un Broker por medio de su ID
-export const getBrokerById = async (id:number) => {
+export const getBrokerById = async (email:string) => {
     const broker = await Broker.findAll({
         where:{
-            id: {[Op.eq]: id}
+            email: {[Op.eq]: email}
         },
         attributes:['id', 'rol', 'email', 'name', 'avatar']
     });
-    const resp = broker[0] ? broker : `Broker con id ${id} no encontrado`
+    const resp = broker[0] ? broker : `Broker con email ${email} no encontrado`
     return resp;
 }
 

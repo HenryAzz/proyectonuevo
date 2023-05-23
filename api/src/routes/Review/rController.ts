@@ -4,8 +4,10 @@ import { getReviewsHelper, createReviewHelper, deleteReviewHelper } from "./rHel
 
 //Controller para traer todos los reviews
 export const getReviewsController = async (req:Request, res:Response) => {
+  const {target} = req.query;
+  console.log(target);
   try {
-    const reviews = await getReviewsHelper();
+    const reviews = await getReviewsHelper(target);
     res.status(200).json(reviews)
   } catch (error:any) {
     res.status(404).json({error:error.message})

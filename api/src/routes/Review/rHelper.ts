@@ -3,8 +3,18 @@ import { Op } from "sequelize";
 
 const {Review, Broker} = sequelize.models;
 
-export const getReviewsHelper = async() =>{
-  const reviews = await Review.findAll();
+export const getReviewsHelper = async(name) =>{
+  console.log(`nombre en helper: ${name}`);
+  let reviews = []
+  if (name){
+    reviews = await Review.findAll({
+      where:{
+        target: {[Op.eq]: name}
+      }
+    });
+    console.log(reviews);
+  }else reviews = await Review.findAll();
+  
   return reviews;
 }
 

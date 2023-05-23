@@ -13,10 +13,9 @@ export const getBrokersHandler = async (req:Request , res:Response) =>{
 }
 
 export const getBrokerByIdHandler = async (req:Request , res:Response) =>{
-    let {id} = req.params;
-    const idNum:number = Number(id)
+    let {email} = req.params;
     try {
-        const newbroker = await getBrokerById(idNum);
+        const newbroker = await getBrokerById(email);
         return res.status(200).json(newbroker);
     } catch (error:any) {
         return res.status(404).send({error:error.message})
