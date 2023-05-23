@@ -8,6 +8,7 @@ import {
   HasMany,
 } from "sequelize-typescript";
 import Form from "./Form";
+import { Review } from "./Review";
 
 @Table({
   timestamps: false,
@@ -47,6 +48,9 @@ export class Broker extends Model<Broker> {
   //Agrega todas las Operaciones del usuario hacia el Broker(vender, rentar, tasar)
   @HasMany(() => Form)
   properties!: Form[];
+
+  @HasMany(() => Review)
+  reviews!: Review[];
 }
 
 // //ejemplo:

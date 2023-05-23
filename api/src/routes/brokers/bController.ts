@@ -3,7 +3,7 @@
 import { sequelize } from "../../db";
 import { Op } from "sequelize";
 
-const {Broker} = sequelize.models
+const {Broker, Signal} = sequelize.models;
 
 //funcion que obtiene todos los brokers de la db
 export const getBrokers = async () => {
@@ -13,20 +13,19 @@ export const getBrokers = async () => {
 
 //Funcion que crea un nuevo broker o Admin
 export const createBroker = (body) =>{
-    console.log(body);
     const newBroker = Broker.create(body)
     return newBroker;
 }
 
 //Funcion que obtiene un Broker por medio de su ID
-export const getBrokerById = async (id:number) => {
+export const getBrokerById = async (email:string) => {
     const broker = await Broker.findAll({
         where:{
-            id: {[Op.eq]: id}
+            email: {[Op.eq]: email}
         },
         attributes:['id', 'rol', 'email', 'name', 'avatar']
     });
-    const resp = broker[0] ? broker : `Broker con id ${id} no encontrado`
+    const resp = broker[0] ? broker : `Broker con email ${email} no encontrado`
     return resp;
 }
 
@@ -44,4 +43,12 @@ export const deleteBroker = async (id:number) => {
 //Funcion que modifica un Broker
 export const modifyBroker = (id, name, rol, division, email, password) => {
     
+}
+
+export const statisticsController = async (id) => {
+    const data = {}
+    if (!id){
+        return('el id no llego')
+    }
+    return (`el id es ${id}`)
 }
