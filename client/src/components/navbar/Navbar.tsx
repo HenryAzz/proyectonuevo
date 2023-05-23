@@ -115,7 +115,7 @@ export const NavBar = () => {
               <ExpandMoreIcon sx={{ mt: 2.5 }} />
               <Menu anchorEl={menuAnchorEl} open={Boolean(menuAnchorEl)} onClose={handleMenuClose}>
                 <MenuItem>
-                  <Link to="/#" style={{ textDecoration: "none" }}>
+                  <Link to="/userProfile" style={{ textDecoration: "none" }}>
                     <Typography variant="h6" sx={{ color: theme.palette.primary.main }}>
                       perfil
                     </Typography>
