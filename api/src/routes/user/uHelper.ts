@@ -4,7 +4,6 @@ import { MailService } from "../../services/mailerService";
 import { randomBytes } from 'crypto';
 import resetPasswordTemplate from "../../templates/resetPasswordTemplate";
 import clientUserTemplate from "../../templates/clientUserTemplate";
-import supplierUserTemplate from "../../templates/supplierUserTemplate";
 
 const { User } = sequelize.models;
 
@@ -162,7 +161,7 @@ export default async function createUser({
   });
 
   //ENVIAR EMAIL A USUARIO
-  const emailTemplate = rol === "Cliente" ? clientUserTemplate(name) : supplierUserTemplate(name);
+  const emailTemplate = clientUserTemplate(name);
   let sendmail = await MailService(email, "Bienvenido - PropTech", emailTemplate.html
   );
 

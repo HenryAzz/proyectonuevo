@@ -56,6 +56,8 @@ export const postProp = async (req: Request, res: Response) => {
       }
     );
 
+    console.log(newSignal);
+
     let user = await User.findOne({ where: { id: req.body.userId } });
     let property = await Property.findOne({ where: { id: req.body.propertyId } });
 
