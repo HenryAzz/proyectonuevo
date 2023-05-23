@@ -10,14 +10,11 @@ import { Registro } from "./components/registro/Registro";
 //import { FormTasar } from "./components/formTasar/formTasar";
 import { Form } from "./components/form/form";
 import { CardDetail } from "./components/cardDetail/CardDetail";
-<<<<<<< HEAD
 import { BrokerHome } from "./components/Admin/BrokerHome";
 
-=======
 import { ResetPassword } from "./components/resetPassword/ResetPassword";
 import { CreateNewPassword } from "./components/createNewPassword/CreateNewPassword";
-import {Signal} from './components/reserva/Reserva'
->>>>>>> 7d9e6be574f1e0df7a34de2f9fa57d8318a0827f
+import { Signal } from "./components/reserva/Reserva";
 function App() {
   return (
     <div>
@@ -29,13 +26,10 @@ function App() {
         <Route path="/registro" element={<Registro />} />
         <Route path="/property/:id" element={<CardDetail />} />
         <Route path="/form" element={<Form />} />
-<<<<<<< HEAD
         <Route path="/broker" element={<BrokerHome />} />
-=======
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/newPass" element={<CreateNewPassword />} />
         <Route path="/reserva/:id" element={<Signal />} />
->>>>>>> 7d9e6be574f1e0df7a34de2f9fa57d8318a0827f
       </Routes>
     </div>
   );
