@@ -23,8 +23,8 @@ export const Pagination: React.FC<PaginationProps> = ({
       count={pageCount}
       onChange={handlePageChange}
       color="primary"
-      shape="rounded"
       size="large"
+      sx={{ my: 4, alignSelf: "center" }}
     />
   );
 };

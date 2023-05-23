@@ -26,20 +26,22 @@ export const HomeDesktop: React.FC<filterPorps> = ({ stringQuery }) => {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       {data?.length !== 0 ? (
-        <Grid container spacing={2} sx={{ mt: 2, width: "80vw", justifyContent: "space-around" }}>
-          {currentproperty.map((element: any, index: number) => (
-            <Grid item xs={8} sm={8} md={5} lg={5} key={index}>
-              <CardComponent
-                address={element.address}
-                description={element.description}
-                pictures={element.pictures}
-                type={element.type}
-                id={element.id}
-                operation={element.operation}
-                price={element.price}
-              />
-            </Grid>
-          ))}
+        <Grid container flexDirection="column" alignContent="center">
+          <Grid container spacing={2} sx={{ mt: 2, width: "80vw", justifyContent: "space-around" }}>
+            {currentproperty.map((element: any, index: number) => (
+              <Grid item xs={8} sm={8} md={5} lg={5} key={index}>
+                <CardComponent
+                  address={element.address}
+                  description={element.description}
+                  pictures={element.pictures}
+                  type={element.type}
+                  id={element.id}
+                  operation={element.operation}
+                  price={element.price}
+                />
+              </Grid>
+            ))}
+          </Grid>
           <Pagination
             propertyPerPage={propertyPerPage}
             totalPropertyCount={data?.length || 0}
