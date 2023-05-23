@@ -1,5 +1,11 @@
 import { Response, Request, Router } from "express";
-import { createBrokerHandler, getBrokerByIdHandler, deleteBrokerHandler, getBrokersHandler, modifyBrokerHandler } from "./bHandler";
+import {
+  createBrokerHandler, 
+  getBrokerByIdHandler, 
+  deleteBrokerHandler, 
+  getBrokersHandler, 
+  modifyBrokerHandler, 
+  statisticsHandler } from "./bHandler";
 const router = Router();
 
 router.get("/:id", getBrokerByIdHandler);
@@ -10,6 +16,8 @@ router.get("/", getBrokersHandler)
 
 router.delete("/:id", deleteBrokerHandler);
 
-router.put('/', modifyBrokerHandler)
+router.put('/', modifyBrokerHandler);
+
+router.get("/statistics", statisticsHandler)
 
 export default router;

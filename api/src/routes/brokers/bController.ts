@@ -42,5 +42,9 @@ export const deleteBroker = async (id:number) => {
 
 //Funcion que modifica un Broker
 export const modifyBroker = (id, name, rol, division, email, password) => {
-    
+    return ("probando esta ruta")
+}
+
+export const statisticsController = async () => {
+    return `probando ruta`;
 }

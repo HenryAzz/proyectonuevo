@@ -9,15 +9,13 @@ export const getReviewsHelper = async() =>{
 }
 
 export const createReviewHelper = async (target, grade, message) =>{
-  console.log(`nombre del broker ${target}`);
+  // obtengo el id del broker por medio de su nombre
   let broker = await Broker.findOne({
     where:{
       name: {[Op.eq]: target}
     },
-    // attributes:["id"]
+    attributes:["id"]
   })
-  console.log(broker);
-  
   const newReview = await Review.create({
     target:target, 
     grade:grade, 
@@ -25,5 +23,14 @@ export const createReviewHelper = async (target, grade, message) =>{
     brokerId: broker.dataValues.id
   })
   return (newReview);
+}
 
+export const deleteReviewHelper = async (id) => {
+  const review = await Review.destroy({
+    where:{
+      id: {[Op.eq]: id}
+    }
+  });
+  const resp = review === 1? `Review ${id} borrado con Éxito` : `Review ${id} no encontrado`;
+  return resp;
 }

@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import { sequelize } from "../../db";
-import { getReviewsHelper, createReviewHelper } from "./rHelper";
+import { getReviewsHelper, createReviewHelper, deleteReviewHelper } from "./rHelper";
 
 //Controller para traer todos los reviews
 export const getReviewsController = async (req:Request, res:Response) => {
@@ -22,6 +22,12 @@ export const createReviewController = async (req:Request, res:Response) =>{
   }
 }
 
-export const deleteReviewController = async () => {
-
+export const deleteReviewController = async (req:Request, res:Response) => {
+  const {id} = req.params;
+  try {
+    const delReview = await deleteReviewHelper(id);
+    res.status(200).json(delReview)
+  } catch (error:any) {
+    res.status(404).json({error:error.message})
+  }
 }
