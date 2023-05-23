@@ -31,7 +31,6 @@ export const CardComponent: React.FC<CardProps> = ({
   pictures,
   type,
   id,
-  operation,
   price,
 }) => {
   return (
@@ -48,7 +47,6 @@ export const CardComponent: React.FC<CardProps> = ({
           <Typography component="h6" variant="body2" mt={1}>
             {address}
           </Typography>
-          <Chip label={operation} color="primary" />
           <Typography component="h5" variant="body2" mt={1}>
             {description}
           </Typography>
