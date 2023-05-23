@@ -5,7 +5,7 @@ import { createSignalRequest, modifySignal } from "./signalInterface";
 import { Broker, CreateBrokerRequest } from "./brokerInterfaces";
 import { createUserRequest } from "./authentication";
 import { User } from "./userInterface";
-import { createConsultRequest } from "./consultInterface";
+import { createConsultRequest, emailMessage } from "./consultInterface";
 import { form } from "./forminterfaces";
 
 const API_URL = "http://localhost:3001";
@@ -148,11 +148,26 @@ export const apiSlice = createApi({
       }),
     }),
     //consultas
+
+    getconsultas: builder.query<createConsultRequest, void>({
+      query: () => `/consult`,
+    }),
+
+    //correo del broker, correo de usuario, mensaje
+
     createConsult: builder.mutation<createConsultRequest, createConsultRequest>({
       query: (createConsultRequest) => ({
         url: "/consult",
         method: "POST",
         body: createConsultRequest,
+      }),
+    }),
+
+    sendEmail: builder.mutation<void, emailMessage>({
+      query: (emailForm) => ({
+        url: "/send-email",
+        method: "POST",
+        body: emailForm,
       }),
     }),
   }),
@@ -181,5 +196,7 @@ export const {
   useCreateSignalMutation,
   useGetSignalByidQuery,
   usePutSignalMutation,
+  useGetconsultasQuery,
   useCreateConsultMutation,
+  useSendEmailMutation,
 } = apiSlice;
