@@ -6,7 +6,7 @@ import {
   findUserPerson_type,
   findUserName,
   getUserSoloByEmail,
-  updatePasswordUser
+  updatePasswordUser,
 } from "./uHelper";
 import { sequelize } from "../../db";
 import exp from "constants";
@@ -50,7 +50,7 @@ export const getUser = async (req: Request, res: Response) => {
     }
 
     //Si hay un name me traigo ese usuario
-    if(name) {
+    if (name) {
       const userName = await findUserName(name as string);
       return res.status(200).json(userName);
     }
@@ -72,9 +72,9 @@ export const postUser = async (req: Request, res: Response) => {
       await User.create(req.body);
 
       //ENVIAR EMAIL A USUARIO
-      const emailTemplate = user.rol === "Cliente" ? clientUserTemplate(user.name) : supplierUserTemplate(user.name);
-      let sendmail = await MailService(user.email, "Bienvenido - PropTech", emailTemplate.html
-      );
+      // const emailTemplate = user.rol === "Cliente" ? clientUserTemplate(user.name) : supplierUserTemplate(user.name);
+      // let sendmail = await MailService(user.email, "Bienvenido - PropTech", emailTemplate.html
+      // );
 
       res.send({ msj: "Usuario creado correctamente", user: req.body });
     }
@@ -95,7 +95,6 @@ export const putUser = async (req: Request, res: Response) => {
     res.status(404).send(error);
   }
 };
-
 
 ////////////////////////////////////////////////////
 

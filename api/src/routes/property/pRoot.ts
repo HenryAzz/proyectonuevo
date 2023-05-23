@@ -8,7 +8,7 @@ router.get("/", getProp);
 
 router.post("/", postProp);
 
-router.put("/", putProp);
+router.put("/:id", putProp);
 
 router.post("/bulk", postPropBulk); //Ruta para llenar la BD con propiedades de prueba
 

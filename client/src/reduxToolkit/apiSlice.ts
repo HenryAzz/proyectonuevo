@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { property, createPropertyRequest } from "./propertyinterfaces";
-import {form, createFormRequest} from './forminterfaces'
+import { form, createFormRequest } from "./forminterfaces";
 import { Broker, CreateBrokerRequest } from "./brokerInterfaces";
 import { createUserRequest } from "./authentication";
-import {User} from './userInterface'
+import { User } from "./userInterface";
 
 const API_URL = "http://localhost:3001";
 
@@ -49,8 +49,14 @@ export const apiSlice = createApi({
         body: id,
       }),
     }),
+    updateProperty: builder.mutation<property, { id: number; updatedProperty: property }>({
+      query: ({ id, updatedProperty }) => ({
+        url: `/property/${id}`,
+        method: "PUT",
+        body: updatedProperty,
+      }),
+    }),
 
-    
     //metodos para enviar y recibr data de la ruta broker
     getBrokers: builder.query<Broker[], void>({
       query: () => "/broker",
@@ -79,14 +85,18 @@ export const apiSlice = createApi({
         body: createUserRequest,
       }),
     }),
-    
+
     //Encontrar usuario por nombre
     getUserByName: builder.query<User[] | undefined, string | null | undefined>({
       query: (displayName) => `/user?name=${displayName}`,
     }),
 
+    getUser: builder.query<User[], void>({
+      query: () => "/user",
+    }),
+
     //metodos para enviar y recibr data de la ruta form
-    
+
     createForm: builder.mutation<form, createFormRequest>({
       query: (form) => ({
         url: "/form",
@@ -108,7 +118,9 @@ export const {
   useGetPropertyByTypeQuery,
   useCreatePropertyMutation,
   useDeletPropertyByIDMutation,
+  useUpdatePropertyMutation,
   useCreateUserMutation,
   useCreateFormMutation,
-  useGetUserByNameQuery
+  useGetUserByNameQuery,
+  useGetUserQuery,
 } = apiSlice;
