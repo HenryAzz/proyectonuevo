@@ -58,10 +58,10 @@ export const putSignal = async function (id, situation) {
   //ENVIAR EMAIL A USUARIO
   const emailTemplate = updateSignalTemplate(user.dataValues.name, property, situation, operation);
   let sendmail = await MailService(
-      user.dataValues.email, 
-      "Respuesta de solicitud de Propiedad - PropTech", 
-      emailTemplate.html
-    );
+    user.dataValues.email,
+    "Respuesta de solicitud de Propiedad - PropTech",
+    emailTemplate.html
+  );
 
   return updateSignal;
 };
