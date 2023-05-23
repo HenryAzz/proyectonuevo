@@ -3,7 +3,7 @@
 import { sequelize } from "../../db";
 import { Op } from "sequelize";
 
-const {Broker} = sequelize.models
+const {Broker, Signal} = sequelize.models;
 
 //funcion que obtiene todos los brokers de la db
 export const getBrokers = async () => {
@@ -42,9 +42,13 @@ export const deleteBroker = async (id:number) => {
 
 //Funcion que modifica un Broker
 export const modifyBroker = (id, name, rol, division, email, password) => {
-    return ("probando esta ruta")
+    
 }
 
-export const statisticsController = async () => {
-    return `probando ruta`;
+export const statisticsController = async (id) => {
+    const data = {}
+    if (!id){
+        return('el id no llego')
+    }
+    return (`el id es ${id}`)
 }

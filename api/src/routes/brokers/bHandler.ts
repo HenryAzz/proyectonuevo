@@ -54,6 +54,13 @@ export const modifyBrokerHandler = async (req:Request , res:Response) => {
     }
 }
 
-export const statisticsHandler = (req:Request , res:Response) => {
-    console.log('a ver si si entra');
+export const statisticsHandler = async (req:Request , res:Response) => {
+    const { id } = req.query
+    console.log(id);
+    try {
+        const statistics = await statisticsController(id);
+        res.status(200).json(statistics);
+    } catch (error:any) {
+        res.status(404).send({error:error.message})
+    }
 }

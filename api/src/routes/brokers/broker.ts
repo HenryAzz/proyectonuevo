@@ -8,16 +8,16 @@ import {
   statisticsHandler } from "./bHandler";
 const router = Router();
 
+router.get("/statistics", statisticsHandler)
+
+router.get("/", getBrokersHandler)
+
 router.get("/:id", getBrokerByIdHandler);
 
 router.post("/", createBrokerHandler);
 
-router.get("/", getBrokersHandler)
-
-router.delete("/:id", deleteBrokerHandler);
-
 router.put('/', modifyBrokerHandler);
 
-router.get("/statistics", statisticsHandler)
+router.delete("/:id", deleteBrokerHandler);
 
 export default router;
