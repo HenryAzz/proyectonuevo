@@ -13,7 +13,6 @@ import { sequelize } from "../../db";
 import exp from "constants";
 import { MailService } from "../../services/mailerService";
 import clientUserTemplate from "../../templates/clientUserTemplate";
-import supplierUserTemplate from "../../templates/supplierUserTemplate";
 
 //Traemos la tabla de nuestra DB.
 const { User } = sequelize.models;
@@ -77,9 +76,9 @@ export const postUser = async (req: Request, res: Response) => {
     } else {
       //si los campos son correctos, creamos el usuario.
       await User.create(req.body);
-      console.log(`rol del usuario ${user.rol}`);
+
       //ENVIAR EMAIL A USUARIO
-      const emailTemplate = user.rol === "Cliente" ? clientUserTemplate(user.name) : supplierUserTemplate(user.name);
+      const emailTemplate = clientUserTemplate(user.name);
       let sendmail = await MailService(user.email, "Bienvenido - PropTech", emailTemplate.html
       );
 
