@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Box, Typography, TextField, Button, Container, Grid } from "@mui/material";
 import {
   useGetPropertyByIdQuery,
-  useGetUserByNameQuery,
+  useGetUserByEmailQuery,
   useCreateSignalMutation,
 } from "../../reduxToolkit/apiSlice";
 import { useParams, Link } from "react-router-dom";
@@ -13,7 +13,9 @@ import { orange } from "@mui/material/colors";
 import { valueCloud } from "./config.ts";
 import Swal from "sweetalert2";
 import { NavBar } from "../navbar/Navbar";
+import mano from "../../image/mano.png";
 import * as Yup from "yup";
+import { Carrousel } from "../carrousel/carrousel";
 
 declare const window: any;
 
@@ -28,26 +30,28 @@ interface intFormSignal {
 
 export const Signal = () => {
   const [user, setUser] = useState<string | null | undefined>(null);
-  console.log("user reserva", user)
   const { id } = useParams<{ id: string }>() as { id: string };
   const { data } = useGetPropertyByIdQuery(id);
-  const { currentData } = useGetUserByNameQuery(user);
+  const { currentData } = useGetUserByEmailQuery(user);
   const [createSignal] = useCreateSignalMutation();
-
   const formSignal: intFormSignal = {
     operation: data?.operation,
     documentation: valueCloud,
     price: 5,
     propertyId: data?.id,
     brokerId: 712913,
-    userId: currentData?.[0]?.id,
+    userId: currentData?.id,
   };
 
   useEffect(() => {
+
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        //console.log(user.displayName)
-        setUser(user.displayName);
+        setUser(user.email);
+        Swal.fire({
+          html: '<div style="padding-left: 30px; font-size: 24px;"><img src="' + mano + '"><br>Has ingresado al formulario de Reserva. Este formulario contiene la información pre-llenada de la propiedad, solo ingresa una imagen de tu recibo de sueldo.</div>',
+        });
+    
       } else {
         setUser(null);
       }
@@ -171,7 +175,7 @@ export const Signal = () => {
               justifyContent: "Center",
               alignContent: "Center",
               p: 2,
-              height: "80%",
+              padding: "0 7%",
               borderRadius: "10px",
             }}
           >
@@ -187,23 +191,27 @@ export const Signal = () => {
               disabled
             />
             <UploadWidget3 />
-
-            <TextField
-              sx={{ bgcolor: "#ffecb3" }}
-              id="id"
-              label="Identificación de la Propiedad"
-              variant="outlined"
-              name="id"
-              value={data?.id}
-              fullWidth
-              margin="normal"
-              disabled
-            />
-          </Box>
-          <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white"}}> Hacer reserva!</Button>
+            <br />
+            <Grid
+                item
+                xs={8}
+                md={9}
+                lg={5}
+                sx={{
+                  mr: { lg: 2 },
+                  height: "400px",
+                  width: "100%",
+                  borderRadius: "0.5em",
+                }}
+              >     
+  <Carrousel images={data?.pictures} duration={5} />
+              </Grid>
+          <br />
+          <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white", width:"200px"}}> Hacer reserva!</Button>
           <br />
           <br />
           <div className="cho-container"></div>
+          </Box>
         </Container>
       )}
     </>

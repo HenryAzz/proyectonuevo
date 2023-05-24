@@ -2,24 +2,10 @@ import { Container, Grid, Button } from "@mui/material";
 import video from "../../image/video19.mp4";
 import { Link } from "react-router-dom";
 import s from "../landing/Landing.module.css";
-import queryString from "query-string"; //info por query
-import axios from "axios";
-import { useEffect } from "react";
+
 
 export const Landing = () => {
-  const queryParams = queryString.parse(window.location.search);
-  useEffect(() => {
-    const fetchPayment = async () => {
-      try {
-        await axios.post(import.meta.env.VITE_URL_PAYMENT_MP, queryParams);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchPayment();
-  }, [queryParams]);
-
+  
   return (
     <Container>
       <br />

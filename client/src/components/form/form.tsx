@@ -23,6 +23,7 @@ import { miArray } from "./config";
 import { NavBar } from "../navbar/Navbar";
 import Swal from "sweetalert2";
 import axios from "axios";
+import mano from "../../image/mano.png";
 
 declare const window: any;
 
@@ -108,6 +109,10 @@ export const Form = () => {
       if (user) {
         setUser(user.email);
         setForm({ ...form, email: user.email });
+        Swal.fire({
+          html: '<div style="padding-left: 30px; font-size: 24px;"><img src="' + mano + '"><br>Has ingresado al formulario de Operaciones. Este formulario se utiliza para realizar tasaciones de propiedades disponibles tanto para alquiler como para venta. Nos permite evaluar el valor de mercado de la propiedad y proporcionar una estimación precisa basada en diversos factores. Si estás interesado en alquilar o vender una propiedad, completa este formulario con la información requerida para obtener una tasación precisa y detallada</div>',
+          width: "50%"
+        });
       } else {
         setUser(null);
       }
