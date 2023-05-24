@@ -24,8 +24,7 @@ interface intFormSignal {
   documentation: string[];
   price: number;
   propertyId: number | undefined;
-  brokerId: number;
-  userId: number | undefined;
+  email: string | undefined | null;
 }
 
 export const Signal = () => {
@@ -34,24 +33,25 @@ export const Signal = () => {
   const { data } = useGetPropertyByIdQuery(id);
   const { currentData } = useGetUserByEmailQuery(user);
   const [createSignal] = useCreateSignalMutation();
+  console.log(currentData);
   const formSignal: intFormSignal = {
     operation: data?.operation,
     documentation: valueCloud,
     price: 5,
     propertyId: data?.id,
-    brokerId: 712913,
-    userId: currentData?.id,
+    email: user,
   };
 
   useEffect(() => {
-
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user.email);
         Swal.fire({
-          html: '<div style="padding-left: 30px; font-size: 24px;"><img src="' + mano + '"><br>Has ingresado al formulario de Reserva. Este formulario contiene la información pre-llenada de la propiedad, solo ingresa una imagen de tu recibo de sueldo.</div>',
+          html:
+            '<div style="padding-left: 30px; font-size: 24px;"><img src="' +
+            mano +
+            '"><br>Has ingresado al formulario de Reserva. Este formulario contiene la información pre-llenada de la propiedad, solo ingresa una imagen de tu recibo de sueldo.</div>',
         });
-    
       } else {
         setUser(null);
       }
@@ -60,13 +60,13 @@ export const Signal = () => {
     return () => {
       unsubscribe;
     };
-  }, []);
+  }, [data?.pictures]);
 
   const schema = Yup.object().shape({
     operation: Yup.string().required("dato prellenado, de tipo de operacion"),
     documentation: Yup.array().min(1, "se requiere comprobante de ingreso."),
     propertyId: Yup.number().required("dato prellenado, identificación de la propiedad."),
-    userId: Yup.number().required("dato prellenado, identificacion de usuario"),
+    email: Yup.string().required("dato prellenado, correo electronico de usuario"),
   });
 
   const handleClick = async () => {
@@ -160,7 +160,10 @@ export const Signal = () => {
                 Antes de realizar la reserva debe iniciar sesión:
               </Typography>
               <Link to="/login" style={{ alignSelf: "center" }}>
-              <Button style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white"}}> Iniciar sesión</Button>
+                <Button style={{ backgroundColor: "rgba(136, 85, 44, 0.85)", color: "white" }}>
+                  {" "}
+                  Iniciar sesión
+                </Button>
               </Link>
             </Box>
           </Grid>
@@ -193,24 +196,30 @@ export const Signal = () => {
             <UploadWidget3 />
             <br />
             <Grid
-                item
-                xs={8}
-                md={9}
-                lg={5}
-                sx={{
-                  mr: { lg: 2 },
-                  height: "400px",
-                  width: "100%",
-                  borderRadius: "0.5em",
-                }}
-              >     
-  <Carrousel images={data?.pictures} duration={5} />
-              </Grid>
-          <br />
-          <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white", width:"200px"}}> Hacer reserva!</Button>
-          <br />
-          <br />
-          <div className="cho-container"></div>
+              item
+              xs={8}
+              md={9}
+              lg={5}
+              sx={{
+                mr: { lg: 2 },
+                height: "400px",
+                width: "100%",
+                borderRadius: "0.5em",
+              }}
+            >
+              <Carrousel images={data?.pictures} duration={5} />
+            </Grid>
+            <br />
+            <Button
+              onClick={handleClick}
+              style={{ backgroundColor: "rgba(136, 85, 44, 0.85)", color: "white", width: "200px" }}
+            >
+              {" "}
+              Hacer reserva!
+            </Button>
+            <br />
+            <br />
+            <div className="cho-container"></div>
           </Box>
         </Container>
       )}
