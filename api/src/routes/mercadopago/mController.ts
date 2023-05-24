@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express";
+import { Request, Response } from "express";
 import mercadopago from "mercadopago";
 import type {
   CreatePreferencePayload,
@@ -66,7 +66,7 @@ export const createOrderSignal = async (req: Request, res: Response) => {
 
   const form = req.body
   
-  const findSignal = await Signal.findOne({where: { userId : form.userId}})
+  const findSignal = await Signal.findOne({where: { propertyId : form.propertyId}})
 
   mercadopago.configure({ access_token: config.accessToken });
 

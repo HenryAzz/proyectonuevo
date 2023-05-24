@@ -11,7 +11,7 @@ type ItemProps = {
 export const Carrousel: React.FC<ImageProps> = ({ images, duration }) => {
   return (
     <Carousel indicators={false} sx={{ width: "100%" }} interval={duration * 1000}>
-      {images.map((item: any, index: number) => (
+      {images?.map((item: any, index: number) => (
         <Item key={index} img={item.img} />
       ))}
     </Carousel>
