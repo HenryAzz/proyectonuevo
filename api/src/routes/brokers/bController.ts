@@ -3,7 +3,7 @@
 import { sequelize } from "../../db";
 import { Op } from "sequelize";
 
-const {Broker, Signal} = sequelize.models;
+const {Broker, Signal, Review} = sequelize.models;
 
 //funcion que obtiene todos los brokers de la db
 export const getBrokers = async () => {
@@ -17,8 +17,8 @@ export const createBroker = (body) =>{
     return newBroker;
 }
 
-//Funcion que obtiene un Broker por medio de su ID
-export const getBrokerById = async (email:string) => {
+//Funcion que obtiene un Broker por medio de su Email
+export const getBrokerByEmail = async (email:string) => {
     const broker = await Broker.findAll({
         where:{
             email: {[Op.eq]: email}
@@ -26,6 +26,18 @@ export const getBrokerById = async (email:string) => {
         attributes:['id', 'rol', 'email', 'name', 'avatar']
     });
     const resp = broker[0] ? broker : `Broker con email ${email} no encontrado`
+    return resp;
+}
+
+//Funcion que obtiene un Broker por medio de su Id
+export const getBrokerById = async (id:number) => {
+    const broker = await Broker.findAll({
+        where:{
+            email: {[Op.eq]: id}
+        },
+        attributes:['id', 'rol', 'email', 'name', 'avatar']
+    });
+    const resp = broker[0] ? broker : `Broker con email ${id} no encontrado`
     return resp;
 }
 
@@ -41,8 +53,15 @@ export const deleteBroker = async (id:number) => {
 }
 
 //Funcion que modifica un Broker
-export const modifyBroker = (id, name, rol, division, email, password) => {
-    
+export const modifyBroker = async (id:number, division:string) => {
+    await Broker.update({division:division},{
+        where:{
+            id: {[Op.eq]: id}
+        }
+    });
+
+    const updatedBroker = await Broker.findByPk(id)
+    return updatedBroker;
 }
 
 export const statisticsController = async (id) => {
