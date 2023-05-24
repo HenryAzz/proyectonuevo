@@ -3,6 +3,9 @@
 import { sequelize } from "../../db";
 const { Form, User, Broker } = sequelize.models;
 import { Op } from "sequelize";
+import { MailService } from "../../services/mailerService";
+import clientFormTemplate from "../../templates/clientFormTemplate";
+import brokerFormTemplate from "../../templates/brokerFormTemplate";
 
 //GET FORM (FILTERS)
 export const gForm = async function (
@@ -227,6 +230,18 @@ export const createForm = async (data) => {
     userId: findUserByEmail.dataValues.id,
     brokerId: findBrokerByDivision.dataValues.id
   });
+
+  // //ENVIAR EMAIL A USUARIO
+  const emailTemplate = clientFormTemplate(findUserByEmail, data);
+
+  let sendmail = await MailService(findUserByEmail.dataValues.email, "Registro de Formulario - PropTech", emailTemplate.html
+  );
+
+  // // //ENVIAR EMAIL A BROKER
+  const emailTemplateBroker = brokerFormTemplate(findBrokerByDivision.dataValues.name, findUserByEmail, data);
+
+  let sendmailBroker = await MailService(findBrokerByDivision.dataValues.email, "Solicitud de Formulario para Revisión - PropTech", emailTemplateBroker.html
+  );
 
   return newForm;
 };
