@@ -12,7 +12,7 @@ import axios from "axios";
 import { orange } from "@mui/material/colors";
 import { valueCloud } from "./config.ts";
 import Swal from "sweetalert2";
-import { NavBar } from "../navbar/Navbar";
+
 import * as Yup from "yup";
 
 declare const window: any;
@@ -116,7 +116,6 @@ export const Signal = () => {
 
   return (
     <>
-      <NavBar />
       <br />
       <br />
       {!user ? (
@@ -155,7 +154,13 @@ export const Signal = () => {
                 Antes de realizar la reserva debe iniciar sesión:
               </Typography>
               <Link to="/login" style={{ alignSelf: "center" }}>
-              <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white"}}> Iniciar sesión</Button>
+                <Button
+                  onClick={handleClick}
+                  style={{ backgroundColor: "rgba(136, 85, 44, 0.85)", color: "white" }}
+                >
+                  {" "}
+                  Iniciar sesión
+                </Button>
               </Link>
             </Box>
           </Grid>
@@ -199,7 +204,13 @@ export const Signal = () => {
               disabled
             />
           </Box>
-          <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white"}}> Hacer reserva!</Button>
+          <Button
+            onClick={handleClick}
+            style={{ backgroundColor: "rgba(136, 85, 44, 0.85)", color: "white" }}
+          >
+            {" "}
+            Hacer reserva!
+          </Button>
           <br />
           <br />
           <div className="cho-container"></div>

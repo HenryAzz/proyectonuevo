@@ -12,9 +12,11 @@ import { CreateNewPassword } from "./components/createNewPassword/CreateNewPassw
 import { Signal } from "./components/reserva/Reserva";
 import { Review } from "./components/review/Review";
 import { UserProfile } from "./components/userProfile/UserProfile";
+import { NavBar } from "./components/navbar/Navbar";
 function App() {
   return (
     <div>
+      <NavBar />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<HomeContainer />} />

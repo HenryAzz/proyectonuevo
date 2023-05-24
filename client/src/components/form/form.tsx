@@ -20,7 +20,7 @@ import { auth } from "../../firebase/firebase";
 import { orange } from "@mui/material/colors";
 import * as Yup from "yup";
 import { miArray } from "./config";
-import { NavBar } from "../navbar/Navbar";
+
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -260,7 +260,6 @@ export const Form = () => {
 
   return (
     <>
-      <NavBar />
       {user ? (
         <Container>
           <Link to="/home"></Link>
@@ -457,7 +456,12 @@ export const Form = () => {
               onChange={handleChangeInput}
             />
           </Box>
-          <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white"}}>enviar formulario</Button>
+          <Button
+            onClick={handleClick}
+            style={{ backgroundColor: "rgba(136, 85, 44, 0.85)", color: "white" }}
+          >
+            enviar formulario
+          </Button>
           <br />
           <br />
           <div className="cho-container"></div>
@@ -498,7 +502,13 @@ export const Form = () => {
                 Antes de llenar el formaulario debe iniciar sesión:
               </Typography>
               <Link to="/login" style={{ alignSelf: "center" }}>
-              <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white"}}> Iniciar sesión</Button>
+                <Button
+                  onClick={handleClick}
+                  style={{ backgroundColor: "rgba(136, 85, 44, 0.85)", color: "white" }}
+                >
+                  {" "}
+                  Iniciar sesión
+                </Button>
               </Link>
             </Box>
           </Grid>

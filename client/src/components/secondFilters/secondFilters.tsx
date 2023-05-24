@@ -24,10 +24,15 @@ import {
   Checkbox,
   FormControlLabel,
   FormControl,
+  Slider,
 } from "@mui/material";
 import TuneIcon from "@mui/icons-material/Tune";
 import { useGetPropertiesQuery } from "../../reduxToolkit/apiSlice";
-import { getRequestedFilters, getUnicKeys } from "../../auxiliaryfunctions/auxiliaryfunctions";
+import {
+  getRequestedFilters,
+  getUnicKeys,
+  getMinMaxValue,
+} from "../../auxiliaryfunctions/auxiliaryfunctions";
 import { useEffect } from "react";
 
 type filterPorps = {
@@ -35,6 +40,7 @@ type filterPorps = {
   stringQuery: string;
   checkedValues: Record<string, boolean>;
   setCheckedValues: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const SecondFilters: React.FC<filterPorps> = ({
@@ -42,8 +48,11 @@ export const SecondFilters: React.FC<filterPorps> = ({
   stringQuery,
   checkedValues,
   setCheckedValues,
+  setCurrentPage,
 }) => {
   const { data: allProperty } = useGetPropertiesQuery();
+  const [value, setValue] = useState<number>(0);
+  const [price, setPrice] = useState<number>(0);
 
   useEffect(() => {
     const initialValues: Record<string, boolean> = {};
@@ -60,6 +69,17 @@ export const SecondFilters: React.FC<filterPorps> = ({
       ...initialValues,
     }));
   }, [allProperty, setCheckedValues]);
+
+  useEffect(() => {
+    if (allProperty && allProperty.length > 0) {
+      const minValue = getMinMaxValue(allProperty, "total_area")[0];
+      setValue(minValue);
+    }
+    if (allProperty && allProperty.length > 0) {
+      const minPrice = getMinMaxValue(allProperty, "price")[0];
+      setPrice(minPrice);
+    }
+  }, [allProperty]);
 
   const [open, setOpen] = useState(false);
 
@@ -93,12 +113,21 @@ export const SecondFilters: React.FC<filterPorps> = ({
       setStringQuery(updatedStringQuery);
     }
 
-    console.log("ID del FormControlLabel:", checkboxId);
     const isChecked = checkedValues[checkboxId];
     setCheckedValues((prevCheckedValues) => ({
       ...prevCheckedValues,
       [checkboxId]: !isChecked,
     }));
+  };
+
+  const handleChange = (_: Event, newValue: number | number[]) => {
+    setValue(newValue as number);
+    console.log(newValue);
+  };
+
+  const handleChangePrice = (_: Event, newValue: number | number[]) => {
+    setPrice(newValue as number);
+    console.log(newValue);
   };
 
   return (
@@ -230,26 +259,45 @@ export const SecondFilters: React.FC<filterPorps> = ({
               }}
               onClick={handleItemClick}
             >
-              <Typography variant="h5">cantidad de metros</Typography>
+              <Typography variant="h5">Metros cuadrados</Typography>
               {allProperty?.length ? (
-                <FormControl component="fieldset">
-                  {getRequestedFilters(allProperty, "total_area").map((elem, index) => (
-                    <FormControlLabel
-                      key={index}
-                      control={<Checkbox checked={!!checkedValues[`${elem}`]} />}
-                      label={`${elem} metros`}
-                      labelPlacement="start"
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        marginTop: "8px",
-                      }}
-                      id={`${elem}`}
-                      name={`${elem}`}
-                    />
-                  ))}
-                </FormControl>
+                <Grid item sx={{ mx: 2, display: "flex" }}>
+                  <Slider
+                    min={getMinMaxValue(allProperty, "total_area")[0]}
+                    max={getMinMaxValue(allProperty, "total_area")[1]}
+                    aria-label="Metros"
+                    value={value}
+                    onChange={handleChange}
+                    sx={{ mr: 2 }}
+                  />
+                  <span>{value}</span>
+                </Grid>
+              ) : (
+                <CircularProgress sx={{ fontSize: "3rem" }} />
+              )}
+            </Grid>
+
+            <Grid
+              id="price"
+              sx={{
+                p: 2,
+                mb: 2,
+              }}
+              onClick={handleItemClick}
+            >
+              <Typography variant="h5">Precio</Typography>
+              {allProperty?.length ? (
+                <Grid item sx={{ mx: 2, display: "flex" }}>
+                  <Slider
+                    min={getMinMaxValue(allProperty, "price")[0]}
+                    max={getMinMaxValue(allProperty, "price")[1]}
+                    aria-label="Precio"
+                    value={price}
+                    onChange={handleChangePrice}
+                    sx={{ mr: 2 }}
+                  />
+                  <span>{price}</span>
+                </Grid>
               ) : (
                 <CircularProgress sx={{ fontSize: "3rem" }} />
               )}
