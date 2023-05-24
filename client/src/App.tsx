@@ -12,7 +12,9 @@ import { CreateNewPassword } from "./components/createNewPassword/CreateNewPassw
 import { Signal } from "./components/reserva/Reserva";
 import { Review } from "./components/review/Review";
 import { UserProfile } from "./components/userProfile/UserProfile";
-import { NavBar } from "./components/navbar/Navbar";
+import { Success } from "./components/success/Success";
+import { Fail } from "./components/fail/Fail";
+
 function App() {
   return (
     <div>
@@ -30,6 +32,8 @@ function App() {
         <Route path="/reserva/:id" element={<Signal />} />
         <Route path="/review" element={<Review />} />
         <Route path="/userProfile" element={<UserProfile />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/fail" element={<Fail />} />
       </Routes>
     </div>
   );

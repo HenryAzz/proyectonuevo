@@ -3,8 +3,7 @@ export interface createSignalRequest {
   documentation: string[];
   price: number;
   propertyId: number | undefined;
-  brokerId: number;
-  userId: number | undefined;
+  email: string | undefined | null;
 }
 
 export interface modifySignal {

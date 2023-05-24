@@ -106,7 +106,7 @@ export const apiSlice = createApi({
     }),
 
     //Econtrar Usuario por email
-    getUserByEmail: builder.query<User, string>({
+    getUserByEmail: builder.query<User, string | null | undefined>({
       query: (email) => `/user?email=${email}`,
     }),
     //metodos para enviar y recibr data de la ruta form
