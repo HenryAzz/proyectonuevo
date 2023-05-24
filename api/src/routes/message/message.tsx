@@ -1,13 +1,8 @@
-// import { Response, Request, Router } from "express";
-// import { postMessage } from "./mController";
+import { Router } from "express";
+const router = Router();
 
-// const router = Router();
+import { postMessage } from "./mController";
 
-// // router.get("/", getMenssage)
+router.post("/", postMessage);
 
-// // router.get("/:id", getIdMenssage);
-
-// router.post("/", postMessage);
-
-// // router.delete("/:id", deleteIdMenssage);
-// export default router;
+export default router;
