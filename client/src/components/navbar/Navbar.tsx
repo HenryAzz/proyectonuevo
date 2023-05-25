@@ -93,6 +93,7 @@ export const NavBar = () => {
         height: "15vh",
         backgroundColor: "#ffe0b2",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
+        mb: 4,
       }}
       onClick={handleMenuCloseOutside}
     >
@@ -118,13 +119,6 @@ export const NavBar = () => {
                   <Link to="/userProfile" style={{ textDecoration: "none" }}>
                     <Typography variant="h6" sx={{ color: theme.palette.primary.main }}>
                       perfil
-                    </Typography>
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link to="/#" style={{ textDecoration: "none" }}>
-                    <Typography variant="h6" sx={{ color: theme.palette.primary.main }}>
-                      Cambiar contraseña
                     </Typography>
                   </Link>
                 </MenuItem>

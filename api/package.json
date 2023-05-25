@@ -13,8 +13,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "@types/mercadopago": "^1.5.8",
     "@types/nodemailer": "^6.4.7",
+    "axios": "^1.4.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

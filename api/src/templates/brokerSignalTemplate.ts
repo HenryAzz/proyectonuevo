@@ -157,7 +157,7 @@ const brokerSignal = function (broker: string, user, property) {
                         <td class="pad" style="padding-top:15px;">
                           <div style="font-family: sans-serif">
                               <div class="" style="font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; font-size: 12px; color: #2b2d49; line-height: 1.5;">
-                                  <p style="margin: 0; font-size: 11px; text-align: center; "><span style="font-size:15px;caret-color:#152a6d;"><strong>HAS TUS SUEÑOS UNA REALIZAD</strong></span></p>
+                                  <p style="margin: 0; font-size: 11px; text-align: center; "><span style="font-size:15px;caret-color:#152a6d;"><strong>HAS TUS SUEÑOS UNA REALIDAD</strong></span></p>
                                   <p style="margin: 0; font-size: 14px; text-align: center;"><span style="color:#152a6d;"><span style="caret-color:#152a6d;font-size:15px;"><span style="color:#a31731;">CON PROPTECH </span></p>
                               </div>
                           </div>
@@ -178,7 +178,7 @@ const brokerSignal = function (broker: string, user, property) {
                      <table border="0" cellpadding="0" cellspacing="0" class="image_block block-2" role="presentation" width="100%">
                        <tr>
                           <td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
-                             <div align="center" class="alignment" style="line-height:10px"><a href="#" style="outline:none" tabindex="-1" target="_blank"><img class="big" src="https://static.tokkobroker.com/water_pics/61473490849556420478476952427662215243829091586321796539503166833583826460719.jpg" style="display: block; height: auto; border: 0; width: 576px; max-width: 100%;" width="576"/></a></div>
+                             <div align="center" class="alignment" style="line-height:10px"><a href="#" style="outline:none" tabindex="-1" target="_blank"><img class="big" src="${property.dataValues.pictures[0].img}" style="display: block; height: auto; border: 0; width: 576px; max-width: 100%;" width="576"/></a></div>
                           </td>
                        </tr>
                      </table>

@@ -7,6 +7,7 @@ import { createUserRequest } from "./authentication";
 import { User } from "./userInterface";
 import { createConsultRequest, emailMessage } from "./consultInterface";
 import { form } from "./forminterfaces";
+import { favorite, createFavoriteRequest } from "./favoritesInterface";
 
 const API_URL = "http://localhost:3001";
 
@@ -21,7 +22,7 @@ export const apiSlice = createApi({
 
     getPropertysFilter: builder.query<property[], string>({
       query: (query) => {
-        return `/property${query}`;
+        return `/property?${query}`;
       },
     }),
     getPropertyById: builder.query<property, string>({
@@ -170,6 +171,31 @@ export const apiSlice = createApi({
         body: emailForm,
       }),
     }),
+
+    // FAVORITES
+    getFavorites: builder.query<favorite[], void>({
+      query: () => "/favorites",
+    }),
+
+    getFavoriteById: builder.query<favorite, string>({
+      query: (id) => `/favorites/${id}`,
+    }),
+
+    createFavorite: builder.mutation<createFavoriteRequest, createFavoriteRequest>({
+      query: (createFavoriteRequest) => ({
+        url: "/favorites",
+        method: "POST",
+        body: createFavoriteRequest,
+      }),
+    }),
+
+    deletFavoriteByID: builder.mutation<favorite, number>({
+      query: (id) => ({
+        url: `/favorites/${id}`,
+        method: "delete",
+        body: id,
+      }),
+    }),
   }),
 });
 
@@ -199,4 +225,8 @@ export const {
   useGetconsultasQuery,
   useCreateConsultMutation,
   useSendEmailMutation,
+  useGetFavoritesQuery,
+  useGetFavoriteByIdQuery,
+  useCreateFavoriteMutation,
+  useDeletFavoriteByIDMutation,
 } = apiSlice;
