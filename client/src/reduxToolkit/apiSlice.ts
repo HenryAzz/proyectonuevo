@@ -4,7 +4,7 @@ import { createFormRequest } from "./forminterfaces";
 import { createSignalRequest, modifySignal } from "./signalInterface";
 import { Broker, CreateBrokerRequest } from "./brokerInterfaces";
 import { createUserRequest } from "./authentication";
-import { User } from "./userInterface";
+import { User, UserByEmail } from "./userInterface";
 import { createConsultRequest, emailMessage } from "./consultInterface";
 import { form } from "./forminterfaces";
 
@@ -106,7 +106,7 @@ export const apiSlice = createApi({
     }),
 
     //Econtrar Usuario por email
-    getUserByEmail: builder.query<User, string | null | undefined>({
+    getUserByEmail: builder.query<UserByEmail, string | null | undefined>({
       query: (email) => `/user?email=${email}`,
     }),
     //metodos para enviar y recibr data de la ruta form
