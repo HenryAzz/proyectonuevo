@@ -4,7 +4,6 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { Box, Button, Grid, Typography, TextField } from "@mui/material";
 import { orange } from "@mui/material/colors";
 import Swal from "sweetalert2";
-import { NavBar } from "../navbar/Navbar";
 
 export const ResetPassword = () => {
   const [email, setEmail] = useState("");

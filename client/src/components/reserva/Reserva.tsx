@@ -121,7 +121,6 @@ export const Signal = () => {
 
   return (
     <>
-      <NavBar />
       <br />
       <br />
       {!user ? (
