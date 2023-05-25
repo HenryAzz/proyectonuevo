@@ -225,4 +225,8 @@ export const {
   useGetconsultasQuery,
   useCreateConsultMutation,
   useSendEmailMutation,
+  useGetFavoritesQuery,
+  useGetFavoriteByIdQuery,
+  useCreateFavoriteMutation,
+  useDeletFavoriteByIDMutation,
 } = apiSlice;
