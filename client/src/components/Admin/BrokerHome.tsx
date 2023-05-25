@@ -1,14 +1,26 @@
 import "./HomeWorkCSS.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { createFormRequest, modifyForm } from "../../reduxToolkit/forminterfaces";
+import "./PieChart.css";
+import PieChart from "./Estadisticas";
+import { createSignalRequest, modifySignal } from "../../reduxToolkit/signalInterface";
 import { createPropertyRequest, putPropertyRequest } from "../../reduxToolkit/propertyinterfaces";
 import {
+  usePutSignalMutation,
   useGetPropertiesQuery,
   useGetUserQuery,
   useUpdatePropertyMutation,
+  useGetSignalQuery,
+  useGetfromQuery,
+  usePutFormMutation,
 } from "../../reduxToolkit/apiSlice";
 
 export const BrokerHome = () => {
+  const [selectedForm, setSelectedForm] = useState(null);
+  //MANEJO ERRORES FORM
+  const [error, setError] = useState({});
+  const [create, setCreate] = useState("");
   //Boton desplega navbar en mobile
 
   const [navMobile, setNavMobile] = useState(false);
@@ -22,18 +34,31 @@ export const BrokerHome = () => {
   //GET PROPIEDADES........
   const { data: properties, isLoading, isError } = useGetPropertiesQuery();
   const { data: clients } = useGetUserQuery();
-
+  //GET SIGNAL
+  const { data: signals } = useGetSignalQuery();
+  //GET FORM
+  const { data: forms } = useGetfromQuery();
+  const [updateForm] = usePutFormMutation();
   //BUSCADOR.....
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
+    const inputValue = e.target.value;
+
+    if (inputValue.length <= 20) {
+      setSearchTerm(inputValue);
+    }
   };
 
   const filteredProperties = properties?.filter((property) =>
     property.address.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const EstadisticasVivienda = filteredProperties?.filter((prop) => prop.type == "Vivienda");
+  const EstadisticasIndustria = filteredProperties?.filter((prop) => prop.type == "Industria");
+  const EstadisticasLocal = filteredProperties?.filter((prop) => prop.type == "Local");
+  const EstadisticasOficina = filteredProperties?.filter((prop) => prop.type == "Oficina");
+  console.log(EstadisticasLocal?.length);
   // TIPOS DE COLOR..................................................
   const colorOptions = [
     { value: "red", label: "Rojo" },
@@ -69,34 +94,74 @@ export const BrokerHome = () => {
 
   //DETALLE DE PROPIEDAD
   const [updateProperty] = useUpdatePropertyMutation();
-  // const [deletPropertyByID] = useDeletPropertyByIDMutation()
 
   const [selectedProperty, setSelectedProperty] = useState(null);
 
-  const showPropertyDetails = (property) => {
+  const showPropertyDetails = (property: any) => {
     setSelectedProperty(property);
     setSeccion("detalle");
   };
+
   //COMPONENTE
 
   const PropertyDetails = ({ property }) => {
     const [editedProperty, setEditedProperty] = useState(property);
-
-    const handleInputChange = (e, field) => {
-      const value = e.target.value;
-      setEditedProperty((prevState) => ({
-        ...prevState,
-        [field]: value,
-      }));
+    const [error2, setError2] = useState({});
+    const handleInputChange = (e, fieldName) => {
+      let value = e.target.value;
+      var str = new RegExp(/^[A-Za-z0-9\s]+$/g);
+      var res = str.test(e.target.value);
+      var valid = true;
+      if (value === "") {
+        setEditedProperty({ ...editedProperty, [fieldName]: "" });
+      }
+      if (fieldName === "address" || fieldName === "owner") {
+        if (value.length > 50) {
+          valid = false;
+          return setError2({ error: "El campo excede la longitud máxima de 50 caracteres" });
+        }
+      } else if (fieldName === "description") {
+        if (value.length > 500) {
+          valid = false;
+          return setError2({ error: "El campo excede la longitud máxima de 500 caracteres" });
+        }
+      } else if (fieldName === "spaces") {
+        if (value > 100) {
+          valid = false;
+          return setError2({
+            error: "El valor de espacios no puede ser mayor que el valor de baños o habitaciones",
+          });
+        }
+      } else if (fieldName === "bathroom" || fieldName === "bedroom") {
+        if (value > 100) {
+          valid = false;
+          return setError2({
+            error: "El valor de baños o habitaciones no puede ser mayor que el valor de espacios",
+          });
+        }
+      } else if (fieldName === "floors" || fieldName === "antiquity") {
+        if (value > 100) {
+          valid = false;
+          return setError2({
+            error: "El valor de baños o habitaciones no puede ser mayor que el valor de espacios",
+          });
+        }
+      } else if (
+        fieldName === "price" ||
+        fieldName === "covered_area" ||
+        fieldName === "total_area"
+      ) {
+        if (value > 1000000) {
+          valid = false;
+          return setError2({ error: "El campo excede precio permitido" });
+        }
+      }
+      if (value) setEditedProperty({ ...editedProperty, [fieldName]: value });
     };
-    // const handleDeleteProperty = async () => {
-    //   deletPropertyByID(property.id)
-    // }
 
     const handleSaveChanges = async () => {
       try {
         const prop = editedProperty;
-        console.log(prop);
         if (prop !== null) {
           const newProp: putPropertyRequest = {
             id: prop.id,
@@ -115,12 +180,9 @@ export const BrokerHome = () => {
             total_area: prop.total_area,
             antiquity: prop.antiquity,
             operation: prop.operation,
-            owner: "Schiaffino",
+            owner: prop.ow,
           };
-          console.log(newProp);
-          updateProperty({ id: prop.id, updatedProperty: newProp }).catch((error) =>
-            console.log(error)
-          );
+          updateProperty({ id: prop.id, updatedProperty: newProp });
         }
       } catch (error) {
         console.error("Error al actualizar la propiedad:", error);
@@ -132,10 +194,7 @@ export const BrokerHome = () => {
       <div className="property-details">
         <h2>{property.id}</h2>
         <div className="imagen-prop">
-          <img
-            src="https://static.tokkobroker.com/water_pics/12190680294349488921225897790339312569650718240135235184392601498084859419584.jpg"
-            alt="#"
-          />
+          <img src={property.pictures[0].img} alt="#" />
         </div>
         <p>
           <strong>Dirección:</strong>
@@ -214,7 +273,7 @@ export const BrokerHome = () => {
           <strong>Área Total:</strong>
           <input
             type="number"
-            value={editedProperty.covered_area}
+            value={editedProperty.total_area}
             onChange={(e) => handleInputChange(e, "total_area")}
           />
         </p>
@@ -222,7 +281,7 @@ export const BrokerHome = () => {
           <strong>Dueño:</strong>
           <input
             type="string"
-            value={editedProperty.covered_area}
+            value={editedProperty.owner}
             onChange={(e) => handleInputChange(e, "owner")}
           />
         </p>
@@ -243,18 +302,11 @@ export const BrokerHome = () => {
             <option value="Industria">Industria</option>
           </select>
         </p>
-        {/* <button
-          onClick={() => {
-            handleDeleteProperty();
-            getProperties();
-          }}
-        >
-          delete
-        </button> */}
+
+        {error2?.error && <p>{error2.error}</p>}
         <button
           onClick={() => {
             handleSaveChanges();
-            getProperties();
           }}
         >
           Guardar Cambios
@@ -284,20 +336,13 @@ export const BrokerHome = () => {
   };
 
   const ClientDetails = ({ client }) => {
+    console.log("hola");
     const [editedClient, setEditedClient] = useState(client);
-
-    const handleInputChange = (e, field) => {
-      const value = e.target.value;
-      setEditedClient((prevState) => ({
-        ...prevState,
-        [field]: value,
-      }));
-    };
 
     const handleSaveChanges = async () => {
       try {
         const result = await updateClient({
-          id: selectedClient.id,
+          id: selectedClient?.id,
           updatedClient: editedClient,
         });
         console.log("Cliente actualizado:", result.data);
@@ -308,25 +353,15 @@ export const BrokerHome = () => {
 
     return (
       <div className="client-details">
-        <h2>{client.id}</h2>
-        <p>
-          <strong>Nombre:</strong>
-          <input
-            type="text"
-            value={editedClient.name}
-            onChange={(e) => handleInputChange(e, "name")}
-          />
-        </p>
-        <p>
-          <strong>Correo Electrónico:</strong>
-          <input
-            type="email"
-            value={editedClient.email}
-            onChange={(e) => handleInputChange(e, "email")}
-          />
-        </p>
-
-        <button onClick={() => handleSaveChanges()}>Guardar Cambios</button>
+        <div className="card">
+          <div>ID: {client.id}</div>
+          <div>Rol: {client.rol}</div>
+          <div>Email: {client.email}</div>
+          {client.password && <div>Password: {client.password}</div>}
+          <div>Tipo de persona: {client.person_type}</div>
+          <div>Nombre: {client.name}</div>
+          <img src={client.avatar} alt="Avatar" />
+        </div>
         <button
           onClick={() => {
             setSelectedClient(null);
@@ -339,41 +374,262 @@ export const BrokerHome = () => {
     );
   };
 
+  //DETALLE DE FORM
+  //  const [updateForm] = useUpdatePropertyMutation();
+
+  const [editedForm, setEditedForm] = useState(forms);
+
+  const handleFormSelection = (form) => {
+    setSelectedForm(form);
+    setSeccion("form-detalle");
+  };
+  const filteredForm = forms?.filter((form) => {
+    form.address.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
+  console.log(filteredForm);
+
+  //COMPONENTE FORM
+
   // SEÑAS !!
+  const [updateSignal] = usePutSignalMutation();
 
-  //   const filteredSignalList = Signal?.filter((client) =>
-  //   client.name.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
+  const filteredSignalList = signals?.filter((signal) =>
+    signal.operation?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  // const [selectedClient, setSelectedClient] = useState(null);
+  const [selectedSignal, setSelectedSignal] = useState(null);
+  const [editedSignal, setEditedSignal] = useState({});
+  const [succesSignal, setSuccesSignal] = useState(false);
+  const [deniedSignal, setDeniedSignal] = useState(false);
 
-  // const handleSignalSelection = (client) => {
-  //   setSelectedClient(client);
-  //   setSeccion("detalle-cliente");
-  // };
+  const [succesForm, setSuccesForm] = useState(false);
+  const [deniedForm, setDeniedForm] = useState(false);
 
-  // const ClientDetails = ({ client }) => {
-  //   const [editedClient, setEditedClient] = useState(client);
+  const handleSignalSelection = (signal: any) => {
+    setSelectedSignal(signal);
+    setSeccion("detalle-signal");
+  };
 
-  //   const handleInputChange = (e, field) => {
-  //     const value = e.target.value;
-  //     setEditedClient((prevState) => ({
-  //       ...prevState,
-  //       [field]: value,
-  //     }));
-  //   };
+  // IMPORTANTE/---------------------------------------------------------------------------------------------------------------
+  const SignalDetails = ({ signal }) => {
+    const handleSaveChangesSignal = async (e) => {
+      try {
+        const signa = signal;
+        if (e == "aceptar") {
+          const newSignal: modifySignal = {
+            id: signa.id,
+            situation: "Aceptado",
+          };
+          updateSignal({ id: signa.id, situation: newSignal.situation });
+        }
+        if (e == "rechazar") {
+          const newSignal: modifySignal = {
+            id: signa.id,
+            situation: "Rechazado",
+          };
+          updateSignal({ id: signa.id, situation: newSignal.situation });
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        // Manejar el error de alguna manera, mostrar un mensaje de error, etc.
+      }
+    };
 
-  //   const handleSaveChanges = async () => {
-  //     try {
-  //       const result = await updateClient({
-  //         id: selectedClient.id,
-  //         updatedClient: editedClient,
-  //       });
-  //       console.log("Cliente actualizado:", result.data);
-  //     } catch (error) {
-  //       console.error("Error al actualizar el cliente:", error);
-  //     }
-  //   };
+    return (
+      <div className="client-details">
+        <h2>ID: {signal.id}</h2>
+        <p>
+          <strong>Operacion:</strong>
+          <strong>{signal.operation}</strong>
+        </p>
+        <p>
+          <strong>Precio:</strong>
+          <strong>{signal.price}</strong>
+        </p>
+
+        <p>
+          <strong>Id de propiedad:</strong>
+          <strong>{signal.propertyId}</strong>
+        </p>
+        <p>
+          <strong>Situacion:</strong>
+          <strong>{signal.situation}</strong>
+        </p>
+        <button
+          value="aceptar"
+          onClick={(e) => {
+            handleSaveChangesSignal(e.target.value);
+            setSuccesSignal(true);
+            setDeniedSignal(false);
+          }}
+        >
+          Aceptar
+        </button>
+        <button
+          value="rechazar"
+          onClick={(e) => {
+            setSuccesSignal(false);
+            setDeniedSignal(true);
+            handleSaveChangesSignal(e.target.value);
+          }}
+        >
+          Denegar
+        </button>
+
+        <button
+          onClick={() => {
+            setSelectedSignal(null);
+            setSuccesSignal(false);
+            setSeccion("seña");
+          }}
+        >
+          Cerrar
+        </button>
+        {succesSignal && <div>Seña aprobada correctamente</div>}
+        {deniedSignal && <div>Seña rechazada correctamente</div>}
+      </div>
+    );
+  };
+  const handleInputChangeForm = (e: any, field: any) => {
+    const value = e.target.value;
+    setEditedForm((prevState: any) => ({
+      ...prevState,
+      [field]: value,
+    }));
+  };
+  const FormDetails = ({ form }) => {
+    // const handleSaveChangesForm = async () => {
+    //   try {
+    //     const result = await updateForm({
+    //       id: selectedForm?.id,
+    //       updatedClient: editedForm,
+    //     });
+    //     console.log("Consulta actualizado:", result.data);
+    //   } catch (error) {
+    //     console.error("Error al actualizar la consulta:", error);
+    //   }
+    // }
+
+    const handleSaveChangesForm = async (e) => {
+      try {
+        if (e == "aceptar") {
+          const newForm: modifyForm = {
+            id: form.id,
+            situation: "aceptada",
+          };
+          updateForm({ id: newForm.id, situation: newForm.situation });
+        }
+        if (e == "rechazar") {
+          const newForm: modifyForm = {
+            id: form.id,
+            situation: "rechazada",
+          };
+          updateForm({ id: form.id, situation: newForm.situation });
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        // Manejar el error de alguna manera, mostrar un mensaje de error, etc.
+      }
+    };
+
+    return (
+      <div className="client-details">
+        <div className="card">
+          <div>Title: {form.title}</div>
+          <div>Description: {form.description}</div>
+          <div>Picture URLs: {form.picture_url.join(", ")}</div>
+          <div>Unit Price: {form.unit_price}</div>
+          <div>DNI: {form.dni}</div>
+          <div>Tel: {form.tel}</div>
+          <div>Type of Property: {form.type_prop}</div>
+          <div>Type of Housing: {form.type_vivienda}</div>
+          <div>Address: {form.address}</div>
+          <div>Number: {form.number}</div>
+          <div>Apartment: {form.apartment}</div>
+          <div>Floor: {form.floor}</div>
+          <div>Location: {form.location}</div>
+          <div>Province: {form.province}</div>
+          <div>Postal Code: {form.postalCode}</div>
+          <div>Email: {form.email}</div>
+          <p>
+            <strong>Situacion:{form.situation}</strong>
+            <strong>{form.situation}</strong>
+          </p>
+          <button
+            value="aceptar"
+            onClick={(e) => {
+              handleSaveChangesForm(e.target.value);
+              localStorage.setItem("broker", "100");
+              setSuccesForm(true);
+              setDeniedForm(false);
+            }}
+          >
+            Aceptar
+          </button>
+          <button
+            value="rechazar"
+            onClick={(e) => {
+              handleSaveChangesForm(e.target.value);
+              setSuccesForm(false);
+              setDeniedForm(true);
+            }}
+          >
+            Denegar
+          </button>
+
+          <button
+            onClick={() => {
+              setSelectedForm(null);
+              setSuccesForm(false);
+              setSeccion("form");
+            }}
+          >
+            Cerrar
+          </button>
+          {succesForm && <div>Operación aprobada correctamente</div>}
+          {deniedForm && <div>Operación rechazada correctamente</div>}
+        </div>
+        <button
+          onClick={() => {
+            setSelectedForm(null);
+            setSeccion("form");
+          }}
+        >
+          Cerrar
+        </button>
+      </div>
+    );
+  };
+
+  const totalProperties =
+    (EstadisticasOficina?.length || 0) +
+    (EstadisticasLocal?.length || 0) +
+    (EstadisticasIndustria?.length || 0) +
+    (EstadisticasVivienda?.length || 0);
+
+  const chartData = [
+    {
+      label: `Oficinas ${EstadisticasOficina?.length}`,
+      value: EstadisticasOficina?.length,
+      color: "#FFCE56",
+    },
+    {
+      label: `Locales ${EstadisticasLocal?.length}`,
+      value: EstadisticasLocal?.length,
+      color: "#36A2EB",
+    },
+    {
+      label: `Industrias ${EstadisticasIndustria?.length}`,
+      value: EstadisticasIndustria?.length,
+      color: "#FF6384",
+    },
+    {
+      label: `Viviendas ${EstadisticasVivienda?.length}`,
+      value: EstadisticasVivienda?.length,
+      color: "#FF5733",
+    },
+  ];
 
   return (
     <div className="total" style={{ background }}>
@@ -410,13 +666,27 @@ export const BrokerHome = () => {
               </div>
               Clientes
             </Link>
-            <Link className="HomeWork" to={"/broker"}>
+            <Link
+              onClick={() => {
+                setSeccion("seña");
+                setNavPage("");
+              }}
+              className="HomeWork"
+              to={"/broker"}
+            >
               <div className="icono">
                 <img className="icon-two" src="/seña.png" />
               </div>
               Señas
             </Link>
-            <Link className="HomeWork" to={"/broker"}>
+            <Link
+              onClick={() => {
+                setSeccion("form");
+                setNavPage("");
+              }}
+              className="HomeWork"
+              to={"/broker"}
+            >
               <div className="icono">
                 <img className="icon-two" src="/mensaje.png" />
               </div>
@@ -440,7 +710,7 @@ export const BrokerHome = () => {
           <img onClick={() => setSeccion("propiedades")} src="/casa.png" alt="" />
           <img onClick={() => setSeccion("cuenta")} src="/cliente.png" alt="" />
           <img onClick={() => setSeccion("seña")} src="/seña.png" alt="" />
-          <img onClick={() => setSeccion("mensaje")} src="/mensaje.png" alt="" />
+          <img onClick={() => setSeccion("form")} src="/mensaje.png" alt="" />
         </div>
 
         {/* ASIDE */}
@@ -468,7 +738,9 @@ export const BrokerHome = () => {
           {seccion == "data" && (
             <div className="aside2">
               <div className="arriba">
-                <div className="arriba1">div 1</div>
+                <div className="arriba1">
+                  <PieChart data={chartData}></PieChart>
+                </div>
                 <div className="arriba1">div 2</div>
               </div>
               <div className="abajo">asd</div>
@@ -540,10 +812,10 @@ export const BrokerHome = () => {
               </div>
 
               <div className="luist-prop-main">
-                {filteredProperties.length === 0 ? (
+                {filteredProperties?.length === 0 ? (
                   <div>No se encontraron propiedades.</div>
                 ) : (
-                  filteredProperties.map((property: any) => (
+                  filteredProperties?.map((property: any) => (
                     <div
                       className="list-prop"
                       key={property.id}
@@ -579,21 +851,17 @@ export const BrokerHome = () => {
                 ) : isError ? (
                   <div>Error al cargar los clientes.</div>
                 ) : (
-                  filteredClientsList.map((client) => (
+                  filteredClientsList?.map((client) => (
                     <div
                       className="list-prop"
                       key={client.id}
                       onClick={() => {
                         handleClientSelection(client);
-                        console.log(selectedClient);
                       }}
                     >
-                      <img
-                        src="https://www.pngitem.com/pimgs/m/22-220721_circled-user-male-type-user-colorful-icon-png.png"
-                        alt=""
-                      />
+                      <img src={client.avatar} />
                       <p>{client.name}</p>
-                      <p>{client.id}</p>
+                      <p>{client.email}</p>
                     </div>
                   ))
                 )}
@@ -603,12 +871,11 @@ export const BrokerHome = () => {
 
           {/* DETALES SENAS ----------------------------------------------------------------------------------------- */}
 
-          {seccion === "detalle-seña" && <ClientDetails client={selectedClient} />}
+          {seccion === "detalle-signal" && <SignalDetails signal={selectedSignal} />}
           {seccion === "seña" && (
             <div className="propiedades">
               <div className="buscar">
                 <label className="b1">Buscar Seña</label>
-                <input className="b1" value={searchTerm} onChange={handleSearchChange} />
               </div>
               <div className="luist-prop-main">
                 {isLoading ? (
@@ -616,21 +883,54 @@ export const BrokerHome = () => {
                 ) : isError ? (
                   <div>Error al cargar las señas...</div>
                 ) : (
-                  filteredClientsList.map((client) => (
+                  filteredSignalList?.map((signal) => (
                     <div
                       className="list-prop"
-                      key={client.id}
+                      key={signal.id}
                       onClick={() => {
-                        handleClientSelection(client);
-                        console.log(selectedClient);
+                        handleSignalSelection(signal);
                       }}
                     >
                       <img
                         src="https://www.pngitem.com/pimgs/m/22-220721_circled-user-male-type-user-colorful-icon-png.png"
                         alt=""
                       />
-                      <p>{client.name}</p>
-                      <p>{client.id}</p>
+
+                      <p>{signal.price}</p>
+                      <p>{signal.operation}</p>
+                      <p>{signal.propertyId}</p>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          )}
+
+          {seccion === "form-detalle" && <FormDetails form={selectedForm} />}
+          {seccion === "form" && (
+            <div className="propiedades">
+              <div className="buscar">
+                <label className="b1">Buscar Form</label>
+              </div>
+              <div className="luist-prop-main">
+                {isLoading ? (
+                  <div>Cargando Consultas...</div>
+                ) : isError ? (
+                  <div>Error al cargar las consultas...</div>
+                ) : (
+                  forms?.map((form: any) => (
+                    <div
+                      className="list-prop"
+                      key={form.id}
+                      onClick={() => {
+                        handleFormSelection(form);
+                      }}
+                    >
+                      <img src="/form1.png" alt="" />
+
+                      <p>{form.address}</p>
+                      <p>{form.tel}</p>
+                      <p>{form.email}</p>
                     </div>
                   ))
                 )}
@@ -638,6 +938,7 @@ export const BrokerHome = () => {
             </div>
           )}
         </section>
+        {/* DETALES FORM ----------------------------------------------------------------------------------------- */}
 
         {/* SECCION */}
       </div>

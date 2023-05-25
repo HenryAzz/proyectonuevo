@@ -185,8 +185,7 @@ export const queryForm = (
 
 //CREAR FORM (OPERACION)
 export const createForm = async (data) => {
-
-  const { 
+  const {
     title,
     description,
     picture_url,
@@ -203,12 +202,12 @@ export const createForm = async (data) => {
     province,
     postalCode,
     email,
-    } = data
+  } = data;
 
-    const findUserByEmail = await User.findOne({where : {email : email}})
-    const findBrokerByDivision = await Broker.findOne({where : {division : type_prop}})
+  const findUserByEmail = await User.findOne({ where: { email: email } });
+  const findBrokerByDivision = await Broker.findOne({ where: { division: type_prop } });
 
-  const newForm = await Form.create({ 
+  const newForm = await Form.create({
     title: title,
     description: description,
     picture_url: picture_url,
@@ -216,7 +215,7 @@ export const createForm = async (data) => {
     dni: dni,
     tel: tel,
     type_prop: type_prop,
-    type_vivienda:  type_vivienda,
+    type_vivienda: type_vivienda,
     address: address,
     number: number,
     apartment: apartment,
@@ -224,8 +223,8 @@ export const createForm = async (data) => {
     location: location,
     province: province,
     postalCode: postalCode,
-    userId: findUserByEmail.dataValues.id,
-    brokerId: findBrokerByDivision.dataValues.id
+    // userId: findUserByEmail.dataValues.id,
+    // brokerId: findBrokerByDivision.dataValues.id
   });
 
   return newForm;
@@ -276,13 +275,16 @@ export const dForm = async (id: number) => {
 
 //  PUT FORM
 export const pForm = async (id, put) => {
-  const updateForm = await Form.update(
-    {
-      put,
-    },
-    {
-      where: { id: id },
-    }
-  );
-  return updateForm;
+  try {
+    const updateForm = await Form.update(
+      {
+        situation: put,
+      },
+      { where: { id: id } }
+    );
+    console.log(updateForm);
+    return updateForm;
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -78,8 +78,8 @@ export const postUser = async (req: Request, res: Response) => {
       await User.create(req.body);
 
       //ENVIAR EMAIL A USUARIO
-      const emailTemplate = clientUserTemplate(user.name);
-      let sendmail = await MailService(user.email, "Bienvenido - PropTech", emailTemplate.html);
+      // const emailTemplate = clientUserTemplate(user.name);
+      // let sendmail = await MailService(user.email, "Bienvenido - PropTech", emailTemplate.html);
 
       res.send({ msj: "Usuario creado correctamente", user: req.body });
     }

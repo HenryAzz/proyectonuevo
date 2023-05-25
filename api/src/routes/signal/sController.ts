@@ -46,6 +46,7 @@ export const getProp = async (req: Request, res: Response) => {
 //  POST SIGNAL  //
 export const postProp = async (req: Request, res: Response) => {
   try {
+    console.log();
     const newSignal = await Signal.create(req.body);
     const updateProperty = await Property.update(
       {
@@ -61,15 +62,21 @@ export const postProp = async (req: Request, res: Response) => {
     let user = await User.findOne({ where: { id: req.body.userId } });
     let property = await Property.findOne({ where: { id: req.body.propertyId } });
 
-    //ENVIAR EMAIL A USUARIO
-    const emailTemplate = user.dataValues.rol === "Cliente" ? clientSignalTemplate(user.dataValues.name, property) : supplierSignalTemplate(user.dataValues.name, property);
+    // //ENVIAR EMAIL A USUARIO
+    // const emailTemplate =
+    //   user.dataValues.rol === "Cliente"
+    //     ? clientSignalTemplate(user.dataValues.name, property)
+    //     : supplierSignalTemplate(user.dataValues.name, property);
 
-    let sendmail = await MailService(user.dataValues.email, "Registro de solicitud de Propiedad - PropTech", emailTemplate.html
-    );
+    // let sendmail = await MailService(
+    //   user.dataValues.email,
+    //   "Registro de solicitud de Propiedad - PropTech",
+    //   emailTemplate.html
+    // );
 
     res.send({ msj: "Signal Creado correctamente" });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(404).send(error);
   }
 };
@@ -82,7 +89,7 @@ export const putProp = async (req: Request, res: Response) => {
 
     const updateSignal = await putSignal(id, situation);
 
-    res.send({ msj: "Signal Actualizado correctamente" });
+    res.send({ msj: `${updateSignal} Actualizado correctamente` });
   } catch (error) {
     res.status(404).send(error);
   }

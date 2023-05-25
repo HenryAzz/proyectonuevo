@@ -10,7 +10,7 @@ sequelize
   .then(async () => {
     console.log("base de datos conectada! :D");
     //cargar unos usuarios de broker para prueba
-    // await Broker.bulkCreate(countBroker);
+
     app.listen(3001, function () {
       fillDataBase();
       console.log("App is listening on port 3001!");
