@@ -115,13 +115,21 @@ export const SecondFilters: React.FC<filterPorps> = ({
 
   const handleChange = (_: Event, newValue: number | number[]) => {
     setValue(newValue as number);
+    if (!stringQuery.includes("area=")) {
+      // Concatenar maxPrice y su valor al stringQuery
+      setStringQuery(stringQuery + `&area=${newValue}`);
+    } else {
+      // Actualizar el valor de maxPrice en stringQuery
+      const regex = /area=\d+/; // Expresión regular para encontrar maxPrice y su valor
+      setStringQuery(stringQuery.replace(regex, `area=${newValue}`));
+    }
   };
 
   const handleChangePrice = (_: Event, newValue: number | number[]) => {
     setPrice(newValue as number);
     if (!stringQuery.includes("maxPrice=")) {
       // Concatenar maxPrice y su valor al stringQuery
-      setStringQuery(stringQuery + `maxPrice=${newValue}`);
+      setStringQuery(stringQuery + `&maxPrice=${newValue}`);
     } else {
       // Actualizar el valor de maxPrice en stringQuery
       const regex = /maxPrice=\d+/; // Expresión regular para encontrar maxPrice y su valor
