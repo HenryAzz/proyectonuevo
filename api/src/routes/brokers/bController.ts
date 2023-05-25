@@ -53,15 +53,22 @@ export const deleteBroker = async (id:number) => {
 }
 
 //Funcion que modifica un Broker
-export const modifyBroker = async (id:number, division:string) => {
-    await Broker.update({division:division},{
+export const modifyBroker = async (email:string, division:string) => {
+    let update = await Broker.update({division:division},{
         where:{
-            id: {[Op.eq]: id}
+            email: {[Op.eq]: email}
         }
     });
-
-    const updatedBroker = await Broker.findByPk(id)
-    return updatedBroker;
+    if (update[0]===1) {
+        const updatedBroker = await Broker.findAll({
+            where:{
+                email: {[Op.eq]: email}
+            }
+        })
+        return updatedBroker;
+    } else{
+        return {message: `No existe el broker con correo ${email}`}
+    }   
 }
 
 export const statisticsController = async (id) => {

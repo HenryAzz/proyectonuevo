@@ -61,9 +61,9 @@ export const deleteBrokerHandler =async (req:Request , res:Response) => {
 
 //Modifica los datos de un broker recibiendo por query los campos a cambiar 
 export const modifyBrokerHandler = async (req:Request , res:Response) => {
-    const { division, id } = req.body;
+    const { division, email } = req.body;
     try {
-        const modBroker = await modifyBroker(id, division);
+        const modBroker = await modifyBroker(email, division);
         res.status(200).json(modBroker);
     } catch (error:any) {
         return res.status(404).send({error:error.message})
