@@ -10,6 +10,7 @@ import { sequelize } from "../../db";
 import { MailService } from "../../services/mailerService";
 import clientSignalTemplate from "../../templates/clientSignalTemplate";
 import supplierSignalTemplate from "../../templates/supplierSignalTemplate";
+import brokerSignalTemplate from "../../templates/brokerSignalTemplate";
 
 //Traemos la tabla de nuestra DB.
 const { Signal, Property, Broker, User } = sequelize.models;
@@ -46,8 +47,23 @@ export const getProp = async (req: Request, res: Response) => {
 //  POST SIGNAL  //
 export const postProp = async (req: Request, res: Response) => {
   try {
-    console.log();
-    const newSignal = await Signal.create(req.body);
+    const { operation, documentation, price, propertyId, email } = req.body;
+
+    const user = await User.findOne({ where: { email: email } });
+    let property = await Property.findOne({ where: { id: req.body.propertyId } });
+    let broker = await Broker.findOne({
+      where: { division: property.dataValues.type.toLowerCase() },
+    });
+
+    const newSignal = await Signal.create({
+      operation: operation,
+      documentation: documentation,
+      price: price,
+      propertyId: propertyId,
+      brokerId: broker.dataValues.id,
+      userId: user.dataValues.id,
+    });
+
     const updateProperty = await Property.update(
       {
         situation: "Reservado",
@@ -57,22 +73,26 @@ export const postProp = async (req: Request, res: Response) => {
       }
     );
 
-    console.log(newSignal);
-
-    let user = await User.findOne({ where: { id: req.body.userId } });
-    let property = await Property.findOne({ where: { id: req.body.propertyId } });
-
-    // //ENVIAR EMAIL A USUARIO
-    // const emailTemplate =
-    //   user.dataValues.rol === "Cliente"
-    //     ? clientSignalTemplate(user.dataValues.name, property)
-    //     : supplierSignalTemplate(user.dataValues.name, property);
+    //ENVIAR EMAIL A USUARIO
+    const emailTemplate =
+      user.dataValues.rol === "Cliente"
+        ? clientSignalTemplate(user.dataValues.name, property)
+        : supplierSignalTemplate(user.dataValues.name, property);
 
     // let sendmail = await MailService(
     //   user.dataValues.email,
     //   "Registro de solicitud de Propiedad - PropTech",
     //   emailTemplate.html
     // );
+
+    //ENVIAR EMAIL A BROKER
+    const emailTemplateBroker = brokerSignalTemplate(broker.dataValues.name, user, property);
+
+    let sendmailBroker = await MailService(
+      broker.dataValues.email,
+      "Solicitud de Propiedad para Revisión - PropTech",
+      emailTemplateBroker.html
+    );
 
     res.send({ msj: "Signal Creado correctamente" });
   } catch (error) {

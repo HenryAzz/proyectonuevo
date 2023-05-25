@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
 import { useGetPropertysFilterQuery } from "../../reduxToolkit/apiSlice";
@@ -9,11 +8,16 @@ import { Pagination } from "../pagination/pagination";
 
 type filterPorps = {
   stringQuery: string;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export const HomeDesktop: React.FC<filterPorps> = ({ stringQuery }) => {
+export const HomeDesktop: React.FC<filterPorps> = ({
+  stringQuery,
+  currentPage,
+  setCurrentPage,
+}) => {
   const { data } = useGetPropertysFilterQuery(stringQuery);
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const propertyPerPage: number = 4;
   const indexLastproperty: number = currentPage * propertyPerPage;
   const indexFirstproperty: number = indexLastproperty - propertyPerPage;
@@ -46,6 +50,7 @@ export const HomeDesktop: React.FC<filterPorps> = ({ stringQuery }) => {
             propertyPerPage={propertyPerPage}
             totalPropertyCount={data?.length || 0}
             onPageChange={handlePageChange}
+            currentPage={currentPage}
           />
         </Grid>
       ) : (

@@ -5,9 +5,26 @@ import { Op } from "sequelize";
 
 const { Property } = sequelize.models;
 
-const queryCreator = (operation, zone, maxPrice, type, situation): any => {
+const queryCreator = (operation, rooms, maxPrice, type, situation, area): any => {
+  
   let price = Number(maxPrice);
   let query = {};
+
+  if (rooms) {
+    let roomsNum = Number(rooms);
+    query = {
+      ...query,
+      bedroom: {[Op.eq]: roomsNum}
+    }
+  }
+
+  if (area) {
+    let maxArea = Number(area);
+    query = {
+      ...query,
+      total_area: { [Op.between]: [0, maxArea] },
+    };
+  }
 
   if (operation) {
     const upperCase = operation.charAt(0).toUpperCase() + operation.slice(1);
@@ -44,9 +61,9 @@ const queryCreator = (operation, zone, maxPrice, type, situation): any => {
 };
 
 // HELPER GET //
-export const findProps = async function (operation, zone, maxPrice, propertyType, situation) {
+export const findProps = async function (operation, rooms, maxPrice, propertyType, situation, area) {
   const db = await Property.findAll({
-    where: queryCreator(operation, zone, maxPrice, propertyType, situation),
+    where: queryCreator(operation, rooms, maxPrice, propertyType, situation, area),
 
     //attributes: ["id", "type", "address", "price", "situation", "operation", "pictures"],
 

@@ -7,10 +7,10 @@ const { Property } = sequelize.models;
 
 //  GET PROPERTIES  //
 export const getProp = async (req: Request, res: Response) => {
-  const { operation, zone, maxPrice, type, situation } = req.query;
+  const { operation, rooms, maxPrice, type, situation, area } = req.query;
   //Tratamos errores por buenas practicas.
   try {
-    const properties = await findProps(operation, zone, maxPrice, type, situation); //helper trae todas las props.
+    const properties = await findProps(operation, rooms, maxPrice, type, situation, area); //helper trae todas las props.
     return res.status(200).json(properties);
   } catch (error: any) {
     return res.status(404).send({ error: error.message }); //enviar tipo de error

@@ -20,9 +20,10 @@ import { auth } from "../../firebase/firebase";
 import { orange } from "@mui/material/colors";
 import * as Yup from "yup";
 import { miArray } from "./config";
-import { NavBar } from "../navbar/Navbar";
+
 import Swal from "sweetalert2";
 import axios from "axios";
+import mano from "../../image/mano.png";
 
 declare const window: any;
 
@@ -47,6 +48,7 @@ interface FormState {
 
 export const Form = () => {
   const [user, setUser] = React.useState<string | null | undefined>(null);
+  console.log("user operaciones", user);
   //usar la ruta para crear el formulario
   const [createForm] = useCreateFormMutation();
   const [form, setForm] = React.useState<FormState>({
@@ -107,6 +109,13 @@ export const Form = () => {
       if (user) {
         setUser(user.email);
         setForm({ ...form, email: user.email });
+        Swal.fire({
+          html:
+            '<div style="padding-left: 30px; font-size: 24px;"><img src="' +
+            mano +
+            '"><br>Has ingresado al formulario de Operaciones. Este formulario se utiliza para realizar tasaciones de propiedades disponibles tanto para alquiler como para venta. Nos permite evaluar el valor de mercado de la propiedad y proporcionar una estimación precisa basada en diversos factores. Si estás interesado en alquilar o vender una propiedad, completa este formulario con la información requerida para obtener una tasación precisa y detallada</div>',
+          width: "50%",
+        });
       } else {
         setUser(null);
       }
@@ -260,7 +269,9 @@ export const Form = () => {
 
   return (
     <>
-      <NavBar />
+      <Box sx={{ mt: 5 }}>
+        <p>{user}</p>
+      </Box>
       {user ? (
         <Container>
           <Link to="/home"></Link>
@@ -457,7 +468,12 @@ export const Form = () => {
               onChange={handleChangeInput}
             />
           </Box>
-          <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white"}}>enviar formulario</Button>
+          <Button
+            onClick={handleClick}
+            style={{ backgroundColor: "rgba(136, 85, 44, 0.85)", color: "white" }}
+          >
+            enviar formulario
+          </Button>
           <br />
           <br />
           <div className="cho-container"></div>
@@ -498,7 +514,10 @@ export const Form = () => {
                 Antes de llenar el formaulario debe iniciar sesión:
               </Typography>
               <Link to="/login" style={{ alignSelf: "center" }}>
-              <Button onClick={handleClick} style={{backgroundColor:"rgba(136, 85, 44, 0.85)", color:"white"}}> Iniciar sesión</Button>
+                <Button style={{ backgroundColor: "rgba(136, 85, 44, 0.85)", color: "white" }}>
+                  {" "}
+                  Iniciar sesión
+                </Button>
               </Link>
             </Box>
           </Grid>

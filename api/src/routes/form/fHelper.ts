@@ -3,6 +3,9 @@
 import { sequelize } from "../../db";
 const { Form, User, Broker } = sequelize.models;
 import { Op } from "sequelize";
+import { MailServiceWithDocument } from "../../services/mailerService";
+import clientFormTemplate from "../../templates/clientFormTemplate";
+import brokerFormTemplate from "../../templates/brokerFormTemplate";
 
 //GET FORM (FILTERS)
 export const gForm = async function (
@@ -226,6 +229,26 @@ export const createForm = async (data) => {
     // userId: findUserByEmail.dataValues.id,
     // brokerId: findBrokerByDivision.dataValues.id
   });
+
+  // Agrego nombre a documentos subidos en función a dni y tipo de archivo
+  // const documents = picture_url.map((element, index) => {
+  //   return {
+  //     filename: 'Document'+index+'_'+dni+element.slice(-4),
+  //     pathname: element
+  //   }
+  // });
+
+  // //ENVIAR EMAIL A USUARIO
+  const emailTemplate = clientFormTemplate(findUserByEmail, data);
+
+  let sendmail = await MailServiceWithDocument(findUserByEmail.dataValues.email, "Registro de Formulario - PropTech", emailTemplate.html, picture_url
+  );
+
+  // // //ENVIAR EMAIL A BROKER
+  const emailTemplateBroker = brokerFormTemplate(findBrokerByDivision.dataValues.name, findUserByEmail, data);
+
+  let sendmailBroker = await MailServiceWithDocument(findBrokerByDivision.dataValues.email, "Solicitud de Formulario de "+findUserByEmail.dataValues.name+" para Revisión - PropTech", emailTemplateBroker.html, picture_url
+  );
 
   return newForm;
 };

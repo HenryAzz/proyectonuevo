@@ -2,102 +2,123 @@ import {
   Grid,
   CircularProgress,
   Typography,
-  Checkbox,
   FormControlLabel,
+  Radio,
   FormControl,
   Slider,
 } from "@mui/material";
 import { useGetPropertiesQuery } from "../../reduxToolkit/apiSlice";
-import { getRequestedFilters, getUnicKeys } from "../../auxiliaryfunctions/auxiliaryfunctions";
-import { useEffect, useState } from "react";
+import { getRequestedFilters } from "../../auxiliaryfunctions/auxiliaryfunctions";
+import { useState } from "react";
 import { getMinMaxValue } from "../../auxiliaryfunctions/auxiliaryfunctions";
 
 type filterPorps = {
   setStringQuery: React.Dispatch<React.SetStateAction<string>>;
   stringQuery: string;
-  checkedValues: Record<string, boolean>;
-  setCheckedValues: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  operation: string | null;
+  setOperation: React.Dispatch<React.SetStateAction<string | null>>;
+  type: string | null;
+  setType: React.Dispatch<React.SetStateAction<string | null>>;
+  bedroom: string | null;
+  setBedroom: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 export const FirstFilters: React.FC<filterPorps> = ({
   setStringQuery,
   stringQuery,
-  checkedValues,
-  setCheckedValues,
+  setCurrentPage,
+  operation,
+  setOperation,
+  type,
+  setType,
+  bedroom,
+  setBedroom,
 }) => {
   //const { data, isLoading } = useGetPropertysFilterQuery(stringQuery);
   const { data: allProperty } = useGetPropertiesQuery();
   const [value, setValue] = useState<number>(0);
   const [price, setPrice] = useState<number>(0);
 
-  useEffect(() => {
-    const initialValues: Record<string, boolean> = {};
-
-    if (allProperty !== undefined) {
-      let keys = getUnicKeys(allProperty);
-      keys.forEach((key) => {
-        initialValues[key] = false;
-      });
-    }
-
-    setCheckedValues((prevCheckedValues) => ({
-      ...prevCheckedValues,
-      ...initialValues,
-    }));
-  }, [allProperty, setCheckedValues]);
-
-  useEffect(() => {
-    if (allProperty && allProperty.length > 0) {
-      const minValue = getMinMaxValue(allProperty, "total_area")[0];
-      setValue(minValue);
-    }
-    if (allProperty && allProperty.length > 0) {
-      const minPrice = getMinMaxValue(allProperty, "price")[0];
-      setPrice(minPrice);
-    }
-  }, [allProperty]);
-
   const handleItemClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    const cardId = event.currentTarget.id;
-    const checkboxId = (event.target as HTMLInputElement).name;
-    const searchString = `${cardId}=${checkboxId}`;
+    const GridId = event.currentTarget.id;
+    const RadioId = (event.target as HTMLInputElement).value;
 
-    if (stringQuery.includes(searchString)) {
-      // El estado stringQuery contiene la cadena generada por la función, así que la quitamos
-      let updatedStringQuery = stringQuery
-        .replace(`${searchString}&`, "")
-        .replace(`&${searchString}`, "")
-        .replace(searchString, "");
-      updatedStringQuery = updatedStringQuery.startsWith("&")
-        ? updatedStringQuery.substring(1)
-        : updatedStringQuery;
-      setStringQuery(updatedStringQuery);
-    } else {
-      // El estado stringQuery no contiene la cadena generada por la función, así que la agregamos
-      const updatedStringQuery =
-        stringQuery !== "?" ? `${stringQuery}&${searchString}` : `?${searchString}`;
-      setStringQuery(updatedStringQuery);
+    // Construir el filtro correspondiente
+    const filter = `${GridId}=${RadioId}`;
+    console.log(filter);
+
+    if (RadioId !== undefined) {
+      if (RadioId === "Todas") {
+        setStringQuery((prevString) => {
+          // Eliminar el filtro del grupo y ajustar los "&" adyacentes
+          const regex = new RegExp(`(${GridId}=[^&]+)(&?)`, "g");
+          const updatedString = prevString.replace(regex, "").replace(/^&+|&+$/, "");
+          return updatedString;
+        });
+      } else {
+        setStringQuery((prevString) => {
+          // Verificar si el filtro del grupo ya existe
+          if (prevString.includes(GridId)) {
+            // Reemplazar el valor del filtro existente y ajustar los "&" adyacentes
+            const regex = new RegExp(`(${GridId}=[^&]+)(&?)`, "g");
+            const updatedString = prevString.replace(regex, filter + "$2").replace(/^&+|&+$/, "");
+            return updatedString;
+          } else {
+            // Agregar un nuevo filtro
+            const separator = prevString ? "&" : "";
+            return prevString + separator + filter;
+          }
+        });
+      }
+
+      if (GridId == "operation") {
+        setOperation(RadioId);
+      } else if (GridId == "type") {
+        setType(RadioId);
+      } else {
+        console.log("lala");
+
+        setBedroom(RadioId);
+      }
     }
 
-    const isChecked = checkedValues[checkboxId];
-    setCheckedValues((prevCheckedValues) => ({
-      ...prevCheckedValues,
-      [checkboxId]: !isChecked,
-    }));
+    setCurrentPage(1);
   };
 
   const handleChange = (_: Event, newValue: number | number[]) => {
     setValue(newValue as number);
-    console.log(newValue);
+    if (!stringQuery.includes("area=")) {
+      // Concatenar maxPrice y su valor al stringQuery
+      setStringQuery(stringQuery + `&area=${newValue}`);
+    } else {
+      // Actualizar el valor de maxPrice en stringQuery
+      const regex = /area=\d+/; // Expresión regular para encontrar maxPrice y su valor
+      setStringQuery(stringQuery.replace(regex, `area=${newValue}`));
+    }
   };
 
   const handleChangePrice = (_: Event, newValue: number | number[]) => {
     setPrice(newValue as number);
-    console.log(newValue);
+    if (!stringQuery.includes("maxPrice=")) {
+      // Concatenar maxPrice y su valor al stringQuery
+      setStringQuery(stringQuery + `&maxPrice=${newValue}`);
+    } else {
+      // Actualizar el valor de maxPrice en stringQuery
+      const regex = /maxPrice=\d+/; // Expresión regular para encontrar maxPrice y su valor
+      setStringQuery(stringQuery.replace(regex, `maxPrice=${newValue}`));
+    }
+
+    setCurrentPage(1);
   };
-  {
-    allProperty?.length ? console.log(getMinMaxValue(allProperty, "total_area")[0]) : null;
-  }
+
+  const handleMouseUp = () => {
+    /* console.log(value); */
+
+    console.log("Mouse released");
+    // Realiza las acciones que desees al soltar el mouse
+  };
+
   return (
     <Grid
       container
@@ -109,6 +130,7 @@ export const FirstFilters: React.FC<filterPorps> = ({
       }}
     >
       <Grid
+        item
         id="operation"
         sx={{
           p: 2,
@@ -118,11 +140,17 @@ export const FirstFilters: React.FC<filterPorps> = ({
         <Typography variant="h5">Tipo de operacion</Typography>
         {allProperty?.length ? (
           <FormControl component="fieldset">
-            {getRequestedFilters(allProperty, "operation").map((elem, index) => (
+            {getRequestedFilters(allProperty, "operation").map((property, index) => (
               <FormControlLabel
                 key={index}
-                control={<Checkbox checked={!!checkedValues[elem]} />}
-                label={elem}
+                control={
+                  <Radio
+                    checked={operation === property}
+                    /* onChange={() => handleRadioChange(property)} */
+                    value={property}
+                  />
+                }
+                label={property}
                 labelPlacement="start"
                 sx={{
                   display: "flex",
@@ -130,8 +158,6 @@ export const FirstFilters: React.FC<filterPorps> = ({
                   alignItems: "center",
                   marginTop: "8px",
                 }}
-                id={elem}
-                name={elem}
               />
             ))}
           </FormControl>
@@ -141,6 +167,7 @@ export const FirstFilters: React.FC<filterPorps> = ({
       </Grid>
 
       <Grid
+        item
         id="type"
         sx={{
           p: 2,
@@ -150,11 +177,17 @@ export const FirstFilters: React.FC<filterPorps> = ({
         <Typography variant="h5">Tipo de Inmueble</Typography>
         {allProperty?.length ? (
           <FormControl component="fieldset">
-            {getRequestedFilters(allProperty, "type").map((elem, index) => (
+            {getRequestedFilters(allProperty, "type").map((property, index) => (
               <FormControlLabel
                 key={index}
-                control={<Checkbox checked={!!checkedValues[elem]} />}
-                label={elem}
+                control={
+                  <Radio
+                    checked={type === property}
+                    /* onChange={() => handleRadioChange(property)} */
+                    value={property}
+                  />
+                }
+                label={property}
                 labelPlacement="start"
                 sx={{
                   display: "flex",
@@ -162,8 +195,6 @@ export const FirstFilters: React.FC<filterPorps> = ({
                   alignItems: "center",
                   marginTop: "8px",
                 }}
-                id={elem}
-                name={elem}
               />
             ))}
           </FormControl>
@@ -173,20 +204,27 @@ export const FirstFilters: React.FC<filterPorps> = ({
       </Grid>
 
       <Grid
+        item
         id="bedroom"
         sx={{
           p: 2,
         }}
         onClick={handleItemClick}
       >
-        <Typography variant="h5">cantidad de habitaciones</Typography>
+        <Typography variant="h5">Cantidad de Habitaciones</Typography>
         {allProperty?.length ? (
           <FormControl component="fieldset">
-            {getRequestedFilters(allProperty, "bedroom").map((elem, index) => (
+            {getRequestedFilters(allProperty, "bedroom").map((property, index) => (
               <FormControlLabel
                 key={index}
-                control={<Checkbox checked={!!checkedValues[`${elem}`]} />}
-                label={`Total:  ${elem}`}
+                control={
+                  <Radio
+                    checked={bedroom === `${property}`}
+                    /* onChange={() => handleRadioChange(property)} */
+                    value={property}
+                  />
+                }
+                label={property !== "Todas" ? `Habitaciones ${property}` : property}
                 labelPlacement="start"
                 sx={{
                   display: "flex",
@@ -194,8 +232,6 @@ export const FirstFilters: React.FC<filterPorps> = ({
                   alignItems: "center",
                   marginTop: "8px",
                 }}
-                id={`${elem}`}
-                name={`${elem}`}
               />
             ))}
           </FormControl>
@@ -210,7 +246,6 @@ export const FirstFilters: React.FC<filterPorps> = ({
           p: 2,
           mb: 2,
         }}
-        onClick={handleItemClick}
       >
         <Typography variant="h5">Metros cuadrados</Typography>
         {allProperty?.length ? (
@@ -229,13 +264,13 @@ export const FirstFilters: React.FC<filterPorps> = ({
           <CircularProgress sx={{ fontSize: "3rem" }} />
         )}
       </Grid>
+
       <Grid
         id="price"
         sx={{
           p: 2,
           mb: 2,
         }}
-        onClick={handleItemClick}
       >
         <Typography variant="h5">Precio</Typography>
         {allProperty?.length ? (
@@ -246,6 +281,7 @@ export const FirstFilters: React.FC<filterPorps> = ({
               aria-label="Precio"
               value={price}
               onChange={handleChangePrice}
+              onMouseUp={handleMouseUp}
               sx={{ mr: 2 }}
             />
             <span>{price}</span>

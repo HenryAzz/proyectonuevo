@@ -19,7 +19,6 @@ import { useCreateUserGoogleMutation } from "../../reduxToolkit/apiSlice";
 import { createUserRequest } from "../../reduxToolkit/authentication";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { NavBar } from "../navbar/Navbar";
 
 export const LogIn2 = () => {
   const navigate = useNavigate();
@@ -97,12 +96,13 @@ export const LogIn2 = () => {
           name: user.displayName || "",
           avatar: user.photoURL || "",
           email: user.email || "",
-          hashGoogle: user.uid || "",
+          hashgoogle: user.uid || "",
         };
+        console.log(user);
 
         crateUser(newUser);
       }
-      navigate("/home");
+      /* navigate("/home"); */
       Toast.fire({
         icon: "success",
         title: "Inicio de Sesión con Google Exitoso",
@@ -117,109 +117,106 @@ export const LogIn2 = () => {
     }
   };
   return (
-    <>
-      <NavBar />
-      <Grid container sx={{ height: "100vh", justifyContent: "center", alignContent: "center" }}>
-        <Grid
-          container
-          item
-          xs={10}
-          sm={8}
-          md={5}
-          sx={{
-            backgroundColor: orange[50],
-            justifyContent: "center",
-            alignContent: "center",
-            p: 2,
-            borderRadius: "10px ",
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
-          }}
-        >
-          <Box sx={{ width: "100%", mb: 2 }}>
-            <Link to="/home">
-              <img src={mano} alt="logo" style={{ width: "65px" }} />
-            </Link>
-          </Box>
-          <Card sx={{ width: "90%" }}>
-            <Grid item xs={12} sx={{ backgroundColor: "white", p: 2 }}>
-              <Typography variant="h4" component="h3" sx={{ mb: 4 }}>
-                Ingresar
-              </Typography>
-              <form onSubmit={handleSubmit}>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <TextField
-                    label="Email"
-                    type="email"
-                    variant="outlined"
-                    value={email}
-                    onChange={handleEmailChange}
-                    onFocus={handleEmailFocus}
-                    error={!isValidEmail && isEmailFocused}
-                    helperText={
-                      !isValidEmail && isEmailFocused ? "Tenes que ingresar un email valido" : ""
-                    }
-                  />
-                </FormControl>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <TextField
-                    label="Password"
-                    type="password"
-                    variant="outlined"
-                    value={password}
-                    onChange={handlePasswordChange}
-                    onFocus={handlePasswordFocus}
-                    error={!isValidPassword && isPasswordFocused}
-                    helperText={
-                      !isValidPassword && isPasswordFocused
-                        ? "la contraseña debe tener al menos 8 caracteres, una mayuscula, una minuscula, un numero y un caracter especial"
-                        : ""
-                    }
-                  />
-                </FormControl>
-                <Grid container alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
-                  <Grid item>
-                    <FormControlLabel control={<Checkbox />} label="Recordarme" />
-                  </Grid>
-                  <Grid item>
-                    <Link to="/reset" style={{ textDecoration: "none" }}>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        sx={{ "&:hover": { fontSize: "0.9rem" } }}
-                      >
-                        Olvide mi contraseña
-                      </Typography>
-                    </Link>
-                  </Grid>
+    <Grid container sx={{ height: "100vh", justifyContent: "center", alignContent: "center" }}>
+      <Grid
+        container
+        item
+        xs={10}
+        sm={8}
+        md={5}
+        sx={{
+          backgroundColor: orange[50],
+          justifyContent: "center",
+          alignContent: "center",
+          p: 2,
+          borderRadius: "10px ",
+          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
+        }}
+      >
+        <Box sx={{ width: "100%", mb: 2 }}>
+          <Link to="/home">
+            <img src={mano} alt="logo" style={{ width: "65px" }} />
+          </Link>
+        </Box>
+        <Card sx={{ width: "90%" }}>
+          <Grid item xs={12} sx={{ backgroundColor: "white", p: 2 }}>
+            <Typography variant="h4" component="h3" sx={{ mb: 4 }}>
+              Ingresar
+            </Typography>
+            <form onSubmit={handleSubmit}>
+              <FormControl fullWidth sx={{ mb: 2 }}>
+                <TextField
+                  label="Email"
+                  type="email"
+                  variant="outlined"
+                  value={email}
+                  onChange={handleEmailChange}
+                  onFocus={handleEmailFocus}
+                  error={!isValidEmail && isEmailFocused}
+                  helperText={
+                    !isValidEmail && isEmailFocused ? "Tenes que ingresar un email valido" : ""
+                  }
+                />
+              </FormControl>
+              <FormControl fullWidth sx={{ mb: 2 }}>
+                <TextField
+                  label="Password"
+                  type="password"
+                  variant="outlined"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  onFocus={handlePasswordFocus}
+                  error={!isValidPassword && isPasswordFocused}
+                  helperText={
+                    !isValidPassword && isPasswordFocused
+                      ? "la contraseña debe tener al menos 8 caracteres, una mayuscula, una minuscula, un numero y un caracter especial"
+                      : ""
+                  }
+                />
+              </FormControl>
+              <Grid container alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
+                <Grid item>
+                  <FormControlLabel control={<Checkbox />} label="Recordarme" />
                 </Grid>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  disabled={isSubmitDisabled}
-                  fullWidth
-                  sx={{ mb: 2 }}
-                >
-                  Ingresar
-                </Button>
-                <Button variant="outlined" fullWidth sx={{ mb: 2 }} onClick={handleGoogleSignIn}>
-                  Conectar con Google
-                </Button>
-                <Grid container sx={{}}>
-                  <Typography variant="body2" align="center" sx={{ width: "60%" }}>
-                    No tenes una cuenta?
-                  </Typography>
-                  <Link to="/registro">
-                    <Typography variant="body2" sx={{ marginLeft: "5px", width: "30%" }}>
-                      Registrate
+                <Grid item>
+                  <Link to="/reset" style={{ textDecoration: "none" }}>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      sx={{ "&:hover": { fontSize: "0.9rem" } }}
+                    >
+                      Olvide mi contraseña
                     </Typography>
                   </Link>
                 </Grid>
-              </form>
-            </Grid>
-          </Card>
-        </Grid>
+              </Grid>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={isSubmitDisabled}
+                fullWidth
+                sx={{ mb: 2 }}
+              >
+                Ingresar
+              </Button>
+              <Button variant="outlined" fullWidth sx={{ mb: 2 }} onClick={handleGoogleSignIn}>
+                Conectar con Google
+              </Button>
+              <Grid container sx={{}}>
+                <Typography variant="body2" align="center" sx={{ width: "60%" }}>
+                  No tenes una cuenta?
+                </Typography>
+                <Link to="/registro">
+                  <Typography variant="body2" sx={{ marginLeft: "5px", width: "30%" }}>
+                    Registrate
+                  </Typography>
+                </Link>
+              </Grid>
+            </form>
+          </Grid>
+        </Card>
       </Grid>
-    </>
+    </Grid>
   );
 };
