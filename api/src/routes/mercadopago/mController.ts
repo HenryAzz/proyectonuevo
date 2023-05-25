@@ -38,7 +38,8 @@ export const createOrder = async (req: Request, res: Response) => {
 			"failure": config. urlFailure,
 			"pending": ""
     } as PreferenceBackUrl,
-    auto_return: "approved",
+    notification_url: "http://localhost:3001/mercadopago/webhooks",
+
   };
 
   mercadopago.preferences
@@ -91,7 +92,8 @@ export const createOrderSignal = async (req: Request, res: Response) => {
 			"failure": config. urlFailure,
 			"pending": ""
     } as PreferenceBackUrl,
-    auto_return: "approved",
+    notification_url: "http://localhost:3001/mercadopago/webhooks",
+ 
   };
 
   mercadopago.preferences
@@ -107,6 +109,7 @@ export const createOrderSignal = async (req: Request, res: Response) => {
             where: { id: findSignal.dataValues.id}
           })
       }
+
       res.status(200).json({global: response.body.id});
     })
     .catch((error) => {
@@ -133,5 +136,14 @@ export const getPayment = async (req: Request, res: Response) => {
       {
         where: {preferenceId :  req.body.preference_id}
       })
-  
+
 } 
+
+export const postWebHooks = async (req: Request, res: Response) => {
+
+
+ return res.status(201).json({ message: "ok" })
+
+}
+
+
