@@ -39,7 +39,7 @@ function App() {
         <Route path="/userProfile" element={<UserProfile />} />
         <Route path="/success" element={<Success />} />
         <Route path="/fail" element={<Fail />} />
-        <Route path="/favorites" element={<Favorite />} />
+        {/* <Route path="/favorites" element={<Favorite />} /> */}
       </Routes>
     </div>
   );
