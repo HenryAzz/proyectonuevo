@@ -53,8 +53,8 @@ export const deleteBroker = async (id:number) => {
 }
 
 //Funcion que modifica un Broker
-export const modifyBroker = async (email:string, division:string) => {
-    let update = await Broker.update({division:division},{
+export const modifyBroker = async (email:string, division:string, avatar:string) => {
+    let update = await Broker.update({division:division, avatar:avatar},{
         where:{
             email: {[Op.eq]: email}
         }
