@@ -269,6 +269,9 @@ export const Form = () => {
 
   return (
     <>
+      <Box sx={{ mt: 5 }}>
+        <p>{user}</p>
+      </Box>
       {user ? (
         <Container>
           <Link to="/home"></Link>

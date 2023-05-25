@@ -15,11 +15,24 @@ const HomeContainer = () => {
 
   const theme = useTheme();
   const isScreenMdUp = useMediaQuery(theme.breakpoints.up("md"));
+  const isScreenMdDown = useMediaQuery(theme.breakpoints.down("md"));
   const [checkedValues, setCheckedValues] = useState<Record<string, boolean>>({});
 
   return (
     <Grid container sx={{ flexDirection: "row" }}>
-      <Grid item xs={12} md={3} sx={{ p: 2, position: "sticky", top: "0", zIndex: "999" }}>
+      <Grid
+        item
+        xs={12}
+        md={3}
+        sx={{
+          p: 2,
+          ...(isScreenMdDown && {
+            position: "sticky",
+            top: "0",
+            zIndex: "999",
+          }),
+        }}
+      >
         {isScreenMdUp ? (
           <FirstFilters
             setStringQuery={setStringQuery}
@@ -36,9 +49,13 @@ const HomeContainer = () => {
           <SecondFilters
             setStringQuery={setStringQuery}
             stringQuery={stringQuery}
-            checkedValues={checkedValues}
-            setCheckedValues={setCheckedValues}
             setCurrentPage={setCurrentPage}
+            operation={operation}
+            setOperation={setOperation}
+            type={type}
+            setType={setType}
+            bedroom={bedroom}
+            setBedroom={setBedroom}
           />
         )}
       </Grid>

@@ -77,6 +77,8 @@ export const FirstFilters: React.FC<filterPorps> = ({
       } else if (GridId == "type") {
         setType(RadioId);
       } else {
+        console.log("lala");
+
         setBedroom(RadioId);
       }
     }
@@ -100,6 +102,13 @@ export const FirstFilters: React.FC<filterPorps> = ({
     }
 
     setCurrentPage(1);
+  };
+
+  const handleMouseUp = () => {
+    /* console.log(value); */
+
+    console.log("Mouse released");
+    // Realiza las acciones que desees al soltar el mouse
   };
 
   return (
@@ -202,12 +211,12 @@ export const FirstFilters: React.FC<filterPorps> = ({
                 key={index}
                 control={
                   <Radio
-                    checked={bedroom === property}
+                    checked={bedroom === `${property}`}
                     /* onChange={() => handleRadioChange(property)} */
                     value={property}
                   />
                 }
-                label={property}
+                label={property !== "Todas" ? `Habitaciones ${property}` : property}
                 labelPlacement="start"
                 sx={{
                   display: "flex",
@@ -264,6 +273,7 @@ export const FirstFilters: React.FC<filterPorps> = ({
               aria-label="Precio"
               value={price}
               onChange={handleChangePrice}
+              onMouseUp={handleMouseUp}
               sx={{ mr: 2 }}
             />
             <span>{price}</span>
