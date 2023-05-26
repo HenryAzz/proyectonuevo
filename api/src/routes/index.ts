@@ -10,7 +10,10 @@ import routesConsult from "./consult/consult";
 
 import routesMercadopago from './mercadopago/mRoot'
 
-// import routesMessage from "./message/message"
+import routesMessage from "./messages/message";
+
+import routesFavorites from "./favorites/favorites";
+
 const router = Router();
 
 router.use("/user", routesUser);
@@ -29,7 +32,8 @@ router.use("/mercadopago", routesMercadopago);
 
 router.use("/review", routesReview)
 
-// router.use('/message', routesMessage)
+router.use('/message', routesMessage);
 
+router.use('/favorites', routesFavorites);
 
 export default router;
