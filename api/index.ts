@@ -2,6 +2,17 @@ import { sequelize } from "./src/db";
 import app from "./src/app";
 import {countBroker} from './jsonBrokerCorreo';
 import { fillDataBase } from "./src/routes/property/pHelper";
+const axios = require("axios");
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+axios.get("https://tu-servidor-con-certificado-no-confiable.com")
+  .then(response => {
+    // Manejar la respuesta
+  })
+  .catch(error => {
+    // Manejar el error
+  });
 
 const {Broker} = sequelize.models
 

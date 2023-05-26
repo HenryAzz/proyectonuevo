@@ -25,6 +25,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useCreateUserMutation } from "../../reduxToolkit/apiSlice";
 import Swal from "sweetalert2";
+import { Try } from "@mui/icons-material";
 
 const style = {
   position: "absolute",
@@ -97,30 +98,47 @@ export const Registro = () => {
       .required("*Campo Obligatorio"),
     termsAndConditions: Yup.string().oneOf(["true"], "Aceptar términos y condiciones"),
   });
-  const onSubmit = (values: any) => {
-    createUserWithEmailAndPassword(auth, values.email, values.password);
-    let data: CreateUser = {
-      name: values.name,
-      email: values.email,
-    };
-    createUser(data)
-      .then(() => {
-        Toast.fire({
-          icon: "success",
-          title: "Inicio de Sesión Exitoso",
-        });
-      })
-      .catch((error) => {
+  const onSubmit = async (values: any) => {
+    try {
+      const data: CreateUser = {
+        name: values.name,
+        email: values.email,
+      };
+  
+      const response: any = await createUser(data);
+  
+      if ("error" in response) {
+        // Error en la llamada a la API
+        console.log(response.error.data.error);
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Algo salió mal al registrar usuario..!!",
+          text: response.error.data.error,
           confirmButtonColor: "#3085d6",
         });
-      });
+      } else {
+        // Llamada a la API exitosa
+        createUserWithEmailAndPassword(auth, values.email, values.password);
+        Toast.fire({
+          icon: "success",
+          title: "Registro e inicio de Sesión Exitoso",
+        });
+        navigate("/home");  
 
-    navigate("/home");
+        // Resto del código para manejar la respuesta exitosa
+        // ...
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Algo salió mal al registrar el usuario..!!",
+        confirmButtonColor: "#3085d6",
+      });
+    }
   };
+  
   return (
     <Container sx={{ width: "auto" }}>
       <Container

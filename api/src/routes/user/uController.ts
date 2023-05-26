@@ -70,7 +70,7 @@ export const postUser = async (req: Request, res: Response) => {
   try {
     const user = req.body;
 
-    const findEmail = await findUserByEmail(user.email)
+    const findEmail = await findUserByEmail(user.email.toLowerCase())
 
     if(findEmail) throw new Error("El correo ya existe en la base de datos")
     //validamos si los campos son nulos.
