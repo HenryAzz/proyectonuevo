@@ -19,23 +19,6 @@ import {
 } from "../../reduxToolkit/apiSlice";
 
 export const BrokerHome = () => {
-  // const [broker, setUser] = useState<FirebaseUser | null>(null);
-
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       setUser(user);
-  //     } else {
-  //       setUser(null);
-  //     }
-  //   });
-
-  //   return () => unsubscribe();
-  // }, []);
-  // const { data } = useGetBrokerByEmailQuery(broker?.email || "", {
-  //   refetchOnMountOrArgChange: true,
-  // });
-
   const [selectedForm, setSelectedForm] = useState(null);
   //MANEJO ERRORES FORM
 
