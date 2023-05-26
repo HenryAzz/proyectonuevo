@@ -30,7 +30,7 @@ export const LogIn2 = () => {
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const passwordRegex = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
   const isSubmitDisabled = !isValidEmail || !isValidPassword;
 
   const [crateUser] = useCreateUserGoogleMutation();
@@ -73,7 +73,7 @@ export const LogIn2 = () => {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Algo salió mal al vincular cuenta Google..!!",
+        text: "Algo salió mal al iniciar sesión..!!",
         confirmButtonColor: "#3085d6",
       });
     }
@@ -97,7 +97,6 @@ export const LogIn2 = () => {
           email: user.email || "",
           hashgoogle: user.uid || "",
         };
-        console.log(user);
 
         crateUser(newUser);
       }

@@ -175,6 +175,7 @@ export const apiSlice = createApi({
     // FAVORITES
     getFavorites: builder.query<favorite[], void>({
       query: () => "/favorites",
+      providesTags: ["Favorites"],
     }),
 
     getFavoriteById: builder.query<favorite, string>({
@@ -187,6 +188,7 @@ export const apiSlice = createApi({
         method: "POST",
         body: createFavoriteRequest,
       }),
+      invalidatesTags: ["Favorites"],
     }),
 
     deletFavoriteByID: builder.mutation<favorite, number>({
@@ -195,6 +197,7 @@ export const apiSlice = createApi({
         method: "delete",
         body: id,
       }),
+      invalidatesTags: ["Favorites"],
     }),
   }),
 });
