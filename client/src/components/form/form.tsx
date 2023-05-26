@@ -48,7 +48,7 @@ interface FormState {
 
 export const Form = () => {
   const [user, setUser] = React.useState<string | null | undefined>(null);
-  console.log("user operaciones", user);
+
   //usar la ruta para crear el formulario
   const [createForm] = useCreateFormMutation();
   const [form, setForm] = React.useState<FormState>({
@@ -269,9 +269,6 @@ export const Form = () => {
 
   return (
     <>
-      <Box sx={{ mt: 5 }}>
-        <p>{user}</p>
-      </Box>
       {user ? (
         <Container>
           <Link to="/home"></Link>

@@ -51,13 +51,13 @@ export class Property extends Model<Property> {
   covered_area!: number;
 
   @Column({
-    allowNull: true,
+    allowNull: false,
     type: DataType.FLOAT,
   })
   bathroom!: number;
 
   @Column({
-    allowNull: true,
+    allowNull: false,
     type: DataType.INTEGER,
   })
   bedroom!: number;

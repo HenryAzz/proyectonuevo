@@ -16,6 +16,7 @@ import logo from "../../image/logo.png";
 import { signOut } from "firebase/auth";
 import { orange } from "@mui/material/colors";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useNavigate } from "react-router-dom";
 
 interface FirebaseUser {
   uid: string;
@@ -25,6 +26,7 @@ interface FirebaseUser {
 }
 
 export const NavBar = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<FirebaseUser | null>(null);
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
   const [userInitial, setUserInitial] = useState<string | null>(null);
@@ -73,9 +75,8 @@ export const NavBar = () => {
   const handlerLogOut = async () => {
     try {
       await signOut(auth);
-    } catch (error) {
-      console.log(error);
-    }
+      navigate("/home");
+    } catch (error) {}
   };
 
   const handleMenuCloseOutside = () => {
@@ -150,6 +151,13 @@ export const NavBar = () => {
         <Link to="/review" style={{ textDecoration: "none" }}>
           <Typography variant="h6" sx={{ color: theme.palette.primary.main }}>
             Testimonio
+          </Typography>
+        </Link>
+      </Grid>
+      <Grid item xs={2} sx={{ display: "flex", justifyContent: "center" }}>
+        <Link to="/favorites" style={{ textDecoration: "none" }}>
+          <Typography variant="h6" sx={{ color: theme.palette.primary.main }}>
+            Favoritos
           </Typography>
         </Link>
       </Grid>

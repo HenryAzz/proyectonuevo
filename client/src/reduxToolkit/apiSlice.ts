@@ -1,13 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { property, createPropertyRequest } from "./propertyinterfaces";
-import { createFormRequest, modifyForm } from "./forminterfaces";
+import { createFormRequest } from "./forminterfaces";
 import { createSignalRequest, modifySignal } from "./signalInterface";
 import { Broker, CreateBrokerRequest } from "./brokerInterfaces";
 import { createUserRequest } from "./authentication";
-import { User } from "./userInterface";
+import { User, UserByEmail } from "./userInterface";
 import { createConsultRequest, emailMessage } from "./consultInterface";
 import { form } from "./forminterfaces";
 import { favorite, createFavoriteRequest } from "./favoritesInterface";
+import { review } from "./review";
 
 const API_URL = "http://localhost:3001";
 
@@ -107,7 +108,7 @@ export const apiSlice = createApi({
     }),
 
     //Econtrar Usuario por email
-    getUserByEmail: builder.query<User, string | null | undefined>({
+    getUserByEmail: builder.query<UserByEmail, string | null | undefined>({
       query: (email) => `/user?email=${email}`,
     }),
     //metodos para enviar y recibr data de la ruta form
@@ -122,14 +123,6 @@ export const apiSlice = createApi({
 
     getfrom: builder.query<form[], void>({
       query: () => `/form`,
-    }),
-    //put form
-    putForm: builder.mutation<modifyForm, modifyForm>({
-      query: ({ id, situation }) => ({
-        url: `/form/${id}`,
-        method: "PUT",
-        body: { situation },
-      }),
     }),
 
     //señas
@@ -151,7 +144,7 @@ export const apiSlice = createApi({
 
     putSignal: builder.mutation<modifySignal, modifySignal>({
       query: ({ id, situation }) => ({
-        url: `/signal/${id}`,
+        url: `/singal/${id}`,
         method: "PUT",
         body: { situation },
       }),
@@ -183,6 +176,7 @@ export const apiSlice = createApi({
     // FAVORITES
     getFavorites: builder.query<favorite[], void>({
       query: () => "/favorites",
+      providesTags: ["Favorites"],
     }),
 
     getFavoriteById: builder.query<favorite, string>({
@@ -195,6 +189,7 @@ export const apiSlice = createApi({
         method: "POST",
         body: createFavoriteRequest,
       }),
+      invalidatesTags: ["Favorites"],
     }),
 
     deletFavoriteByID: builder.mutation<favorite, number>({
@@ -202,6 +197,15 @@ export const apiSlice = createApi({
         url: `/favorites/${id}`,
         method: "delete",
         body: id,
+      }),
+      invalidatesTags: ["Favorites"],
+    }),
+
+    createReview: builder.mutation<review, review>({
+      query: (review) => ({
+        url: "/review",
+        method: "POST",
+        body: review,
       }),
     }),
   }),
@@ -225,7 +229,6 @@ export const {
   useCreateUserGoogleMutation,
   useGetUserByNameQuery,
   useGetfromQuery,
-  usePutFormMutation,
   useCreateFormMutation,
   useGetSignalQuery,
   useCreateSignalMutation,
@@ -238,4 +241,5 @@ export const {
   useGetFavoriteByIdQuery,
   useCreateFavoriteMutation,
   useDeletFavoriteByIDMutation,
+  useCreateReviewMutation,
 } = apiSlice;

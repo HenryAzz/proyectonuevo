@@ -7,8 +7,6 @@ import HomeContainer from "./components/homeContainer/HomeContainer";
 import { Registro } from "./components/registro/Registro";
 import { Form } from "./components/form/form";
 import { CardDetail } from "./components/cardDetail/CardDetail";
-import { BrokerHome } from "./components/Admin/BrokerHome";
-
 import { ResetPassword } from "./components/resetPassword/ResetPassword";
 import { CreateNewPassword } from "./components/createNewPassword/CreateNewPassword";
 import { Signal } from "./components/reserva/Reserva";
@@ -17,10 +15,11 @@ import { UserProfile } from "./components/userProfile/UserProfile";
 import { Success } from "./components/success/Success";
 import { Fail } from "./components/fail/Fail";
 import { NavBar } from "./components/navbar/Navbar";
+import { Favorite } from "./components/favorite/Favorite";
 
 function App() {
   const location = useLocation();
-  const shouldShowNavBar = location.pathname !== "/" && location.pathname !== "/broker";
+  const shouldShowNavBar = location.pathname !== "/";
   return (
     <div>
       {shouldShowNavBar && <NavBar />}
@@ -33,7 +32,6 @@ function App() {
         <Route path="/registro" element={<Registro />} />
         <Route path="/property/:id" element={<CardDetail />} />
         <Route path="/form" element={<Form />} />
-        <Route path="/broker" element={<BrokerHome />} />
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/newPass" element={<CreateNewPassword />} />
         <Route path="/reserva/:id" element={<Signal />} />
@@ -41,6 +39,7 @@ function App() {
         <Route path="/userProfile" element={<UserProfile />} />
         <Route path="/success" element={<Success />} />
         <Route path="/fail" element={<Fail />} />
+        <Route path="/favorites" element={<Favorite />} />
       </Routes>
     </div>
   );
