@@ -21,7 +21,10 @@ export const HomeDesktop: React.FC<filterPorps> = ({
   const propertyPerPage: number = 6;
   const indexLastproperty: number = currentPage * propertyPerPage;
   const indexFirstproperty: number = indexLastproperty - propertyPerPage;
-  const currentproperty: property[] = data?.slice(indexFirstproperty, indexLastproperty) || [];
+  const currentproperty: property[] =
+    data
+      ?.filter((elem) => elem.situation === "Disponible")
+      .slice(indexFirstproperty, indexLastproperty) || [];
 
   const handlePageChange = (pageNumber: number): void => {
     setCurrentPage(pageNumber);
@@ -32,21 +35,19 @@ export const HomeDesktop: React.FC<filterPorps> = ({
       {data?.length !== 0 ? (
         <Grid container flexDirection="column" alignContent="center">
           <Grid container spacing={2} sx={{ mt: 2, width: "80vw", justifyContent: "space-around" }}>
-            {currentproperty.map((element: any, index: number) =>
-              element.situation === "Disponible" ? (
-                <Grid item xs={8} sm={8} md={5} lg={5} key={index}>
-                  <CardComponent key={element.id}
-                    address={element.address}
-                    description={element.description}
-                    pictures={element.pictures}
-                    type={element.type}
-                    id={element.id}
-                    operation={element.operation}
-                    price={element.price}
-                  />
-                </Grid>
-              ) : null
-            )}
+            {currentproperty.map((element: any, index: number) => (
+              <Grid item xs={8} sm={8} md={5} lg={5} key={index}>
+                <CardComponent
+                  address={element.address}
+                  description={element.description}
+                  pictures={element.pictures}
+                  type={element.type}
+                  id={element.id}
+                  operation={element.operation}
+                  price={element.price}
+                />
+              </Grid>
+            ))}
           </Grid>
           <Pagination
             propertyPerPage={propertyPerPage}

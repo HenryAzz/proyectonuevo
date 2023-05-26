@@ -48,7 +48,7 @@ interface FormState {
 
 export const Form = () => {
   const [user, setUser] = React.useState<string | null | undefined>(null);
-  console.log("user operaciones", user);
+
   //usar la ruta para crear el formulario
   const [createForm] = useCreateFormMutation();
   const [form, setForm] = React.useState<FormState>({
