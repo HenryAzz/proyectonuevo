@@ -7,7 +7,7 @@ import {
   findUserName,
   getUserSoloByEmail,
   updatePasswordUser,
-  findUserByEmail,
+  findUserByEmail
 } from "./uHelper";
 import { sequelize } from "../../db";
 import exp from "constants";
@@ -29,7 +29,7 @@ export const getUser = async (req: Request, res: Response) => {
     }
 
     //Si hay rol y hay person_type, trae todos los usuarios con ese rol y person_type.
-    if (rol && person_type && !name && !email) {
+    if (rol && person_type  && !name && !email) {
       const userByRolPersonType = await findUserByRolPersonType(
         rol as string,
         person_type as string
@@ -38,25 +38,25 @@ export const getUser = async (req: Request, res: Response) => {
     }
 
     //Si hay rol y no hay person_type, trae todos los usuarios con ese rol.
-    if (rol && !person_type && !name && !email) {
+    if (rol && !person_type  && !name && !email) {
       const userRole = await findUserRol(rol as string);
       return res.status(200).json(userRole);
     }
 
     //Si no hay rol y hay person_type, trae todos los usuarios con ese person_type.
-    if (!rol && person_type && !name && !email) {
+    if (!rol && person_type  && !name && !email) {
       const userPerson_type = await findUserPerson_type(person_type as string);
       return res.status(200).json(userPerson_type);
     }
 
     //Si hay un name me traigo ese usuario
-    if (!rol && !person_type && !email && name) {
+    if(!rol && !person_type && !email && name) {
       const userName = await findUserName(name as string);
       return res.status(200).json(userName);
     }
 
     //si hay un email me traigo ese usuario
-    if (!rol && !person_type && !name && email) {
+    if(!rol && !person_type && !name && email) {
       const findEmail = await findUserByEmail(email as string);
       return res.status(200).json(findEmail);
     }
@@ -71,19 +71,20 @@ export const postUser = async (req: Request, res: Response) => {
     const user = req.body;
 
     //validamos si los campos son nulos.
-    if (!user.email || !user.name) {
+    if (!user.email ||   !user.name) {
       throw new Error("Campos incompletos, completar correctamente datos.");
     } else {
       //si los campos son correctos, creamos el usuario.
       await User.create(req.body);
 
       //ENVIAR EMAIL A USUARIO
-      // const emailTemplate = clientUserTemplate(user.name);
-      // let sendmail = await MailService(user.email, "Bienvenido - PropTech", emailTemplate.html);
+      const emailTemplate = clientUserTemplate(user.name);
+      let sendmail = await MailService(user.email, "Bienvenido - PropTech", emailTemplate.html
+      );
 
       res.send({ msj: "Usuario creado correctamente", user: req.body });
     }
-  } catch (error: any) {
+  } catch (error:any) {
     res.status(404).send({ error: error.message });
   }
 };
@@ -100,6 +101,7 @@ export const putUser = async (req: Request, res: Response) => {
     res.status(404).send(error);
   }
 };
+
 
 ////////////////////////////////////////////////////
 
