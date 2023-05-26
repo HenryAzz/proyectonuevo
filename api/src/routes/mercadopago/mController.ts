@@ -38,7 +38,7 @@ export const createOrder = async (req: Request, res: Response) => {
 			"failure": config. urlFailure,
 			"pending": ""
     } as PreferenceBackUrl,
-    notification_url: "http://localhost:3001/mercadopago/webhooks",
+    //notification_url: "http://localhost:3001/mercadopago/webhooks",
 
   };
 
@@ -92,7 +92,7 @@ export const createOrderSignal = async (req: Request, res: Response) => {
 			"failure": config. urlFailure,
 			"pending": ""
     } as PreferenceBackUrl,
-    notification_url: "http://localhost:3001/mercadopago/webhooks",
+    //notification_url: "http://localhost:3001/mercadopago/webhooks",
  
   };
 
