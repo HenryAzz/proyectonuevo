@@ -70,6 +70,9 @@ export const postUser = async (req: Request, res: Response) => {
   try {
     const user = req.body;
 
+    const findEmail = await findUserByEmail(user.email)
+
+    if(findEmail) throw new Error("El correo ya existe en la base de datos")
     //validamos si los campos son nulos.
     if (!user.email ||   !user.name) {
       throw new Error("Campos incompletos, completar correctamente datos.");
@@ -85,6 +88,7 @@ export const postUser = async (req: Request, res: Response) => {
       res.send({ msj: "Usuario creado correctamente", user: req.body });
     }
   } catch (error:any) {
+    console.log(error.message)
     res.status(404).send({ error: error.message });
   }
 };
