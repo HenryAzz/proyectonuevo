@@ -53,7 +53,6 @@ export const ResetPassword = () => {
 
   return (
     <>
-      <NavBar />
       <Grid
         container
         sx={{

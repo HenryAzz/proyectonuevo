@@ -16,7 +16,6 @@ const HomeContainer = () => {
   const theme = useTheme();
   const isScreenMdUp = useMediaQuery(theme.breakpoints.up("md"));
   const isScreenMdDown = useMediaQuery(theme.breakpoints.down("md"));
-  const [checkedValues, setCheckedValues] = useState<Record<string, boolean>>({});
 
   return (
     <Grid container sx={{ flexDirection: "row" }}>
