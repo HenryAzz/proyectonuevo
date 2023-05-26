@@ -8,6 +8,7 @@ import { User, UserByEmail } from "./userInterface";
 import { createConsultRequest, emailMessage } from "./consultInterface";
 import { form } from "./forminterfaces";
 import { favorite, createFavoriteRequest } from "./favoritesInterface";
+import { review } from "./review";
 
 const API_URL = "http://localhost:3001";
 
@@ -199,6 +200,14 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Favorites"],
     }),
+
+    createReview: builder.mutation<review, review>({
+      query: (review) => ({
+        url: "/review",
+        method: "POST",
+        body: review,
+      }),
+    }),
   }),
 });
 
@@ -232,4 +241,5 @@ export const {
   useGetFavoriteByIdQuery,
   useCreateFavoriteMutation,
   useDeletFavoriteByIDMutation,
+  useCreateReviewMutation,
 } = apiSlice;

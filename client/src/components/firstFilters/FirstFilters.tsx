@@ -46,7 +46,6 @@ export const FirstFilters: React.FC<filterPorps> = ({
 
     // Construir el filtro correspondiente
     const filter = `${GridId}=${RadioId}`;
-    console.log(filter);
 
     if (RadioId !== undefined) {
       if (RadioId === "Todas") {
@@ -77,8 +76,6 @@ export const FirstFilters: React.FC<filterPorps> = ({
       } else if (GridId == "type") {
         setType(RadioId);
       } else {
-        console.log("lala");
-
         setBedroom(RadioId);
       }
     }
@@ -114,8 +111,6 @@ export const FirstFilters: React.FC<filterPorps> = ({
 
   const handleMouseUp = () => {
     /* console.log(value); */
-
-    console.log("Mouse released");
     // Realiza las acciones que desees al soltar el mouse
   };
 
