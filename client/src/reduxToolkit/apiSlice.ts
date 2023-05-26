@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { property, createPropertyRequest } from "./propertyinterfaces";
-import { createFormRequest, modifyForm } from "./forminterfaces";
+import { createFormRequest } from "./forminterfaces";
 import { createSignalRequest, modifySignal } from "./signalInterface";
 import { Broker, CreateBrokerRequest } from "./brokerInterfaces";
 import { createUserRequest } from "./authentication";
@@ -124,14 +124,6 @@ export const apiSlice = createApi({
     getfrom: builder.query<form[], void>({
       query: () => `/form`,
     }),
-    //put form
-    putForm: builder.mutation<modifyForm, modifyForm>({
-      query: ({ id, situation }) => ({
-        url: `/form/${id}`,
-        method: "PUT",
-        body: { situation },
-      }),
-    }),
 
     //señas
 
@@ -246,7 +238,6 @@ export const {
   useCreateConsultMutation,
   useSendEmailMutation,
   useGetFavoritesQuery,
-  usePutFormMutation,
   useGetFavoriteByIdQuery,
   useCreateFavoriteMutation,
   useDeletFavoriteByIDMutation,
