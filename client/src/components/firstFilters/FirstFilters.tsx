@@ -205,7 +205,7 @@ export const FirstFilters: React.FC<filterPorps> = ({
 
       <Grid
         item
-        id="bedroom"
+        id="rooms"
         sx={{
           p: 2,
         }}
