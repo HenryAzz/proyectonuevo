@@ -102,7 +102,7 @@ export const Registro = () => {
     try {
       const data: CreateUser = {
         name: values.name,
-        email: values.email,
+        email: values.email.toLowerCase(),
       };
   
       const response: any = await createUser(data);
