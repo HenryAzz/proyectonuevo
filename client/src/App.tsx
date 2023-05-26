@@ -20,7 +20,7 @@ import { NavBar } from "./components/navbar/Navbar";
 
 function App() {
   const location = useLocation();
-  const shouldShowNavBar = location.pathname !== "/";
+  const shouldShowNavBar = location.pathname !== "/" && location.pathname !== "/broker";
   return (
     <div>
       {shouldShowNavBar && <NavBar />}

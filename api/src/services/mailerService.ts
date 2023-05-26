@@ -1,6 +1,6 @@
+import axios from "axios";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import axios from "axios";
 dotenv.config();
 
 // export const MailService = async (toUser: string, subject: string, htmlTemplate: string) => {
@@ -43,9 +43,8 @@ export const MailService = async (toUser: string, subject: string, htmlTemplate:
     auth: {
       user: process.env.SMTP_USERNAME,
       pass: process.env.SMTP_PASSWORD,
-    }
+    },
   });
-
 
   let sendmail = await transporter.sendMail({
     from: `"Inmobiliaria PropTech" <${process.env.SMTP_USERNAME}>`, // sender address,
@@ -58,24 +57,28 @@ export const MailService = async (toUser: string, subject: string, htmlTemplate:
   return sendmail;
 };
 
-
 // FUNCIÓN PARA ENVIAR ARCHIVOS EN EMAIL PDF COMO ANEXOS
-export const MailServiceWithDocument = async (toUser: string, subject: string, htmlTemplate: string, documents) => {
+export const MailServiceWithDocument = async (
+  toUser: string,
+  subject: string,
+  htmlTemplate: string,
+  documents
+) => {
   let transporter = nodemailer.createTransport({
     service: process.env.SMTP_SERVICE,
     auth: {
       user: process.env.SMTP_USERNAME,
       pass: process.env.SMTP_PASSWORD,
-    }
+    },
   });
 
   // Obtener el contenido de los archivos desde la nube
   const getFiles = async () => {
     const promesas = documents.map(async (url) => {
-      const respuesta = await axios.get(url, { responseType: 'arraybuffer' });
+      const respuesta = await axios.get(url, { responseType: "arraybuffer" });
       return {
         filename: getNameFile(url),
-        content: respuesta.data
+        content: respuesta.data,
       };
     });
 
@@ -84,7 +87,7 @@ export const MailServiceWithDocument = async (toUser: string, subject: string, h
 
   // Función auxiliar para obtener el nombre del archivo desde la URL
   const getNameFile = (url: string): string => {
-    const partesURL = url.split('/');
+    const partesURL = url.split("/");
     return partesURL[partesURL.length - 1];
   };
 

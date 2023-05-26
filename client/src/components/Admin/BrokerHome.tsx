@@ -1,11 +1,13 @@
 import "./HomeWorkCSS.css";
+import { auth } from "../../firebase/firebase";
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { createFormRequest, modifyForm } from "../../reduxToolkit/forminterfaces";
+import { modifyForm } from "../../reduxToolkit/forminterfaces";
 import "./PieChart.css";
 import PieChart from "./Estadisticas";
-import { createSignalRequest, modifySignal } from "../../reduxToolkit/signalInterface";
-import { createPropertyRequest, putPropertyRequest } from "../../reduxToolkit/propertyinterfaces";
+import { modifySignal } from "../../reduxToolkit/signalInterface";
+import { putPropertyRequest } from "../../reduxToolkit/propertyinterfaces";
 import {
   usePutSignalMutation,
   useGetPropertiesQuery,
@@ -17,10 +19,26 @@ import {
 } from "../../reduxToolkit/apiSlice";
 
 export const BrokerHome = () => {
+  // const [broker, setUser] = useState<FirebaseUser | null>(null);
+
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       setUser(user);
+  //     } else {
+  //       setUser(null);
+  //     }
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
+  // const { data } = useGetBrokerByEmailQuery(broker?.email || "", {
+  //   refetchOnMountOrArgChange: true,
+  // });
+
   const [selectedForm, setSelectedForm] = useState(null);
   //MANEJO ERRORES FORM
-  const [error, setError] = useState({});
-  const [create, setCreate] = useState("");
+
   //Boton desplega navbar en mobile
 
   const [navMobile, setNavMobile] = useState(false);
@@ -58,7 +76,6 @@ export const BrokerHome = () => {
   const EstadisticasIndustria = filteredProperties?.filter((prop) => prop.type == "Industria");
   const EstadisticasLocal = filteredProperties?.filter((prop) => prop.type == "Local");
   const EstadisticasOficina = filteredProperties?.filter((prop) => prop.type == "Oficina");
-  console.log(EstadisticasLocal?.length);
   // TIPOS DE COLOR..................................................
   const colorOptions = [
     { value: "red", label: "Rojo" },
@@ -336,21 +353,6 @@ export const BrokerHome = () => {
   };
 
   const ClientDetails = ({ client }) => {
-    console.log("hola");
-    const [editedClient, setEditedClient] = useState(client);
-
-    const handleSaveChanges = async () => {
-      try {
-        const result = await updateClient({
-          id: selectedClient?.id,
-          updatedClient: editedClient,
-        });
-        console.log("Cliente actualizado:", result.data);
-      } catch (error) {
-        console.error("Error al actualizar el cliente:", error);
-      }
-    };
-
     return (
       <div className="client-details">
         <div className="card">
@@ -383,11 +385,6 @@ export const BrokerHome = () => {
     setSelectedForm(form);
     setSeccion("form-detalle");
   };
-  const filteredForm = forms?.filter((form) => {
-    form.address.toLowerCase().includes(searchTerm.toLowerCase());
-  });
-
-  console.log(filteredForm);
 
   //COMPONENTE FORM
 
@@ -399,7 +396,6 @@ export const BrokerHome = () => {
   );
 
   const [selectedSignal, setSelectedSignal] = useState(null);
-  const [editedSignal, setEditedSignal] = useState({});
   const [succesSignal, setSuccesSignal] = useState(false);
   const [deniedSignal, setDeniedSignal] = useState(false);
 
@@ -491,26 +487,8 @@ export const BrokerHome = () => {
       </div>
     );
   };
-  const handleInputChangeForm = (e: any, field: any) => {
-    const value = e.target.value;
-    setEditedForm((prevState: any) => ({
-      ...prevState,
-      [field]: value,
-    }));
-  };
-  const FormDetails = ({ form }) => {
-    // const handleSaveChangesForm = async () => {
-    //   try {
-    //     const result = await updateForm({
-    //       id: selectedForm?.id,
-    //       updatedClient: editedForm,
-    //     });
-    //     console.log("Consulta actualizado:", result.data);
-    //   } catch (error) {
-    //     console.error("Error al actualizar la consulta:", error);
-    //   }
-    // }
 
+  const FormDetails = ({ form }) => {
     const handleSaveChangesForm = async (e) => {
       try {
         if (e == "aceptar") {
@@ -601,12 +579,6 @@ export const BrokerHome = () => {
       </div>
     );
   };
-
-  const totalProperties =
-    (EstadisticasOficina?.length || 0) +
-    (EstadisticasLocal?.length || 0) +
-    (EstadisticasIndustria?.length || 0) +
-    (EstadisticasVivienda?.length || 0);
 
   const chartData = [
     {
@@ -756,7 +728,7 @@ export const BrokerHome = () => {
                   alt=""
                 />
                 <div className="card-abajo">
-                  <h2>Azul Schiaffino</h2>
+                  {/* <h2>{broker.id}</h2> */}
                   <h2>Area</h2>
                   <h3>ID: 4037#</h3>
                 </div>
