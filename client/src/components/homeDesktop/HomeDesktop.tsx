@@ -37,7 +37,7 @@ export const HomeDesktop: React.FC<filterPorps> = ({
           <Grid container spacing={2} sx={{ mt: 2, width: "80vw", justifyContent: "space-around" }}>
             {currentproperty.map((element: any, index: number) => (
               <Grid item xs={8} sm={8} md={5} lg={5} key={index}>
-                <CardComponent
+                <CardComponent key={element.id}
                   address={element.address}
                   description={element.description}
                   pictures={element.pictures}

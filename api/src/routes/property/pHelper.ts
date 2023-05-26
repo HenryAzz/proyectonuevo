@@ -6,7 +6,6 @@ import { Op } from "sequelize";
 const { Property } = sequelize.models;
 
 const queryCreator = (operation, rooms, maxPrice, type, situation, area): any => {
-  
   let price = Number(maxPrice);
   let query = {};
 
@@ -14,8 +13,8 @@ const queryCreator = (operation, rooms, maxPrice, type, situation, area): any =>
     let roomsNum = Number(rooms);
     query = {
       ...query,
-      bedroom: {[Op.eq]: roomsNum}
-    }
+      bedroom: { [Op.eq]: roomsNum },
+    };
   }
 
   if (area) {
@@ -61,7 +60,14 @@ const queryCreator = (operation, rooms, maxPrice, type, situation, area): any =>
 };
 
 // HELPER GET //
-export const findProps = async function (operation, rooms, maxPrice, propertyType, situation, area) {
+export const findProps = async function (
+  operation,
+  rooms,
+  maxPrice,
+  propertyType,
+  situation,
+  area
+) {
   const db = await Property.findAll({
     where: queryCreator(operation, rooms, maxPrice, propertyType, situation, area),
 
@@ -96,13 +102,9 @@ export const fillDataBase = async () => {
 
 //Put Property
 export const putProperty = async (id, put) => {
-  const updateProperty = await Property.update(
-    {
-      put,
-    },
-    {
-      where: { id: id },
-    }
-  );
+  const updateProperty = await Property.update(put, {
+    where: { id: id },
+  });
+  console.log(updateProperty);
   return updateProperty;
 };
