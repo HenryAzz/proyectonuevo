@@ -16,6 +16,7 @@ import logo from "../../image/logo.png";
 import { signOut } from "firebase/auth";
 import { orange } from "@mui/material/colors";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useNavigate } from "react-router-dom";
 
 interface FirebaseUser {
   uid: string;
@@ -25,6 +26,7 @@ interface FirebaseUser {
 }
 
 export const NavBar = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<FirebaseUser | null>(null);
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
   const [userInitial, setUserInitial] = useState<string | null>(null);
@@ -73,6 +75,7 @@ export const NavBar = () => {
   const handlerLogOut = async () => {
     try {
       await signOut(auth);
+      navigate("/home");
     } catch (error) {
       console.log(error);
     }
