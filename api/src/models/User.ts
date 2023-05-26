@@ -8,6 +8,7 @@ import {
   HasMany,
 } from "sequelize-typescript";
 import Form from "./Form";
+import { Signal } from "./Signal";
 @Table({
   timestamps: false,
 })
@@ -17,12 +18,16 @@ export class User extends Model<User> {
     allowNull: false,
     autoIncrement: true,
     unique: true,
-    primaryKey: true
+    primaryKey: true,
   })
   id!: number;
 
   //Modificado tipo enum que sea cliente o proveedor
-  @Column({ allowNull: false, type: DataType.ENUM("Cliente", "Proveedor"), defaultValue: "Cliente" })
+  @Column({
+    allowNull: false,
+    type: DataType.ENUM("Cliente", "Proveedor"),
+    defaultValue: "Cliente",
+  })
   rol!: string;
 
   @Column({ allowNull: false })
@@ -35,7 +40,7 @@ export class User extends Model<User> {
   @Column({
     allowNull: false,
     type: DataType.ENUM("Persona Fisica", "Persona Juridica"),
-    defaultValue: "Persona Fisica"
+    defaultValue: "Persona Fisica",
   })
   person_type!: string;
 
@@ -56,6 +61,9 @@ export class User extends Model<User> {
   //Agrega todas las Operaciones del usuario (vender, rentar, tasar)
   @HasMany(() => Form)
   properties!: Form[];
+
+  @HasMany(() => Signal)
+  signals!: Signal[];
 }
 
 // //ejemplo:
