@@ -64,6 +64,7 @@ export const LogIn2 = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      localStorage.setItem("user", JSON.stringify(email));
       navigate("/home");
       Toast.fire({
         icon: "success",

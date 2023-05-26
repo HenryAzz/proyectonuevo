@@ -1,126 +1,325 @@
 export const json = [
   {
-    type: "Vivienda",
-    address: "Av Jujuy 1400",
-    spaces: 2,
-    price: 184.0,
+    //BARRIO NORTE
+    //"Vivienda", "Oficina", "Local", "Industria")
+    type: "Industria",
+    address: "Talcahuano al 800",
+    spaces: 39,
+    price: 197.0,
     pictures: [
       {
-        img: "https://static.tokkobroker.com/water_pics/14907697653197652569051686380877645231979661584017716880739567280369382006832.jpg",
-      },
-      {
-        img: "https://static.tokkobroker.com/water_pics/35586777785092755108429238162592047584634765320319728803520720336782775320809.jpg",
-      },
-      {
-        img: "https://static.tokkobroker.com/water_pics/112148084975145032558414398193639620330075218899527775609330788039478128584754.jpg",
+        img: "https://static.tokkobroker.com/water_pics/85254660142641264679107666028497718208540059410689041719885236710420663391424.jpg",
       },
     ],
-    floors: 10,
-    covered_area: 37,
-    bathroom: 1.5,
-    bedroom: 1,
+    floors: 5,
+    covered_area: 1.0,
+    bathroom: 0,
+    bedroom: 39,
     furnished: true,
     description:
-      "DPTO. 2 AMBIENTES, CFTE., BALCON,  APTO PROFESIONAL, AMENITIES, A ESTRENAR, ENTREGA INMEDIATA!",
+      "Edificio comercial, ubicado sobre calle Talcahuano 844, entre av. Cordoba y Paraguay, Barrio Norte, CABA. Desarrollado en planta baja y cuatro pisos, comunicados por escaleras y ascensor.",
+    // "Reservado", "Disponible", "Rentado", "Vendido"
     situation: "Disponible",
-    total_area: 40,
-    antiquity: 1,
-    operation: "Alquiler",
-    owner: "Schiaffino",
-  },
-  {
-    type: "Vivienda",
-    address: "RIO NEGRO NO SE CUANTO",
-    spaces: 2,
-    price: 94.0,
-    pictures: [
-      {
-        img: "https://static.tokkobroker.com/water_pics/61473490849556420478476952427662215243829091586321796539503166833583826460719.jpg",
-      },
-    ],
-    floors: 10,
-    covered_area: 37,
-    bathroom: 1.5,
-    bedroom: 1,
-    furnished: true,
-    description:
-      "DPTO. 2 AMBIENTES, CFTE., BALCON,  APTO PROFESIONAL, AMENITIES, A ESTRENAR, ENTREGA INMEDIATA!",
-    situation: "Disponible",
-
-    total_area: 40,
-    antiquity: 1,
-    operation: "Alquiler",
-    owner: "Schiaffino",
-  },
-  {
-    type: "Vivienda",
-    address: "CONGRESO Y NO SE CUAL MAS",
-    spaces: 2,
-    price: 82.0,
-    pictures: [
-      {
-        img: "https://static.tokkobroker.com/water_pics/61473490849556420478476952427662215243829091586321796539503166833583826460719.jpg",
-      },
-    ],
-    floors: 10,
-    covered_area: 37,
-    bathroom: 1.5,
-    bedroom: 1,
-    furnished: true,
-    description:
-      "DPTO. 2 AMBIENTES, CFTE., BALCON,  APTO PROFESIONAL, AMENITIES, A ESTRENAR, ENTREGA INMEDIATA!",
-    situation: "Disponible",
-
-    total_area: 40,
-    antiquity: 1,
+    total_area: 1.0,
+    antiquity: 30,
+    // ("Alquiler", "Venta")
     operation: "Venta",
     owner: "Schiaffino",
   },
   {
-    type: "Local",
-    address: "NUEVA YORK 1230",
-    spaces: 2,
-    price: 33.0,
+    //BARRIO NORTE
+    //"Vivienda", "Oficina", "Local", "Industria")
+    type: "Industria",
+    address: "Maria al 800",
+    spaces: 39,
+    price: 197.0,
     pictures: [
       {
-        img: "https://static.tokkobroker.com/water_pics/61473490849556420478476952427662215243829091586321796539503166833583826460719.jpg",
+        img: "https://static.tokkobroker.com/water_pics/85254660142641264679107666028497718208540059410689041719885236710420663391424.jpg",
       },
     ],
-    floors: 10,
-    covered_area: 37,
-    bathroom: 1.5,
-    bedroom: 1,
+    floors: 5,
+    covered_area: 1.0,
+    bathroom: 0,
+    bedroom: 39,
     furnished: true,
     description:
-      "DPTO. 2 AMBIENTES, CFTE., BALCON,  APTO PROFESIONAL, AMENITIES, A ESTRENAR, ENTREGA INMEDIATA!",
+      "Edificio comercial, ubicado sobre calle Talcahuano 844, entre av. Cordoba y Paraguay, Barrio Norte, CABA. Desarrollado en planta baja y cuatro pisos, comunicados por escaleras y ascensor.",
+    // "Reservado", "Disponible", "Rentado", "Vendido"
     situation: "Disponible",
-
-    total_area: 40,
-    antiquity: 1,
-    operation: "Alquiler",
+    total_area: 1.0,
+    antiquity: 30,
+    // ("Alquiler", "Venta")
+    operation: "Venta",
     owner: "Schiaffino",
   },
   {
-    type: "Local",
-    address: "SENILLOSA ALGUN NUMERO",
-    spaces: 2,
-    price: 76.0,
+    //BARRIO NORTE
+    //"Vivienda", "Oficina", "Local", "Industria")
+    type: "Industria",
+    address: "Carilo al 900",
+    spaces: 39,
+    price: 197.0,
     pictures: [
       {
-        img: "https://static.tokkobroker.com/water_pics/61473490849556420478476952427662215243829091586321796539503166833583826460719.jpg",
+        img: "https://static.tokkobroker.com/water_pics/85254660142641264679107666028497718208540059410689041719885236710420663391424.jpg",
       },
     ],
-    floors: 10,
-    covered_area: 37,
-    bathroom: 1.5,
-    bedroom: 1,
+    floors: 5,
+    covered_area: 1.0,
+    bathroom: 0,
+    bedroom: 39,
     furnished: true,
     description:
-      "DPTO. 2 AMBIENTES, CFTE., BALCON,  APTO PROFESIONAL, AMENITIES, A ESTRENAR, ENTREGA INMEDIATA!",
+      "Edificio comercial, ubicado sobre calle Talcahuano 844, entre av. Cordoba y Paraguay, Barrio Norte, CABA. Desarrollado en planta baja y cuatro pisos, comunicados por escaleras y ascensor.",
+    // "Reservado", "Disponible", "Rentado", "Vendido"
     situation: "Disponible",
-
-    total_area: 40,
-    antiquity: 1,
+    total_area: 1.0,
+    antiquity: 30,
+    // ("Alquiler", "Venta")
+    operation: "Venta",
+    owner: "Schiaffino",
+  },
+  {
+    //BARRIO NORTE
+    //"Vivienda", "Oficina", "Local", "Industria")
+    type: "Industria",
+    address: "Talcahuano al 800",
+    spaces: 39,
+    price: 197.0,
+    pictures: [
+      {
+        img: "https://static.tokkobroker.com/water_pics/85254660142641264679107666028497718208540059410689041719885236710420663391424.jpg",
+      },
+    ],
+    floors: 5,
+    covered_area: 1.0,
+    bathroom: 0,
+    bedroom: 39,
+    furnished: true,
+    description:
+      "Edificio comercial, ubicado sobre calle Talcahuano 844, entre av. Cordoba y Paraguay, Barrio Norte, CABA. Desarrollado en planta baja y cuatro pisos, comunicados por escaleras y ascensor.",
+    // "Reservado", "Disponible", "Rentado", "Vendido"
+    situation: "Disponible",
+    total_area: 1.0,
+    antiquity: 30,
+    // ("Alquiler", "Venta")
+    operation: "Venta",
+    owner: "Schiaffino",
+  },
+  {
+    //BARRIO NORTE
+    //"Vivienda", "Oficina", "Local", "Industria")
+    type: "Industria",
+    address: "Maria al 800",
+    spaces: 39,
+    price: 197.0,
+    pictures: [
+      {
+        img: "https://static.tokkobroker.com/water_pics/85254660142641264679107666028497718208540059410689041719885236710420663391424.jpg",
+      },
+    ],
+    floors: 5,
+    covered_area: 1.0,
+    bathroom: 0,
+    bedroom: 39,
+    furnished: true,
+    description:
+      "Edificio comercial, ubicado sobre calle Talcahuano 844, entre av. Cordoba y Paraguay, Barrio Norte, CABA. Desarrollado en planta baja y cuatro pisos, comunicados por escaleras y ascensor.",
+    // "Reservado", "Disponible", "Rentado", "Vendido"
+    situation: "Disponible",
+    total_area: 1.0,
+    antiquity: 30,
+    // ("Alquiler", "Venta")
+    operation: "Venta",
+    owner: "Schiaffino",
+  },
+  {
+    //BARRIO NORTE
+    //"Vivienda", "Oficina", "Local", "Industria")
+    type: "Industria",
+    address: "Carilo al 900",
+    spaces: 39,
+    price: 197.0,
+    pictures: [
+      {
+        img: "https://static.tokkobroker.com/water_pics/85254660142641264679107666028497718208540059410689041719885236710420663391424.jpg",
+      },
+    ],
+    floors: 5,
+    covered_area: 1.0,
+    bathroom: 0,
+    bedroom: 39,
+    furnished: true,
+    description:
+      "Edificio comercial, ubicado sobre calle Talcahuano 844, entre av. Cordoba y Paraguay, Barrio Norte, CABA. Desarrollado en planta baja y cuatro pisos, comunicados por escaleras y ascensor.",
+    // "Reservado", "Disponible", "Rentado", "Vendido"
+    situation: "Disponible",
+    total_area: 1.0,
+    antiquity: 30,
+    // ("Alquiler", "Venta")
+    operation: "Venta",
+    owner: "Schiaffino",
+  },
+  {
+    //BARRIO NORTE
+    //"Vivienda", "Oficina", "Local", "Industria")
+    type: "Industria",
+    address: "Talcahuano al 800",
+    spaces: 39,
+    price: 197.0,
+    pictures: [
+      {
+        img: "https://static.tokkobroker.com/water_pics/85254660142641264679107666028497718208540059410689041719885236710420663391424.jpg",
+      },
+    ],
+    floors: 5,
+    covered_area: 1.0,
+    bathroom: 0,
+    bedroom: 39,
+    furnished: true,
+    description:
+      "Edificio comercial, ubicado sobre calle Talcahuano 844, entre av. Cordoba y Paraguay, Barrio Norte, CABA. Desarrollado en planta baja y cuatro pisos, comunicados por escaleras y ascensor.",
+    // "Reservado", "Disponible", "Rentado", "Vendido"
+    situation: "Disponible",
+    total_area: 1.0,
+    antiquity: 30,
+    // ("Alquiler", "Venta")
+    operation: "Venta",
+    owner: "Schiaffino",
+  },
+  {
+    //BARRIO NORTE
+    //"Vivienda", "Oficina", "Local", "Industria")
+    type: "Industria",
+    address: "Maria al 800",
+    spaces: 39,
+    price: 197.0,
+    pictures: [
+      {
+        img: "https://static.tokkobroker.com/water_pics/85254660142641264679107666028497718208540059410689041719885236710420663391424.jpg",
+      },
+    ],
+    floors: 5,
+    covered_area: 1.0,
+    bathroom: 0,
+    bedroom: 39,
+    furnished: true,
+    description:
+      "Edificio comercial, ubicado sobre calle Talcahuano 844, entre av. Cordoba y Paraguay, Barrio Norte, CABA. Desarrollado en planta baja y cuatro pisos, comunicados por escaleras y ascensor.",
+    // "Reservado", "Disponible", "Rentado", "Vendido"
+    situation: "Disponible",
+    total_area: 1.0,
+    antiquity: 30,
+    // ("Alquiler", "Venta")
+    operation: "Venta",
+    owner: "Schiaffino",
+  },
+  {
+    //BARRIO NORTE
+    //"Vivienda", "Oficina", "Local", "Industria")
+    type: "Industria",
+    address: "Carilo al 900",
+    spaces: 39,
+    price: 197.0,
+    pictures: [
+      {
+        img: "https://static.tokkobroker.com/water_pics/85254660142641264679107666028497718208540059410689041719885236710420663391424.jpg",
+      },
+    ],
+    floors: 5,
+    covered_area: 1.0,
+    bathroom: 0,
+    bedroom: 39,
+    furnished: true,
+    description:
+      "Edificio comercial, ubicado sobre calle Talcahuano 844, entre av. Cordoba y Paraguay, Barrio Norte, CABA. Desarrollado en planta baja y cuatro pisos, comunicados por escaleras y ascensor.",
+    // "Reservado", "Disponible", "Rentado", "Vendido"
+    situation: "Disponible",
+    total_area: 1.0,
+    antiquity: 30,
+    // ("Alquiler", "Venta")
+    operation: "Venta",
+    owner: "Schiaffino",
+  },
+  {
+    //BARRIO NORTE
+    //"Vivienda", "Oficina", "Local", "Industria")
+    type: "Industria",
+    address: "Talcahuano al 800",
+    spaces: 39,
+    price: 197.0,
+    pictures: [
+      {
+        img: "https://static.tokkobroker.com/water_pics/85254660142641264679107666028497718208540059410689041719885236710420663391424.jpg",
+      },
+    ],
+    floors: 5,
+    covered_area: 1.0,
+    bathroom: 0,
+    bedroom: 39,
+    furnished: true,
+    description:
+      "Edificio comercial, ubicado sobre calle Talcahuano 844, entre av. Cordoba y Paraguay, Barrio Norte, CABA. Desarrollado en planta baja y cuatro pisos, comunicados por escaleras y ascensor.",
+    // "Reservado", "Disponible", "Rentado", "Vendido"
+    situation: "Disponible",
+    total_area: 1.0,
+    antiquity: 30,
+    // ("Alquiler", "Venta")
+    operation: "Venta",
+    owner: "Schiaffino",
+  },
+  {
+    //BARRIO NORTE
+    //"Vivienda", "Oficina", "Local", "Industria")
+    type: "Industria",
+    address: "Maria al 800",
+    spaces: 39,
+    price: 197.0,
+    pictures: [
+      {
+        img: "https://static.tokkobroker.com/water_pics/85254660142641264679107666028497718208540059410689041719885236710420663391424.jpg",
+      },
+    ],
+    floors: 5,
+    covered_area: 1.0,
+    bathroom: 0,
+    bedroom: 39,
+    furnished: true,
+    description:
+      "Edificio comercial, ubicado sobre calle Talcahuano 844, entre av. Cordoba y Paraguay, Barrio Norte, CABA. Desarrollado en planta baja y cuatro pisos, comunicados por escaleras y ascensor.",
+    // "Reservado", "Disponible", "Rentado", "Vendido"
+    situation: "Disponible",
+    total_area: 1.0,
+    antiquity: 30,
+    // ("Alquiler", "Venta")
+    operation: "Venta",
+    owner: "Schiaffino",
+  },
+  {
+    //BARRIO NORTE
+    //"Vivienda", "Oficina", "Local", "Industria")
+    type: "Industria",
+    address: "Carilo al 900",
+    spaces: 39,
+    price: 197.0,
+    pictures: [
+      {
+        img: "https://static.tokkobroker.com/water_pics/85254660142641264679107666028497718208540059410689041719885236710420663391424.jpg",
+      },
+    ],
+    floors: 5,
+    covered_area: 1.0,
+    bathroom: 0,
+    bedroom: 39,
+    furnished: true,
+    description:
+      "Edificio comercial, ubicado sobre calle Talcahuano 844, entre av. Cordoba y Paraguay, Barrio Norte, CABA. Desarrollado en planta baja y cuatro pisos, comunicados por escaleras y ascensor.",
+    // "Reservado", "Disponible", "Rentado", "Vendido"
+    situation: "Disponible",
+    total_area: 1.0,
+    antiquity: 30,
+    // ("Alquiler", "Venta")
     operation: "Venta",
     owner: "Schiaffino",
   },

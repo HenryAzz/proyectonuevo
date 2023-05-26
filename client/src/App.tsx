@@ -7,6 +7,8 @@ import HomeContainer from "./components/homeContainer/HomeContainer";
 import { Registro } from "./components/registro/Registro";
 import { Form } from "./components/form/form";
 import { CardDetail } from "./components/cardDetail/CardDetail";
+import { BrokerHome } from "./components/Admin/BrokerHome";
+
 import { ResetPassword } from "./components/resetPassword/ResetPassword";
 import { CreateNewPassword } from "./components/createNewPassword/CreateNewPassword";
 import { Signal } from "./components/reserva/Reserva";
@@ -18,7 +20,7 @@ import { NavBar } from "./components/navbar/Navbar";
 
 function App() {
   const location = useLocation();
-  const shouldShowNavBar = location.pathname !== "/";
+  const shouldShowNavBar = location.pathname !== "/" && location.pathname !== "/broker";
   return (
     <div>
       {shouldShowNavBar && <NavBar />}
@@ -31,6 +33,7 @@ function App() {
         <Route path="/registro" element={<Registro />} />
         <Route path="/property/:id" element={<CardDetail />} />
         <Route path="/form" element={<Form />} />
+        <Route path="/broker" element={<BrokerHome />} />
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/newPass" element={<CreateNewPassword />} />
         <Route path="/reserva/:id" element={<Signal />} />

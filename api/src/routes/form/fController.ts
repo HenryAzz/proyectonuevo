@@ -58,10 +58,10 @@ export const getForm = async (req: Request, res: Response) => {
 //POST
 export const postForm = async (req: Request, res: Response) => {
   try {
-    const newForm = await createForm(req.body);    
+    const newForm = await createForm(req.body);
     return res.status(200).json(newForm);
   } catch (error: any) {
-    console.log(error.message)
+    console.log(error.message);
     return res.status(404).send({ error: error.message });
   }
 };
@@ -94,10 +94,9 @@ export const deleteForm = async (req: Request, res: Response) => {
 export const putForm = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const put = req.body;
+    const { situation } = req.body;
 
-    const updateForm = await pForm(id, put);
-
+    const updateForm = await pForm(id, situation);
     res.status(200).send({ msj: "Form actualizado correctamente." });
   } catch (error: any) {
     res.status(404).send(error.error);
