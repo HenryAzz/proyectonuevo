@@ -7,25 +7,22 @@ import { PaginationFavoritos } from "../pagination/paginatioFav";
 import { auth } from "../../firebase/firebase";
 import { useEffect, useState } from "react";
 
-type filterPorps = {
-  currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-};
-export const Favorite: React.FC<filterPorps> = ({ currentPage, setCurrentPage }) => {
+export const Favorite = () => {
   const { data } = useGetFavoritesQuery();
   const [user, setUser] = useState<string | null | undefined>(null);
+  const [currentPageFavorite, setCurrentPageFavorite] = useState(1);
 
   const properties = data?.map((property: any) => { 
     return property.property 
   });
 
-  // const favoritePerPage: number = 4;
-  // const indexLastfavorite: number = currentPage * favoritePerPage;
-  // const indexFirstfavorite: number = indexLastfavorite - favoritePerPage;
-  // const currentfavorite: favorite[] = properties?.slice(indexFirstfavorite, indexLastfavorite) || [];
+  const favoritePerPage = 4;
+  const indexLastfavorite: number = currentPageFavorite * favoritePerPage;
+  const indexFirstfavorite: number = indexLastfavorite - favoritePerPage;
+  const currentfavorite = properties && properties.slice(indexFirstfavorite, indexLastfavorite);
 
   const handlePageChange = (pageNumber: number): void => {
-    setCurrentPage(pageNumber);
+    setCurrentPageFavorite(pageNumber);
   };
 
   useEffect(() => {
@@ -52,7 +49,7 @@ export const Favorite: React.FC<filterPorps> = ({ currentPage, setCurrentPage })
                   spacing={2}
                   sx={{ mt: 2, width: "80vw", justifyContent: "space-around" }}
                 >
-                  {properties?.map((element: any, index: number) => (
+                  {currentfavorite?.map((element: any, index: number) => (
                     <Grid item xs={8} sm={8} md={5} lg={5} key={index+51}>
                       <CardComponent
                         address={element.address}
@@ -66,12 +63,12 @@ export const Favorite: React.FC<filterPorps> = ({ currentPage, setCurrentPage })
                     </Grid>
                   ))}
                 </Grid>
-                {/* <PaginationFavoritos
+                <PaginationFavoritos
                   favoritePerPage={favoritePerPage}
                   totalFavoriteCount={properties?.length || 0}
                   onPageChange={handlePageChange}
-                  currentPage={currentPage}
-                /> */}
+                  currentPageFavorite={currentPageFavorite}
+                />
               </Grid>
             ) : (
               <Box mt={20}>

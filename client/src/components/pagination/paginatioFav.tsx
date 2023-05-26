@@ -4,14 +4,14 @@ type PaginationProps = {
   favoritePerPage: number;
   totalFavoriteCount: number;
   onPageChange: (pageNumber: number) => void;
-  currentPage: number;
+  currentPageFavorite: number;
 };
 
 export const PaginationFavoritos: React.FC<PaginationProps> = ({
   favoritePerPage,
   totalFavoriteCount,
   onPageChange,
-  currentPage,
+  currentPageFavorite,
 }) => {
   const pageCount = Math.ceil(totalFavoriteCount / favoritePerPage);
 
@@ -22,7 +22,7 @@ export const PaginationFavoritos: React.FC<PaginationProps> = ({
   return (
     <MuiPagination
       count={pageCount}
-      page={currentPage} // Actualiza el valor de la página en el componente MuiPagination
+      page={currentPageFavorite} // Actualiza el valor de la página en el componente MuiPagination
       onChange={handlePageChange}
       color="primary"
       size="large"
