@@ -1,7 +1,9 @@
 export interface favorite {
   id: number,
-  property: any,
-  user: any,
+  propertyId: number, 
+  userId: number,
+  property: object,
+  user: object,
 }
 
 export interface createFavoriteRequest {
