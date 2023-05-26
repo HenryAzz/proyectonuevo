@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import "./PieChart.css";
-//HOOLA!
+
 const PieChart = ({ data }) => {
   const total = data.reduce((sum, item) => sum + item.value, 0);
 

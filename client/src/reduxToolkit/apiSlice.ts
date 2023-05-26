@@ -152,7 +152,7 @@ export const apiSlice = createApi({
 
     putSignal: builder.mutation<modifySignal, modifySignal>({
       query: ({ id, situation }) => ({
-        url: `/singal/${id}`,
+        url: `/signal/${id}`,
         method: "PUT",
         body: { situation },
       }),

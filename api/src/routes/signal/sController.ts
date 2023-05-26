@@ -49,17 +49,19 @@ export const postProp = async (req: Request, res: Response) => {
   try {
     const { operation, documentation, price, propertyId, email } = req.body;
 
-    const user = await User.findOne({where : {email : email}})
+    const user = await User.findOne({ where: { email: email } });
     let property = await Property.findOne({ where: { id: req.body.propertyId } });
-    let broker = await Broker.findOne({where : {division : property.dataValues.type.toLowerCase()}});
+    let broker = await Broker.findOne({
+      where: { division: property.dataValues.type.toLowerCase() },
+    });
 
     const newSignal = await Signal.create({
-      operation: operation, 
-      documentation: documentation, 
-      price: price, 
+      operation: operation,
+      documentation: documentation,
+      price: price,
       propertyId: propertyId,
-      brokerId: broker.dataValues.id,
-      userId: user.dataValues.id
+      // brokerId: broker.dataValues.id,
+      // userId: user.dataValues.id,
     });
 
     const updateProperty = await Property.update(
@@ -71,21 +73,21 @@ export const postProp = async (req: Request, res: Response) => {
       }
     );
 
-    //ENVIAR EMAIL A USUARIO
-    const emailTemplate = user.dataValues.rol === "Cliente" ? clientSignalTemplate(user.dataValues.name, property) : supplierSignalTemplate(user.dataValues.name, property);
+    // //ENVIAR EMAIL A USUARIO
+    // const emailTemplate = user.dataValues.rol === "Cliente" ? clientSignalTemplate(user.dataValues.name, property) : supplierSignalTemplate(user.dataValues.name, property);
 
-    let sendmail = await MailService(user.dataValues.email, "Registro de solicitud de Propiedad - PropTech", emailTemplate.html
-    );
+    // let sendmail = await MailService(user.dataValues.email, "Registro de solicitud de Propiedad - PropTech", emailTemplate.html
+    // );
 
-    //ENVIAR EMAIL A BROKER
-    const emailTemplateBroker = brokerSignalTemplate(broker.dataValues.name, user, property);
+    // //ENVIAR EMAIL A BROKER
+    // const emailTemplateBroker = brokerSignalTemplate(broker.dataValues.name, user, property);
 
-    let sendmailBroker = await MailService(broker.dataValues.email, "Solicitud de Propiedad para Revisión - PropTech", emailTemplateBroker.html
-    );
+    // let sendmailBroker = await MailService(broker.dataValues.email, "Solicitud de Propiedad para Revisión - PropTech", emailTemplateBroker.html
+    // );
 
     res.send({ msj: "Signal Creado correctamente" });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(404).send(error);
   }
 };

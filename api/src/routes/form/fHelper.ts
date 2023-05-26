@@ -188,8 +188,7 @@ export const queryForm = (
 
 //CREAR FORM (OPERACION)
 export const createForm = async (data) => {
-
-  const { 
+  const {
     title,
     description,
     picture_url,
@@ -206,12 +205,12 @@ export const createForm = async (data) => {
     province,
     postalCode,
     email,
-    } = data
+  } = data;
 
-    const findUserByEmail = await User.findOne({where : {email : email}})
-    const findBrokerByDivision = await Broker.findOne({where : {division : type_prop}})
+  const findUserByEmail = await User.findOne({ where: { email: email } });
+  const findBrokerByDivision = await Broker.findOne({ where: { division: type_prop } });
 
-  const newForm = await Form.create({ 
+  const newForm = await Form.create({
     title: title,
     description: description,
     picture_url: picture_url,
@@ -219,7 +218,7 @@ export const createForm = async (data) => {
     dni: dni,
     tel: tel,
     type_prop: type_prop,
-    type_vivienda:  type_vivienda,
+    type_vivienda: type_vivienda,
     address: address,
     number: number,
     apartment: apartment,
@@ -227,8 +226,8 @@ export const createForm = async (data) => {
     location: location,
     province: province,
     postalCode: postalCode,
-    userId: findUserByEmail.dataValues.id,
-    brokerId: findBrokerByDivision.dataValues.id
+    // userId: findUserByEmail.dataValues.id,
+    // brokerId: findBrokerByDivision.dataValues.id
   });
 
   // Agrego nombre a documentos subidos en función a dni y tipo de archivo
@@ -240,16 +239,28 @@ export const createForm = async (data) => {
   // });
 
   // //ENVIAR EMAIL A USUARIO
-  const emailTemplate = clientFormTemplate(findUserByEmail, data);
+  // const emailTemplate = clientFormTemplate(findUserByEmail, data);
 
-  let sendmail = await MailServiceWithDocument(findUserByEmail.dataValues.email, "Registro de Formulario - PropTech", emailTemplate.html, picture_url
-  );
+  // let sendmail = await MailServiceWithDocument(
+  //   findUserByEmail.dataValues.email,
+  //   "Registro de Formulario - PropTech",
+  //   emailTemplate.html,
+  //   picture_url
+  // );
 
-  // // //ENVIAR EMAIL A BROKER
-  const emailTemplateBroker = brokerFormTemplate(findBrokerByDivision.dataValues.name, findUserByEmail, data);
+  // // // //ENVIAR EMAIL A BROKER
+  // const emailTemplateBroker = brokerFormTemplate(
+  //   findBrokerByDivision.dataValues.name,
+  //   findUserByEmail,
+  //   data
+  // );
 
-  let sendmailBroker = await MailServiceWithDocument(findBrokerByDivision.dataValues.email, "Solicitud de Formulario de "+findUserByEmail.dataValues.name+" para Revisión - PropTech", emailTemplateBroker.html, picture_url
-  );
+  // let sendmailBroker = await MailServiceWithDocument(
+  //   findBrokerByDivision.dataValues.email,
+  //   "Solicitud de Formulario de " + findUserByEmail.dataValues.name + " para Revisión - PropTech",
+  //   emailTemplateBroker.html,
+  //   picture_url
+  // );
 
   return newForm;
 };
