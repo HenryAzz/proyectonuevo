@@ -5,7 +5,6 @@ export interface User {
   password?: string;
   person_type: string;
   name: string;
-  avatar: string;
 }
 
 export interface UserByEmail {

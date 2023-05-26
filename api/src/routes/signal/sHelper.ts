@@ -55,13 +55,13 @@ export const putSignal = async function (id, situation) {
 
   let operation = signal.dataValues.operation === "Venta" ? "Vender" : "Compar o Alquilar";
 
-  // //ENVIAR EMAIL A USUARIO
-  // const emailTemplate = updateSignalTemplate(user.dataValues.name, property, situation, operation);
-  // let sendmail = await MailService(
-  //   user.dataValues.email,
-  //   "Respuesta de solicitud de Propiedad - PropTech",
-  //   emailTemplate.html
-  // );
+  //ENVIAR EMAIL A USUARIO
+  const emailTemplate = updateSignalTemplate(user.dataValues.name, property, situation, operation);
+  let sendmail = await MailService(
+    user.dataValues.email,
+    "Respuesta de solicitud de Propiedad - PropTech",
+    emailTemplate.html
+  );
 
   return updateSignal;
 };
