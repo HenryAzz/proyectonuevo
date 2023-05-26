@@ -129,12 +129,6 @@ export default class Form extends Model {
   })
   payed!: string;
 
-  @Column({
-    type: DataType.ENUM("reservado", "aceptada", "rechazada"),
-    allowNull: true,
-  })
-  situation!: string;
-
   // RELACIIONAR CON USER (USUARIO)
   @ForeignKey(() => User)
   @Column

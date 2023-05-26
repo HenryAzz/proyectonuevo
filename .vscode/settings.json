@@ -7,8 +7,5 @@
   },
   "editor.inlayHints.enabled": "on",
   "prettier.printWidth": 100,
-  "prettier.singleQuote": false,
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "prettier.singleQuote": false
 }

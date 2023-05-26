@@ -6,11 +6,12 @@ const router = Router();
 
 router.get("/", getForm);
 
-router.put("/:id", putForm);
 router.get("/:id", getFormId);
 
 router.post("/", postForm);
 
 router.delete("/:id", deleteForm);
+
+router.put("/", putForm);
 
 export default router;
