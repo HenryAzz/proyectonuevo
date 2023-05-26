@@ -96,13 +96,9 @@ export const fillDataBase = async () => {
 
 //Put Property
 export const putProperty = async (id, put) => {
-  const updateProperty = await Property.update(
-    {
-      put,
-    },
-    {
-      where: { id: id },
-    }
-  );
+  const updateProperty = await Property.update(put, {
+    where: { id: id },
+  });
+  console.log(updateProperty);
   return updateProperty;
 };
