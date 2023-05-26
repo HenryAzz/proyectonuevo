@@ -1,3 +1,4 @@
+import Favorites from "../favorite/Fav";
 import {
   Button,
   Card,
@@ -38,6 +39,7 @@ export const CardComponent: React.FC<CardProps> = ({
       <CardActionArea>
         <CardMedia component="img" src={pictures[0].img} height="150" alt="imagen" />
         <CardContent>
+          <Favorites />
           <Typography variant="h4" mt={1}>
             {type}
           </Typography>
