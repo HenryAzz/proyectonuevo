@@ -16,7 +16,7 @@ import { Success } from "./components/success/Success";
 import { Fail } from "./components/fail/Fail";
 import { NavBar } from "./components/navbar/Navbar";
 import { Favorite } from "./components/favorite/Favorite";
-import { BrokerHome } from "./components/Admin/BrokerHome";
+//import { BrokerHome } from "./components/Admin/BrokerHome";
 
 function App() {
   const location = useLocation();
@@ -27,7 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/" element={<Outlet />} />
-        <Route path="/broker" element={<BrokerHome />} />
+        {/* <Route path="/broker" element={<BrokerHome />} /> */}
         <Route path="/home" element={<HomeContainer />} />
         <Route path="/login" element={<LogIn2 />} />
         <Route path="/about" element={<About />} />
