@@ -76,9 +76,7 @@ export const NavBar = () => {
     try {
       await signOut(auth);
       navigate("/home");
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const handleMenuCloseOutside = () => {

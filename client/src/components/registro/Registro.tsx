@@ -92,9 +92,7 @@ export const Registro = () => {
     };
     createUser(data)
       .then(() => {})
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
 
     navigate("/home");
   };

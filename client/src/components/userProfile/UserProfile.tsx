@@ -13,7 +13,11 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 
-import { useGetUserByEmailQuery } from "../../reduxToolkit/apiSlice";
+import {
+  useGetUserByEmailQuery,
+  useGetBrokersQuery,
+  useCreateReviewMutation,
+} from "../../reduxToolkit/apiSlice";
 
 interface FirebaseUser {
   uid: string;
@@ -25,6 +29,8 @@ interface FirebaseUser {
 export const UserProfile = () => {
   const [user, setUser] = useState<FirebaseUser | null>(null);
   const { data } = useGetUserByEmailQuery(user?.email || "", { refetchOnMountOrArgChange: true });
+  const { data: brokers } = useGetBrokersQuery();
+  const [newReview] = useCreateReviewMutation();
 
   const [render, SetRender] = useState("profile");
   const [currentPassword, setCurrentPassword] = useState("");
@@ -90,11 +96,8 @@ export const UserProfile = () => {
 
         setCurrentPassword("");
         setNewPassword("");
-        console.log("todo okey");
       }
-    } catch (error) {
-      console.log("todo mal ");
-    }
+    } catch (error) {}
     setChangePassword(false);
   };
 
@@ -132,15 +135,16 @@ export const UserProfile = () => {
 
   const handleSubmitReview = () => {
     // Aquí puedes guardar los datos en el estado local o enviarlos al servidor
-    console.log("target:", selectedPersonal) /* string */;
-    console.log("grade:", rating); /* numero */
-    console.log("message:", review); /* string */
     setSelectedPersonal("");
     setRating(0);
     setReview("");
+    const createReview = {
+      target: selectedPersonal as string,
+      grade: rating as number,
+      message: review as string,
+    };
+    newReview(createReview);
   };
-
-  /*  user && console.log(user); */
 
   return (
     <Grid container sx={{ height: "100vh" }}>
@@ -151,7 +155,6 @@ export const UserProfile = () => {
           display: "flex",
           justifyContent: "space-around",
           height: "5%",
-          border: "1px solid black",
         }}
       >
         <Button variant="contained" onClick={handlerOptions} id="profile">
@@ -164,7 +167,7 @@ export const UserProfile = () => {
           Operaciones
         </Button>
       </Grid>
-      <Grid container item xs={12} sx={{ height: "40%", p: 2, border: "1px solid black" }}>
+      <Grid container item xs={12} sx={{ height: "40%", p: 2 }}>
         {user ? (
           <Grid container justifyContent={"center"} alignContent={"center"}>
             {render === "profile" && (
@@ -396,7 +399,7 @@ export const UserProfile = () => {
         justifyContent="center"
         alignContent="center"
         flexDirection="column"
-        sx={{ border: "2px solid black", mb: 4 }}
+        sx={{ mb: 4 }}
       >
         <Grid
           item
@@ -431,9 +434,12 @@ export const UserProfile = () => {
               Como fue la atencion que recibiste
             </Typography>
             <Select value={selectedPersonal} onChange={handlePersonalChange} sx={{ mb: 2 }}>
-              <MenuItem value="personal1">Personal 1</MenuItem>
-              <MenuItem value="personal2">Personal 2</MenuItem>
-              <MenuItem value="personal3">Personal 3</MenuItem>
+              {brokers &&
+                brokers?.map((broker) => (
+                  <MenuItem key={broker.id} value={broker.name}>
+                    {broker.name}
+                  </MenuItem>
+                ))}
             </Select>
 
             <Rating value={rating} onChange={handleRatingChange} sx={{ mb: 2 }} />

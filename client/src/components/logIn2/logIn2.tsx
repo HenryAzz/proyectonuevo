@@ -97,7 +97,6 @@ export const LogIn2 = () => {
           email: user.email || "",
           hashgoogle: user.uid || "",
         };
-        console.log(user);
 
         crateUser(newUser);
       }

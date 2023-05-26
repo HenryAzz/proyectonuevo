@@ -73,7 +73,6 @@ export const SecondFilters: React.FC<filterPorps> = ({
 
     // Construir el filtro correspondiente
     const filter = `${GridId}=${RadioId}`;
-    console.log(filter);
 
     if (RadioId !== undefined) {
       if (RadioId === "Todas") {
@@ -104,8 +103,6 @@ export const SecondFilters: React.FC<filterPorps> = ({
       } else if (GridId == "type") {
         setType(RadioId);
       } else {
-        console.log("lala");
-
         setBedroom(RadioId);
       }
     }
