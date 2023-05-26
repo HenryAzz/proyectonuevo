@@ -18,7 +18,7 @@ export const HomeDesktop: React.FC<filterPorps> = ({
   setCurrentPage,
 }) => {
   const { data } = useGetPropertysFilterQuery(stringQuery, { refetchOnMountOrArgChange: true });
-  const propertyPerPage: number = 4;
+  const propertyPerPage: number = 6;
   const indexLastproperty: number = currentPage * propertyPerPage;
   const indexFirstproperty: number = indexLastproperty - propertyPerPage;
   const currentproperty: property[] =

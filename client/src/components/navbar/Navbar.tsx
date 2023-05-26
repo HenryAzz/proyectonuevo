@@ -155,6 +155,13 @@ export const NavBar = () => {
         </Link>
       </Grid>
       <Grid item xs={2} sx={{ display: "flex", justifyContent: "center" }}>
+        <Link to="/favorites" style={{ textDecoration: "none" }}>
+          <Typography variant="h6" sx={{ color: theme.palette.primary.main }}>
+            Favoritos
+          </Typography>
+        </Link>
+      </Grid>
+      <Grid item xs={2} sx={{ display: "flex", justifyContent: "center" }}>
         <Link to="/about" style={{ textDecoration: "none" }}>
           <Typography variant="h6" sx={{ color: theme.palette.primary.main }}>
             Nosotros
