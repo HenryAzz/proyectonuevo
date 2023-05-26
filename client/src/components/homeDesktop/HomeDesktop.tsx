@@ -18,7 +18,7 @@ export const HomeDesktop: React.FC<filterPorps> = ({
   setCurrentPage,
 }) => {
   const { data } = useGetPropertysFilterQuery(stringQuery, { refetchOnMountOrArgChange: true });
-  const propertyPerPage: number = 4;
+  const propertyPerPage: number = 6;
   const indexLastproperty: number = currentPage * propertyPerPage;
   const indexFirstproperty: number = indexLastproperty - propertyPerPage;
   const currentproperty: property[] = data?.slice(indexFirstproperty, indexLastproperty) || [];
@@ -35,7 +35,7 @@ export const HomeDesktop: React.FC<filterPorps> = ({
             {currentproperty.map((element: any, index: number) =>
               element.situation === "Disponible" ? (
                 <Grid item xs={8} sm={8} md={5} lg={5} key={index}>
-                  <CardComponent
+                  <CardComponent key={element.id}
                     address={element.address}
                     description={element.description}
                     pictures={element.pictures}

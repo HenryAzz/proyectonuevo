@@ -24,6 +24,7 @@ import { auth } from "../../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useCreateUserMutation } from "../../reduxToolkit/apiSlice";
+import Swal from "sweetalert2";
 
 const style = {
   position: "absolute",
@@ -57,6 +58,18 @@ export const Registro = () => {
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
   const initialValues = {
     name: "",
     email: "",
@@ -76,7 +89,7 @@ export const Registro = () => {
       .min(8, "La longitud mínima de la contraseña debe ser 8")
       .required("*Campo Obligatorio")
       .matches(
-        /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
+        /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/,
         "La contraseña debe contener al menos una letra mayúscula, un número y un carácter especial"
       ),
     confirmPassword: Yup.string()
@@ -91,9 +104,19 @@ export const Registro = () => {
       email: values.email,
     };
     createUser(data)
-      .then(() => {})
+      .then(() => {
+        Toast.fire({
+          icon: "success",
+          title: "Inicio de Sesión Exitoso",
+        });
+      })
       .catch((error) => {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Algo salió mal al registrar usuario..!!",
+          confirmButtonColor: "#3085d6",
+        });
       });
 
     navigate("/home");

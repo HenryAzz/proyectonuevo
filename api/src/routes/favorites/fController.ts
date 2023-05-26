@@ -36,12 +36,16 @@ export const postFav = async (req: Request, res: Response) => {
   try {
     const { propertyId, email } = req.body;
 
+    console.log("ID PROPIEDAD: "+propertyId+", USUARIO: "+email);
+
     const user = await User.findOne({where : {email : email}})
 
     const newFavorite = await Favorites.create({
       propertyId: propertyId, 
       userId: user.dataValues.id
     });
+
+    console.log("ID PROPIEDAD: "+propertyId+", USUARIO: "+user.dataValues.id);
 
     res.send({ msj: "Favorite Agreado correctamente", newFavorite });
   } catch (error) {

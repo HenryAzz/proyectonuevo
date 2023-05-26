@@ -31,7 +31,7 @@ export const teamMembers = [
   },
   {
     name: "Samuel Bocanegra",
-    role: "Back End Developer",
+    role: "Full Stack Developer",
     image: samuel,
     path: "https://github.com/kaylreese",
     path2: "https://www.linkedin.com/in/samuel-bocanegra-delgado-17a52a238/",
