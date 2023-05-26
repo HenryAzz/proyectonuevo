@@ -146,6 +146,8 @@ export const UserProfile = () => {
     newReview(createReview);
   };
 
+  user && console.log(user.hashGoogle);
+
   return (
     <Grid container sx={{ height: "100vh" }}>
       <Grid
@@ -205,63 +207,64 @@ export const UserProfile = () => {
                       <Grid container justifyContent="space-around" sx={{ mb: 2, p: 1 }}>
                         <Typography variant="h6">Nombre: {data.name}</Typography>
                       </Grid>
-
                       <Grid container justifyContent="space-around" sx={{ mb: 2, p: 1 }}>
                         <Typography variant="h6">Email: {data.email}</Typography>
                       </Grid>
 
-                      <Grid container justifyContent="space-around" sx={{ mb: 2, p: 1 }}>
-                        {changePassword ? (
-                          <Grid container flexDirection="column">
-                            <FormControl sx={{ mb: 1.5 }}>
-                              <TextField
-                                label="ingrese su contraseña actual"
-                                type="password"
-                                variant="outlined"
-                                value={currentPassword}
-                                onChange={handlerCurrentPassword}
-                                onFocus={handlePasswordFocus}
-                                error={!isValidPassword && isPasswordFocused}
-                                helperText={
-                                  !isValidPassword && isPasswordFocused
-                                    ? "la contraseña debe tener al menos 8 caracteres, una mayuscula, una minuscula, un numero y un caracter especial"
-                                    : ""
-                                }
-                              />
-                            </FormControl>
-                            <FormControl sx={{ mb: 1.5 }}>
-                              <TextField
-                                label="ingrese su contraseña actual"
-                                type="password"
-                                variant="outlined"
-                                value={newPassword}
-                                onChange={handlerNewPassword}
-                                onFocus={handleNewPasswordFocus}
-                                error={!isValidPassword && isNewPasswordFocused}
-                                helperText={
-                                  !isValidNewPassword && isNewPasswordFocused
-                                    ? "Debe ingrear una contraseña valida y la contraseña no puede ser igual a su contraseña anterior"
-                                    : ""
-                                }
-                              />
-                            </FormControl>
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              disabled={isSubmitDisabled}
-                              fullWidth
-                              sx={{ mb: 2 }}
-                              onClick={handlerSubmit}
-                            >
-                              Confimar contraseña
+                      {data.hashgoogle ? null : (
+                        <Grid container justifyContent="space-around" sx={{ mb: 2, p: 1 }}>
+                          {changePassword ? (
+                            <Grid container flexDirection="column">
+                              <FormControl sx={{ mb: 1.5 }}>
+                                <TextField
+                                  label="ingrese su contraseña actual"
+                                  type="password"
+                                  variant="outlined"
+                                  value={currentPassword}
+                                  onChange={handlerCurrentPassword}
+                                  onFocus={handlePasswordFocus}
+                                  error={!isValidPassword && isPasswordFocused}
+                                  helperText={
+                                    !isValidPassword && isPasswordFocused
+                                      ? "la contraseña debe tener al menos 8 caracteres, una mayuscula, una minuscula, un numero y un caracter especial"
+                                      : ""
+                                  }
+                                />
+                              </FormControl>
+                              <FormControl sx={{ mb: 1.5 }}>
+                                <TextField
+                                  label="ingrese su contraseña actual"
+                                  type="password"
+                                  variant="outlined"
+                                  value={newPassword}
+                                  onChange={handlerNewPassword}
+                                  onFocus={handleNewPasswordFocus}
+                                  error={!isValidPassword && isNewPasswordFocused}
+                                  helperText={
+                                    !isValidNewPassword && isNewPasswordFocused
+                                      ? "Debe ingrear una contraseña valida y la contraseña no puede ser igual a su contraseña anterior"
+                                      : ""
+                                  }
+                                />
+                              </FormControl>
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                disabled={isSubmitDisabled}
+                                fullWidth
+                                sx={{ mb: 2 }}
+                                onClick={handlerSubmit}
+                              >
+                                Confimar contraseña
+                              </Button>
+                            </Grid>
+                          ) : (
+                            <Button variant="contained" onClick={handlerActivateChangePassword}>
+                              Cambiar contraseña
                             </Button>
-                          </Grid>
-                        ) : (
-                          <Button variant="contained" onClick={handlerActivateChangePassword}>
-                            Cambiar contraseña
-                          </Button>
-                        )}
-                      </Grid>
+                          )}
+                        </Grid>
+                      )}
                     </>
                   )}
                 </Grid>

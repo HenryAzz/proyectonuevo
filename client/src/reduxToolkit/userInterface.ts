@@ -14,6 +14,7 @@ export interface UserByEmail {
   password?: string;
   person_type: string;
   name: string;
+  hashgoogle?: string | null;
   properties: Array<any>;
   signals: Array<any>;
 }
