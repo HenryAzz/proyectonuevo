@@ -139,7 +139,7 @@ export const CardComponent: React.FC<CardProps> = ({
         <CardMedia component="img" src={pictures[0].img} height="150" alt="imagen" />
         <CardContent>
           { user ? (
-              <IconButton onClick={()=> handleChangeFavorite(id)} key={id} color={isFavorito ? "primary" : "default"}>
+              <IconButton onClick={()=> handleChangeFavorite(id)} color={isFavorito ? "primary" : "default"}>
                 {isFavorito ? <Favorite /> : <FavoriteBorder />}
               </IconButton>
             ) : false
