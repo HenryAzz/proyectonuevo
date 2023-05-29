@@ -1,13 +1,12 @@
-import sytle from "./HomeWorkCSS.module.css";
-import { auth } from "../../firebase/firebase";
-
+import "./HomeWorkCSS.css";
+import { auth } from "../firebase/firebase";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { modifyForm } from "../../reduxToolkit/forminterfaces";
+import { modifyForm } from "../reduxToolkit/forminterfaces";
 import "./PieChart.css";
 import PieChart from "./Estadisticas";
-import { modifySignal } from "../../reduxToolkit/signalInterface";
-import { putPropertyRequest } from "../../reduxToolkit/propertyinterfaces";
+import { modifySignal } from "../reduxToolkit/signalInterface";
+import { putPropertyRequest } from "../reduxToolkit/propertyinterfaces";
 import {
   usePutSignalMutation,
   useGetPropertiesQuery,
@@ -16,7 +15,7 @@ import {
   useGetSignalQuery,
   useGetfromQuery,
   usePutFormMutation,
-} from "../../reduxToolkit/apiSlice";
+} from "../reduxToolkit/apiSlice";
 
 export const BrokerHome = () => {
   const [selectedForm, setSelectedForm] = useState(null);
@@ -27,7 +26,7 @@ export const BrokerHome = () => {
   const [navMobile, setNavMobile] = useState(false);
 
   //CONDICIONAL SECCIONES......
-  const [seccion, setSeccion] = useState("data");
+  const [seccion, setSeccion] = useState("cuenta");
 
   const [navSeccion, setNavSeccion] = useState(false);
   //CONDICIONAL NAV.......
@@ -64,8 +63,8 @@ export const BrokerHome = () => {
     { value: "red", label: "Rojo" },
     { value: "green", label: "Verde" },
     { value: "blue", label: "Azul" },
-    { value: "shadow", label: "Sombra" },
-    { value: "violet", label: "Violeta" },
+    { value: "shadow", label: "naranja" },
+    { value: "violet", label: "amarillo" },
   ];
 
   const [background, setBackGround] = useState("linear-gradient(45deg, #690d14, #f91942, #690d14)");
@@ -103,6 +102,7 @@ export const BrokerHome = () => {
   };
 
   //COMPONENTE
+  const [succesProperty, setPropertySignal] = useState(false);
 
   const PropertyDetails = ({ property }) => {
     const [editedProperty, setEditedProperty] = useState(property);
@@ -191,9 +191,9 @@ export const BrokerHome = () => {
     };
 
     return (
-      <div className={sytle.propertyDetails}>
+      <div className="property-details">
         <h2>{property.id}</h2>
-        <div className={sytle.imagenProp}>
+        <div className="imagen-prop">
           <img src={property.pictures[0].img} alt="#" />
         </div>
         <p>
@@ -302,10 +302,11 @@ export const BrokerHome = () => {
             <option value="Industria">Industria</option>
           </select>
         </p>
-
+        {succesProperty && <div>Propiedad actualizada correctamente</div>}
         {error2?.error && <p>{error2.error}</p>}
         <button
           onClick={() => {
+            setPropertySignal(true);
             handleSaveChanges();
           }}
         >
@@ -337,7 +338,7 @@ export const BrokerHome = () => {
 
   const ClientDetails = ({ client }) => {
     return (
-      <div className={style.clientDetails}>
+      <div className="client-details">
         <div className="card">
           <div>ID: {client.id}</div>
           <div>Rol: {client.rol}</div>
@@ -346,15 +347,16 @@ export const BrokerHome = () => {
           <div>Tipo de persona: {client.person_type}</div>
           <div>Nombre: {client.name}</div>
           <img src={client.avatar} alt="Avatar" />
+          <button
+            className="user-botom"
+            onClick={() => {
+              setSelectedClient(null);
+              setSeccion("clientes");
+            }}
+          >
+            Cerrar
+          </button>
         </div>
-        <button
-          onClick={() => {
-            setSelectedClient(null);
-            setSeccion("clientes");
-          }}
-        >
-          Cerrar
-        </button>
       </div>
     );
   };
@@ -672,21 +674,18 @@ export const BrokerHome = () => {
 
         <section className="conteiner">
           <div className="aside">
-            <button value={"data"} onClick={(d) => handleSection(d)}>
-              Data
-            </button>
             <button value={"cuenta"} onClick={(c) => handleSection(c)}>
               Cuenta
             </button>
             <button value={"mensaje"} onClick={(m) => handleSection(m)}>
               Mensaje
             </button>
-            <button value={"informes"} onClick={(i) => handleSection(i)}>
-              Informes
-            </button>
-            <button value={"cerrar"} onClick={(c) => handleSection(c)}>
-              Cerrar Session
-            </button>
+
+            <Link to={"/home"}>
+              <button className="botonsuelto" value={"cerrar"} onClick={(c) => handleSection(c)}>
+                Cerrar Session
+              </button>
+            </Link>
           </div>
 
           {/* SECCION DATA */}
@@ -762,8 +761,12 @@ export const BrokerHome = () => {
           {seccion == "propiedades" && (
             <div className="propiedades">
               <div className="buscar">
-                <label className="b1">Buscar</label>
-                <input className="b1" value={searchTerm} onChange={handleSearchChange} />
+                <input
+                  className="b1"
+                  placeholder="Buscar"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
               </div>
 
               <div className="luist-prop-main">
@@ -797,8 +800,12 @@ export const BrokerHome = () => {
           {seccion === "clientes" && (
             <div className="propiedades">
               <div className="buscar">
-                <label className="b1">Buscar</label>
-                <input className="b1" value={searchTerm} onChange={handleSearchChange} />
+                <input
+                  className="b1"
+                  placeholder="Buscar"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
               </div>
               <div className="luist-prop-main">
                 {isLoading ? (
@@ -830,7 +837,12 @@ export const BrokerHome = () => {
           {seccion === "seña" && (
             <div className="propiedades">
               <div className="buscar">
-                <label className="b1">Buscar Seña</label>
+                <input
+                  className="b1"
+                  placeholder="Buscar"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
               </div>
               <div className="luist-prop-main">
                 {isLoading ? (
@@ -865,7 +877,12 @@ export const BrokerHome = () => {
           {seccion === "form" && (
             <div className="propiedades">
               <div className="buscar">
-                <label className="b1">Buscar Form</label>
+                <input
+                  className="b1"
+                  placeholder="Buscar"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
               </div>
               <div className="luist-prop-main">
                 {isLoading ? (
@@ -932,15 +949,7 @@ export const BrokerHome = () => {
           >
             Mensaje
           </button>
-          <button
-            value={"informes"}
-            onClick={(i) => {
-              handleSection(i);
-              setNavMobile(false);
-            }}
-          >
-            Informes
-          </button>
+
           <button
             value={"cerrar"}
             onClick={(c) => {
