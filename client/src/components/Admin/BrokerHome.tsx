@@ -1,6 +1,6 @@
 import "./HomeWorkCSS.css";
 import { auth } from "../../firebase/firebase";
-import { useState } from "react";
+import { ChangeEvent, SetStateAction, useState } from "react";
 import { Link } from "react-router-dom";
 import { modifyForm } from "../../reduxToolkit/forminterfaces";
 import "./PieChart.css";
@@ -16,6 +16,7 @@ import {
   useGetfromQuery,
   usePutFormMutation,
 } from "../../reduxToolkit/apiSlice";
+import { User } from "../../reduxToolkit/userInterface";
 
 export const BrokerHome = () => {
   const [selectedForm, setSelectedForm] = useState(null);
@@ -42,7 +43,7 @@ export const BrokerHome = () => {
   //BUSCADOR.....
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearchChange = (e) => {
+  const handleSearchChange = (e: { target: { value: any } }) => {
     const inputValue = e.target.value;
 
     if (inputValue.length <= 20) {
@@ -107,7 +108,10 @@ export const BrokerHome = () => {
   const PropertyDetails = ({ property }) => {
     const [editedProperty, setEditedProperty] = useState(property);
     const [error2, setError2] = useState({});
-    const handleInputChange = (e, fieldName) => {
+    const handleInputChange = (
+      e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>,
+      fieldName: string
+    ) => {
       let value = e.target.value;
       var str = new RegExp(/^[A-Za-z0-9\s]+$/g);
       var res = str.test(e.target.value);
@@ -331,7 +335,7 @@ export const BrokerHome = () => {
 
   const [selectedClient, setSelectedClient] = useState(null);
 
-  const handleClientSelection = (client) => {
+  const handleClientSelection = (client: SetStateAction<null> | User) => {
     setSelectedClient(client);
     setSeccion("detalle-cliente");
   };
@@ -366,7 +370,7 @@ export const BrokerHome = () => {
 
   const [editedForm, setEditedForm] = useState(forms);
 
-  const handleFormSelection = (form) => {
+  const handleFormSelection = (form: SetStateAction<null>) => {
     setSelectedForm(form);
     setSeccion("form-detalle");
   };
@@ -394,7 +398,7 @@ export const BrokerHome = () => {
 
   // IMPORTANTE/---------------------------------------------------------------------------------------------------------------
   const SignalDetails = ({ signal }) => {
-    const handleSaveChangesSignal = async (e) => {
+    const handleSaveChangesSignal = async (e: string) => {
       try {
         const signa = signal;
         if (e == "aceptar") {
@@ -474,7 +478,7 @@ export const BrokerHome = () => {
   };
 
   const FormDetails = ({ form }) => {
-    const handleSaveChangesForm = async (e) => {
+    const handleSaveChangesForm = async (e: string) => {
       try {
         if (e == "aceptar") {
           const newForm: modifyForm = {
@@ -688,7 +692,7 @@ export const BrokerHome = () => {
             </Link>
           </div>
 
-          {/* SECCION DATA */}
+          {/* SECCION DATA
           {seccion == "data" && (
             <div className="aside2">
               <div className="arriba">
@@ -699,7 +703,7 @@ export const BrokerHome = () => {
               </div>
               <div className="abajo">asd</div>
             </div>
-          )}
+          )} */}
 
           {/* SECCION CUENTA */}
           {seccion == "cuenta" && (
