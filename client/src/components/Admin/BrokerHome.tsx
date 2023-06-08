@@ -1,10 +1,10 @@
 import "./HomeWorkCSS.css";
-import { auth } from "../../firebase/firebase";
+// import { auth } from "../../firebase/firebase";
 import { ChangeEvent, SetStateAction, useState } from "react";
 import { Link } from "react-router-dom";
 import { modifyForm } from "../../reduxToolkit/forminterfaces";
 import "./PieChart.css";
-import PieChart from "./Estadisticas";
+// import PieChart from "./Estadisticas";
 import { modifySignal } from "../../reduxToolkit/signalInterface";
 import { putPropertyRequest } from "../../reduxToolkit/propertyinterfaces";
 import {
@@ -55,10 +55,10 @@ export const BrokerHome = () => {
     property.address.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const EstadisticasVivienda = filteredProperties?.filter((prop) => prop.type == "Vivienda");
-  const EstadisticasIndustria = filteredProperties?.filter((prop) => prop.type == "Industria");
-  const EstadisticasLocal = filteredProperties?.filter((prop) => prop.type == "Local");
-  const EstadisticasOficina = filteredProperties?.filter((prop) => prop.type == "Oficina");
+  // const EstadisticasVivienda = filteredProperties?.filter((prop) => prop.type == "Vivienda");
+  // const EstadisticasIndustria = filteredProperties?.filter((prop) => prop.type == "Industria");
+  // const EstadisticasLocal = filteredProperties?.filter((prop) => prop.type == "Local");
+  // const EstadisticasOficina = filteredProperties?.filter((prop) => prop.type == "Oficina");
   // TIPOS DE COLOR..................................................
   const colorOptions = [
     { value: "red", label: "Rojo" },
@@ -368,7 +368,7 @@ export const BrokerHome = () => {
   //DETALLE DE FORM
   //  const [updateForm] = useUpdatePropertyMutation();
 
-  const [editedForm, setEditedForm] = useState(forms);
+  // const [editedForm, setEditedForm] = useState(forms);
 
   const handleFormSelection = (form: SetStateAction<null>) => {
     setSelectedForm(form);
@@ -568,29 +568,6 @@ export const BrokerHome = () => {
       </div>
     );
   };
-
-  const chartData = [
-    {
-      label: `Oficinas ${EstadisticasOficina?.length}`,
-      value: EstadisticasOficina?.length,
-      color: "#FFCE56",
-    },
-    {
-      label: `Locales ${EstadisticasLocal?.length}`,
-      value: EstadisticasLocal?.length,
-      color: "#36A2EB",
-    },
-    {
-      label: `Industrias ${EstadisticasIndustria?.length}`,
-      value: EstadisticasIndustria?.length,
-      color: "#FF6384",
-    },
-    {
-      label: `Viviendas ${EstadisticasVivienda?.length}`,
-      value: EstadisticasVivienda?.length,
-      color: "#FF5733",
-    },
-  ];
 
   return (
     <div className="total" style={{ background }}>
