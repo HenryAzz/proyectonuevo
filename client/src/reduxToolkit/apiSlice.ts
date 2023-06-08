@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { property, createPropertyRequest } from "./propertyinterfaces";
-import { createFormRequest } from "./forminterfaces";
+import { createFormRequest, modifyForm } from "./forminterfaces";
 import { createSignalRequest, modifySignal } from "./signalInterface";
 import { Broker, CreateBrokerRequest } from "./brokerInterfaces";
 import { createUserRequest } from "./authentication";
@@ -10,7 +10,7 @@ import { form } from "./forminterfaces";
 import { favorite, createFavoriteRequest } from "./favoritesInterface";
 import { review } from "./review";
 
-const API_URL = "http://localhost:3001";
+const API_URL = "https://api-proptech.up.railway.app/";
 
 export const apiSlice = createApi({
   //metodos para enviar y recibr data de la ruta property
@@ -125,6 +125,13 @@ export const apiSlice = createApi({
       query: () => `/form`,
     }),
 
+    putForm: builder.mutation<modifyForm, modifyForm>({
+      query: ({ id, situation }) => ({
+        url: `/form/${id}`,
+        method: "PUT",
+        body: { situation },
+      }),
+    }),
     //señas
 
     createSignal: builder.mutation<createSignalRequest, createSignalRequest>({
@@ -247,4 +254,5 @@ export const {
   useDeletFavoriteByIDMutation,
   useCreateReviewMutation,
   useGetReviewQuery,
+  usePutFormMutation,
 } = apiSlice;

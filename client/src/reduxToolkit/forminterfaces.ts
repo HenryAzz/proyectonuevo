@@ -14,7 +14,7 @@ export interface form {
   location: string;
   province: string;
   postalCode: string;
-  email: string | null | undefined
+  email: string | null | undefined;
 }
 
 export interface createFormRequest {
@@ -33,5 +33,10 @@ export interface createFormRequest {
   location: string;
   province: string;
   postalCode: string;
-  email: string | null | undefined
+  email: string | null | undefined;
+}
+
+export interface modifyForm {
+  id: number;
+  situation: string;
 }
