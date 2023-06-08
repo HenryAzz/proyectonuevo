@@ -5,7 +5,7 @@ import { BrokerHome } from "./components/Admin/BrokerHome";
 
 function App() {
   const location = useLocation();
-  const shouldShowNavBar = location.pathname !== "/";
+
   return (
     <div>
       <Routes>
